@@ -1,0 +1,4 @@
+/upload/images/*
+/upload/files/*
+/upload/.thumbs/*
+/.idea

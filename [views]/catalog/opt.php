@@ -1,4 +1,4 @@
-1111<?php
+<?php
 $arr = array();
 foreach($MODEL['catalog'] as $cat)
 {

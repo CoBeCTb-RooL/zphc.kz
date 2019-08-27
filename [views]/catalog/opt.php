@@ -78,7 +78,7 @@ foreach($MODEL['catalog'] as $cat)
 				<?if($i==0):?>
 					<td class="product-name" rowspan="<?=$count?>">
 						<!-- <a href="/<?=UPLOAD_IMAGES_REL_DIR?><?=$product->photo?>" class="highslide" onclick="return hs.expand(this)" style="vertical-align: middle; "><img src="<?=$product->photo ? Media::img($product->photo) : Funx::noPhotoSrc()?>&width=50" alt="<?=$product->name?>" /></a> -->
-						<?=$product->id?>.<?=$product->name?>
+						<?=$product->name?>
 					</td>
 				<?endif;?>
 				

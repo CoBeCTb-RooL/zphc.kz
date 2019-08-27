@@ -16,7 +16,7 @@ foreach($MODEL['catalog'] as $cat)
 
 //vd($arr);
 ?>
-
+111111111111111111
 <!--крамбсы-->
 <? Core::renderPartial(SHARED_VIEWS_DIR.'/crumbs.php', $MODEL['crumbs']);?>
 <!--//крамбсы-->
@@ -38,27 +38,31 @@ foreach($MODEL['catalog'] as $cat)
 </style>
 
 
+
+
+
 <div style="text-align: center; ">
 <div style="margin: 0 auto; width: 1000px; ">
 
 	<?=$MODEL['textBefore']->attrs['descr']?>
 
-	<table  class="tbl" style="border-bottom: 0px solid red; ">
+	<table  class="tbl" style="">
 		<tr height="176">
-			<td align="left" height="176" style="vertical-align: middle; border-bottom: 0px solid red; border-right: 0px solid red;"><img src="/img/logo.png" width="350" /></td>
-			<td style="text-align: center ; border-bottom: 0px solid red; border-left: 0px solid red;">
+			<td align="left" height="176" style="vertical-align: middle;  border-right: 0px solid red;"><img src="/img/logo.png" width="350" /></td>
+			<td style="text-align: center ; border-left: 0px solid red;">
 				<?=$MODEL['textTableTop']->attrs['descr']?>
 			</td>
 		</tr>
 	</table>
 
-	<table class="tbl" width="100%">
+    <p></p>
+	<table class="tbl" width="">
 		<tr class="hdr">
 			<th>Наименование</th>
 			<th>Фасовка</th>
 			<th>Розница</th>
 			<?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
-				<?if(!$isShown)continue;?>
+				<?if(!$isShown || 1)continue;?>
 			    <th><?=Funx::numberFormat($sum)?> $</th>
 			<?endforeach?>
 		</tr>
@@ -78,7 +82,7 @@ foreach($MODEL['catalog'] as $cat)
 				<?if($i==0):?>
 					<td class="product-name" rowspan="<?=$count?>">
 						<!-- <a href="/<?=UPLOAD_IMAGES_REL_DIR?><?=$product->photo?>" class="highslide" onclick="return hs.expand(this)" style="vertical-align: middle; "><img src="<?=$product->photo ? Media::img($product->photo) : Funx::noPhotoSrc()?>&width=50" alt="<?=$product->name?>" /></a> -->
-                        <?=$product->id?>. <?=$product->name?>
+						<?=$product->name?>
 					</td>
 				<?endif;?>
 				
@@ -87,7 +91,7 @@ foreach($MODEL['catalog'] as $cat)
 				<td class="price"><?=Currency::drawAllCurrenciesPrice($product->price)?></td>
 				
 				<?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
-					<?if(!$isShown)continue;?>
+					<?if(!$isShown || 1)continue;?>
 				<td class="price">
 					<?=$product->optPricesArr[$sum] ? Currency::drawAllCurrenciesPrice($product->optPricesArr[$sum]) : ' -нет- '?>
 				</td>

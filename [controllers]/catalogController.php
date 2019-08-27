@@ -205,40 +205,72 @@ class CatalogController extends MainController{
 		
 		Core::renderView('catalog/novinki.php', $MODEL);
 	}
-	
-	
-	
-	
-	
-	
-	function opt()
-	{
-		require(GLOBAL_VARS_SCRIPT_FILE_PATH);
-		Startup::execute(Startup::FRONTEND);
-		$CONTENT->setTitle('Оптовые прайсы');
-		
-		$_GLOBALS['activeMenu'][32] = true;
-		$_GLOBALS['activeMenu'][53] = true;
-		
-		$MODEL['textBefore'] = Page::get(54);
-		$MODEL['textAfter'] = Page::get(55);
-		$MODEL['textTableTop'] = Page::get(59);
-		$MODEL['catalog'] = CategorySimple::getList(array('status'=>Status::code(Status::ACTIVE)));
-		foreach($MODEL['catalog'] as $cat)
-		{
-			$cat->products = ProductSimple::getList(array('status'=>Status::code(Status::ACTIVE), 'catId'=>$cat->id, 'orderBy'=>'idxOpt, name'));
-			foreach($cat->products as $p)
-				$p->initOptPrices();
-		}
-		
-		$MODEL['crumbs'][] = '<a href="'.Route::getByName(Route::MAIN)->url().'">Главная</a>';
-		$MODEL['crumbs'][] = 'Оптовые прайсы';
-		
-		$MODEL['crumbs'] = $MODEL['crumbs'];
-		
-		
-		Core::renderView('catalog/opt.php', $MODEL);
-	}
+
+
+
+
+
+
+    function opt()
+    {
+        require(GLOBAL_VARS_SCRIPT_FILE_PATH);
+        Startup::execute(Startup::FRONTEND);
+        $CONTENT->setTitle('Оптовые прайсы');
+
+        $_GLOBALS['activeMenu'][32] = true;
+        $_GLOBALS['activeMenu'][53] = true;
+
+        $MODEL['textBefore'] = Page::get(54);
+        $MODEL['textAfter'] = Page::get(55);
+        $MODEL['textTableTop'] = Page::get(59);
+        $MODEL['catalog'] = CategorySimple::getList(array('status'=>Status::code(Status::ACTIVE)));
+        foreach($MODEL['catalog'] as $cat)
+        {
+            $cat->products = ProductSimple::getList(array('status'=>Status::code(Status::ACTIVE), 'catId'=>$cat->id, 'orderBy'=>'idxOpt, name'));
+            foreach($cat->products as $p)
+                $p->initOptPrices();
+        }
+
+        $MODEL['crumbs'][] = '<a href="'.Route::getByName(Route::MAIN)->url().'">Главная</a>';
+        $MODEL['crumbs'][] = 'Оптовые прайсы';
+
+        $MODEL['crumbs'] = $MODEL['crumbs'];
+
+
+        Core::renderView('catalog/opt.php', $MODEL);
+    }
+
+
+
+
+    function opt2()
+    {
+        require(GLOBAL_VARS_SCRIPT_FILE_PATH);
+        Startup::execute(Startup::FRONTEND);
+        $CONTENT->setTitle('Оптовые прайсы');
+
+        $_GLOBALS['activeMenu'][32] = true;
+        $_GLOBALS['activeMenu'][53] = true;
+
+        $MODEL['textBefore'] = Page::get(54);
+        $MODEL['textAfter'] = Page::get(55);
+        $MODEL['textTableTop'] = Page::get(59);
+        $MODEL['catalog'] = CategorySimple::getList(array('status'=>Status::code(Status::ACTIVE)));
+        foreach($MODEL['catalog'] as $cat)
+        {
+            $cat->products = ProductSimple::getList(array('status'=>Status::code(Status::ACTIVE), 'catId'=>$cat->id, 'orderBy'=>'idxOpt, name'));
+            foreach($cat->products as $p)
+                $p->initOptPrices();
+        }
+
+        $MODEL['crumbs'][] = '<a href="'.Route::getByName(Route::MAIN)->url().'">Главная</a>';
+        $MODEL['crumbs'][] = 'Оптовые прайсы';
+
+        $MODEL['crumbs'] = $MODEL['crumbs'];
+
+
+        Core::renderView('catalog/opt2.php', $MODEL);
+    }
 	
 	
 	

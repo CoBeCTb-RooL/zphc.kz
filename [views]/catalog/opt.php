@@ -5,11 +5,16 @@ foreach($MODEL['catalog'] as $cat)
 	$products = array();
 	foreach($cat->products as $product)
 	{
+	    if(!$product->optPricesArr['250'])
+	        continue;
 		$products[$product->name][] = $product;
 	}
 	$cat->products = $products;
 	$arr[] = $cat;
 }
+
+
+//vd($arr);
 ?>
 
 <!--крамбсы-->
@@ -42,7 +47,6 @@ foreach($MODEL['catalog'] as $cat)
 		<tr height="176">
 			<td align="left" height="176" style="vertical-align: middle; border-bottom: 0px solid red; border-right: 0px solid red;"><img src="/img/logo.png" width="350" /></td>
 			<td style="text-align: center ; border-bottom: 0px solid red; border-left: 0px solid red;">
-				
 				<?=$MODEL['textTableTop']->attrs['descr']?>
 			</td>
 		</tr>
@@ -53,74 +57,49 @@ foreach($MODEL['catalog'] as $cat)
 			<th>Наименование</th>
 			<th>Фасовка</th>
 			<th>Розница</th>
-			<?php 
-			foreach(ProductSimple::$optPrices as $sum=>$isShown)
-			{
-				if(!$isShown)continue;?>
-			<th><?=Funx::numberFormat($sum)?> $</th>
-			<?php 	
-			}?>
+			<?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
+				<?if(!$isShown)continue;?>
+			    <th><?=Funx::numberFormat($sum)?> $</th>
+			<?endforeach?>
 		</tr>
-	<?php 
-	foreach($MODEL['catalog'] as $cat)
-	{?>
+	<?foreach($MODEL['catalog'] as $cat):?>
 		<tr class="hdr">
 			<td colspan="<?=count(ProductSimple::$optPrices)+1?>"><?=$cat->name?></td>
 		</tr>
-		<?php 
-		foreach($cat->products as $name=>$products)
-		{
+		<?foreach($cat->products as $name=>$products):?>
+            <?
 			$count = count($products);
 			$i=0;
-			//vd($count);
 			?>
 			
-			<?php 
-			foreach($products as $product)
-			{
-				/*if($product->id == 53)
-					vd($product->optPricesArr);*/
-				if(!$product->optPricesArr)
-					continue;
-				?>
+			<?foreach($products as $product):?>
+                <?if(!$product->optPricesArr) continue;?>
 			<tr>
-				<?php 
-				if($i==0)
-				{?>
+				<?if($i==0):?>
 					<td class="product-name" rowspan="<?=$count?>">
 						<!-- <a href="/<?=UPLOAD_IMAGES_REL_DIR?><?=$product->photo?>" class="highslide" onclick="return hs.expand(this)" style="vertical-align: middle; "><img src="<?=$product->photo ? Media::img($product->photo) : Funx::noPhotoSrc()?>&width=50" alt="<?=$product->name?>" /></a> -->
-						
-						<!-- <a href="<?=$product->url()?>" target="_blank" ><?=$product->name?></a> -->
-						<?=$product->name?>
+						<?=$product->id?>.<?=$product->name?>
 					</td>
-				<?php 
-				}?>
+				<?endif;?>
 				
 				<td class="doze"><a href="<?=$product->url()?>" target="_blank" ><?=OptPrice::shortenDozeStr($product->inPackage)?></a></td>
 				
 				<td class="price"><?=Currency::drawAllCurrenciesPrice($product->price)?></td>
 				
-				<?php 
-				foreach(ProductSimple::$optPrices as $sum=>$isShown)
-				{
-					if(!$isShown)continue;?>
+				<?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
+					<?if(!$isShown)continue;?>
 				<td class="price">
 					<?=$product->optPricesArr[$sum] ? Currency::drawAllCurrenciesPrice($product->optPricesArr[$sum]) : ' -нет- '?>
 				</td>
-				<?php 	
-				}?>
+				<?endforeach;?>
 				
-				
-								
 			</tr>
-			<?php 
-				$i++;
-			}?>
-			
-		<?php 	
-		}?>
-	<?php 
-	}?>
+            <?php
+            $i++;
+            ?>
+			<?endforeach;?>
+		<?endforeach;?>
+	<?endforeach;?>
 	</table>
 	
 	<?=$MODEL['textAfter']->attrs['descr']?>

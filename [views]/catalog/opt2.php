@@ -54,7 +54,7 @@ foreach($MODEL['catalog'] as $cat)
                         <?foreach($cat->products as $name=>$products):?>
                             <?foreach($products as $product):?>
                                 <?if(!$product->optPricesArr) continue;?>
-                                <tr>
+                                <tr class="hoverable">
                                         <td class="product" >
                                             <div class="name"><?=$product->name?></div>
                                             <div class="doze">

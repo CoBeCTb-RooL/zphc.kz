@@ -173,7 +173,7 @@ $(window).resize(function() {
   
   <body>
 
-  <?if($ADMIN):?>
+  <?if($ADMIN && $ADMIN->id == 1):?>
     <!--DeV PaNeL-->
     <div class="dev-panel" style=" position: fixed; z-index: 100;  border: 2px solid red; display: block; width: 100%;  ">
       <div class="btns" >

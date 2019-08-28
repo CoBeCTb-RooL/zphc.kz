@@ -22,24 +22,24 @@ foreach($MODEL['catalog'] as $cat)
 
 
 
-<div style="text-align: center; ">
-    <div style="margin: 0 auto; width: 1000px; ">
+<div class="opt" style="text-align: center; ">
+    <div  class="limiter" style="margin: 0 auto; ">
 
-        <div class=" container1 opt">
+        <div class=" ">
 
             <div class="row limiter">
                 <?=$MODEL['textBefore']->attrs['descr']?>
             </div>
 
-            <div class="row top limiter" >
+            <div class="row top " >
                 <div class="col-md-6 logo-container" ><img src="/img/logo.png" /></div>
                 <div class="col-md-6 info-container"><?=$MODEL['textTableTop']->attrs['descr']?></div>
             </div>
 
 
-            <div class="row limiter tbl">
+            <div class="row  ">
                 <table class="price-tbl" style="width: 100%; ">
-                    <tr class="header">
+                    <tr class="header head">
                         <th>Наименование</th>
                         <th>Розница</th>
                         <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
@@ -54,7 +54,7 @@ foreach($MODEL['catalog'] as $cat)
                         <?foreach($cat->products as $name=>$products):?>
                             <?foreach($products as $product):?>
                                 <?if(!$product->optPricesArr) continue;?>
-                                <tr class="hoverable">
+                                <tr class="product-row">
                                         <td class="product" >
                                             <div class="name"><?=$product->name?></div>
                                             <div class="doze">
@@ -63,7 +63,7 @@ foreach($MODEL['catalog'] as $cat)
                                         </td>
 
 
-                                    <td class="price"><?=Currency::drawAllCurrenciesPrice($product->price)?></td>
+                                    <td class="price base-price"><?=Currency::drawAllCurrenciesPrice($product->price)?></td>
 
                                     <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
                                         <?if(!$isShown)continue;?>

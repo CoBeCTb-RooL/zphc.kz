@@ -56,10 +56,12 @@ foreach($MODEL['catalog'] as $cat)
                                 <?if(!$product->optPricesArr) continue;?>
                                 <tr class="product-row">
                                         <td class="product" >
+                                            <a href="<?=$product->url()?>" target="_blank" >
                                             <div class="name"><?=$product->name?></div>
                                             <div class="doze">
-                                                <a href="<?=$product->url()?>" target="_blank" ><?=OptPrice::shortenDozeStr($product->inPackage)?></a>
+                                                <?=OptPrice::shortenDozeStr($product->inPackage)?>
                                             </div>
+                                            </a>
                                         </td>
 
 

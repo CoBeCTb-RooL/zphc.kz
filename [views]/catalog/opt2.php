@@ -85,6 +85,55 @@ foreach($MODEL['catalog'] as $cat)
             </div>
 
 
+            <script>
+                function productInfo(id)
+                {
+                    // alert(id)
+                    $('.product-row-'+id+' .prices').slideToggle()
+                }
+            </script>
+
+            <div class="row ">
+                <div class="price-tbl-mobile">
+                    <?foreach($MODEL['catalog'] as $cat):?>
+                        <h1 class="cat-name" ><?=$cat->name?></h1>
+                        <?foreach($cat->products as $name=>$products):?>
+                            <?foreach($products as $product):?>
+                                <?if(!$product->optPricesArr) continue;?>
+                            <div class="product-row product-row-<?=$product->id?>" onclick="">
+                                <div class=" product-info">
+                                    <a href="<?=$product->url()?>" target="_blank" onclick="productInfo(<?=$product->id?>); return false; " >
+                                        <div class="col img"><img src="<?=$product->photo ? Media::img($product->photo) : Funx::noPhotoSrc()?>&width=50" alt="" /></div>
+                                        <div class="col info" style="text-align: left; ">
+
+                                                <div class="name"><?=$product->name?></div>
+                                                <div class="doze"><?=OptPrice::shortenDozeStr($product->inPackage)?></div>
+
+                                        </div>
+                                    </a>
+
+                                <div class="clear"></div>
+                                </div>
+                                <div class=" prices">
+                                <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
+                                    <?if(!$isShown)continue;?>
+                                    <div class="price">
+                                        <?=$product->optPricesArr[$sum] ? Currency::drawAllCurrenciesPrice($product->optPricesArr[$sum]) : ' -нет- '?>
+                                    </div>
+                                <?endforeach;?>
+                                </div>
+
+                            </div>
+                            <?endforeach;?>
+
+
+                        <?endforeach;?>
+
+                    <?endforeach;?>
+                </div>
+            </div>
+
+
         </div>
 
     </div>

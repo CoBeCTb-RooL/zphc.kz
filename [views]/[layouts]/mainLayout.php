@@ -68,7 +68,11 @@
 	<script type="text/javascript" src="/js/plugins/FlipClock-master/compiled/flipclock.min.js"></script>
 	<link rel="stylesheet" href="/js/plugins/FlipClock-master/src/flipclock/css/flipclock.css">
 
-	
+
+
+      <script type="text/javascript" src="/js/slonne.dev.js"></script>
+      <script type="text/javascript" src="/js/optCart.js"></script>
+
 	
 	<!-- highslide -->
 	<script type="text/javascript" src="/js/libs/highslide-4.1.13/highslide-with-gallery.packed.js"></script>
@@ -168,6 +172,30 @@ $(window).resize(function() {
   
   
   <body>
+
+  <?if($ADMIN):?>
+    <!--DeV PaNeL-->
+    <div class="dev-panel" style=" position: fixed; z-index: 100;  border: 2px solid red; display: block; width: 100%;  ">
+      <div class="btns" >
+          DeV PaNeL:
+          <button type="button" onclick=" SlonneDev.console.toggle(); ">toggle</button>
+          <button type="button" onclick=" SlonneDev.console.clear(); SlonneDev.console.show(); ">clear</button>
+          <button type="button" onclick=" SlonneDev.console.vd({a:5, qwe:[1,5,3],pop:{bb:7, mmmm:10}}); SlonneDev.console.show(); ">vd()</button>
+          <button type="button" onclick=" SlonneDev.console.vd(123); SlonneDev.console.show(); ">CooKie</button>
+          <button type="button" onclick=" SlonneDev.cart(); SlonneDev.console.show(); ">CaRT <sup>new</sup></button>
+          <button type="button" onclick=" Cart2.load(); SlonneDev.cart(); ">CaRT LoaD <sup>new</sup></button>
+          <button type="button" onclick=" Cart2.reset();  SlonneDev.cart(); ">CaRT CLeaR!!!</button>
+
+          <button type="button" class="close-btn" onclick="$('.dev-panel').slideToggle('fast');" >&times;</button>
+      </div>
+      <div class="data" style="display: none; ">
+          <div class="item cart">
+          </div>
+      </div>
+    </div>
+    <!--/DeV PaNeL-->
+  <?endif;?>
+
 
     
    

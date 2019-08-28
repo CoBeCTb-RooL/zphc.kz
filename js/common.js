@@ -1,3 +1,49 @@
+function vd(o, isString, indent) {
+	isString = isString || false
+
+	if(typeof o == 'number' || typeof o == 'string' )
+		return o
+	var out = '';
+	if (typeof indent === 'undefined') {
+		indent = 0;
+	}
+
+	var delimiter = '&nbsp;&nbsp;&nbsp;'
+	var lineDelimiter = '<br>'
+
+	if(isString){
+		delimiter = '  '
+		lineDelimiter = '\n'
+	}
+
+	for (var p in o) {
+		if (o.hasOwnProperty(p)) {
+			var val = o[p];
+			out += new Array(4 * indent + 1).join(delimiter) + p + ': ';
+			if (typeof val === 'object') {
+				if (val instanceof Date) {
+					out += 'Date "' + val.toISOString() + '"';
+				}
+				else if(val === null)
+					out+='NULL'
+				else {
+					out += '{ '  /*+'--'+typeof o+'--'*/  +lineDelimiter+ vd(val, isString, indent + 1) + new Array(4 * indent + 1).join(delimiter) + '}';
+				}
+			} else if (typeof val === 'function') {
+
+			} else {
+				out += '"' + val + '"';
+			}
+			out += ','+lineDelimiter;
+		}
+	}
+	return out;
+}
+
+
+
+
+
 
 
 function notice(str)

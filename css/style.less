@@ -1587,11 +1587,15 @@ ul.left-menu{border: 0px solid red;  overflow-y: auto; padding: 0; width: 150px;
 			th, td{border: 1px solid #000; font-size: 12px;  text-align: center; padding: 7px 5px;}
 			td{
 				&.product{text-align: center !important; font-size: 1em !important; font-weight: bold;
+					
 					a{text-decoration: none; }
 					.name{color: @bodyColor; text-decoration: none; text-decoration: underline; }
 					.doze{font-size: .9em; font-weight: normal; text-decoration: underline; }
 				}
-				&.price{white-space: nowrap; font-size: .9em; min-width: 80px; height: 33px !important; vertical-align: middle;  }
+				&.price{white-space: nowrap; font-size: .9em; min-width: 80px; height: 33px !important; vertical-align: middle;
+					&.highlighted{background: #E6F0F0; }
+					&.current{background: #B8C4F0 !important; }
+				}
 				&.cat-name{font-size: 1.1em; font-weight: bold; }
 			}
 			th{white-space: nowrap; font-weight: normal;}
@@ -1673,6 +1677,23 @@ ul.left-menu{border: 0px solid red;  overflow-y: auto; padding: 0; width: 150px;
 
 
 
+.dev-panel{background: #ececec  ; width: 100%; border-bottom: 1px solid #ccc; padding: 3px 0px 4px 0px;  font-weight: normal; font-size: 11px; font-family: tahoma; text-shadow: 1px 1px 0px #eee; color: #555; min-height: 18px; box-shadow: 0px 0px 5px rgba(0,0,0,.7);
+	.btns{ position: relative; margin: 4px 10px 4px 6px; text-shadow: 1px 1px 0px #eee;
+		button{background: #ddd; padding: 0 3px ; margin: 0 2px; ; color: #555; border: 1px solid #aaa; border-radius: 4px; text-transform: none; height: auto; font-weight: normal; font-size: 11px; font-family: tahoma; text-shadow: 1px 1px 0px #eee;  text-decoration: none;
+			&:hover{background: #ececec;}
+			&:active{background: #ccc}
+		}
+		.close-btn{position: absolute; right: 0px; top: 0px;  }
+	}
+	.data{border: 1px solid #ccc; background: #000; color: LimeGreen  ;  padding: 4px; border-left: none; border-right: none;  font-size: 11px; line-height: 140%; height: 320px; overflow: auto ; text-shadow: none; }
+	pre{background: none; border: none; color: inherit; margin: 0; padding: 0; }
+}
+
+
+
+
+
+
 /************	СТРАНИЦЫ	******************/
 .pages-div{ display: inline-block; margin: 0 auto;}
 .pages-div a:link, .pages-div a:visited, .pages-div div {
@@ -1737,6 +1758,8 @@ input[type=button], input[type=submit], button, .btn{background: @blue; color: #
 	}
 	
 	&.sm{font-size: 1.1em; }
+	
+	&.btn-small{font-size: 1.1em; padding: 5px 10px;  }
 }
 
 input[type=text], textarea, input[type=password]{border: 1px solid #898989; padding: 4px 6px; 

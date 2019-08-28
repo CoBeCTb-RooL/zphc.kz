@@ -551,9 +551,9 @@ class ProductSimple
 	
 	
 	
-	function initOptPrices()
+	function initOptPrices($prices=null)
 	{
-		$this->optPricesArr = OptPrice::getArrByProductId($this->id);
+		$this->optPricesArr = OptPrice::getArrByProductId($this->id, $prices);
 	}
 	
 	

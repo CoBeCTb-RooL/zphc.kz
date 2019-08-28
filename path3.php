@@ -34,6 +34,7 @@ $globalTimer = new Timer('ГЛОБАЛЬНЫЙ ТАЙМЕР', Timer::TYPE_GLOBAL
 
 
 
+
 //$url = $_SERVER['PATH_INFO'];
 //$url = $_SERVER['REQUEST_URI'];
 $url = mb_substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '?') ? strpos($_SERVER['REQUEST_URI'], '?') : null);

@@ -21,6 +21,15 @@ foreach($MODEL['catalog'] as $cat)
 <!--//крамбсы-->
 
 
+<script>
+    function highlightPriceStepCol(sum, off){
+        $('.price').removeClass('highlighted')
+        if(!off)
+            $('.price-step-'+sum).addClass('highlighted')
+    }
+</script>
+
+
 
 <div class="opt" style="text-align: center; ">
     <div  class="limiter" style="margin: 0 auto; ">
@@ -41,20 +50,24 @@ foreach($MODEL['catalog'] as $cat)
                 <table class="price-tbl" style="width: 100%; ">
                     <tr class="header head">
                         <th>Наименование</th>
+                        <th></th>
                         <th>Розница</th>
                         <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
                             <?if(!$isShown)continue;?>
-                            <th><?=Funx::numberFormat($sum)?> $</th>
+                            <th>
+<!--                                --><?//=Funx::numberFormat($sum)?><!-- $-->
+                                &ge;<?=Currency::drawAllCurrenciesPrice($sum)?>
+                            </th>
                         <?endforeach?>
                     </tr>
                     <?foreach($MODEL['catalog'] as $cat):?>
                         <tr class="header">
-                            <td class="cat-name" colspan="<?=count(ProductSimple::$optPrices)+1?>"><?=$cat->name?></td>
+                            <td class="cat-name" colspan="<?=count(ProductSimple::$optPrices)+2?>"><?=$cat->name?></td>
                         </tr>
                         <?foreach($cat->products as $name=>$products):?>
                             <?foreach($products as $product):?>
                                 <?if(!$product->optPricesArr) continue;?>
-                                <tr class="product-row">
+                                <tr class="product-row product-row-<?=$product->id?>">
                                         <td class="product" >
                                             <a href="<?=$product->url()?>" target="_blank" >
                                             <div class="name"><?=$product->name?></div>
@@ -64,12 +77,14 @@ foreach($MODEL['catalog'] as $cat)
                                             </a>
                                         </td>
 
+                                    <td><input type="button" class="btn-small" value="В корзину" onclick="addProductToCart(16, $('#product-quan-16').val())"></td>
 
-                                    <td class="price base-price"><?=Currency::drawAllCurrenciesPrice($product->price)?></td>
+
+                                    <td class="price price-step-0 base-price" onmouseover="highlightPriceStepCol(0); $(this).addClass('current')" onmouseout="highlightPriceStepCol(0, true); $(this).removeClass('current')"> <?=Currency::drawAllCurrenciesPrice($product->price)?></td>
 
                                     <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
                                         <?if(!$isShown)continue;?>
-                                        <td class="price">
+                                        <td class="price price-step-<?=$sum?>" title="при заказе от <?=$sum?> $" onmouseover="highlightPriceStepCol(<?=$sum?>); $(this).addClass('current')" onmouseout="highlightPriceStepCol(<?=$sum?>, true); $(this).removeClass('current')">
                                             <?=$product->optPricesArr[$sum] ? Currency::drawAllCurrenciesPrice($product->optPricesArr[$sum]) : ' -нет- '?>
                                         </td>
                                     <?endforeach;?>

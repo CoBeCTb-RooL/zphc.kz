@@ -249,6 +249,7 @@ class CatalogController extends MainController{
         Startup::execute(Startup::FRONTEND);
         $CONTENT->setTitle('Оптовые прайсы');
 
+
         $_GLOBALS['activeMenu'][32] = true;
         $_GLOBALS['activeMenu'][53] = true;
 
@@ -256,11 +257,15 @@ class CatalogController extends MainController{
         $MODEL['textAfter'] = Page::get(55);
         $MODEL['textTableTop'] = Page::get(59);
         $MODEL['catalog'] = CategorySimple::getList(array('status'=>Status::code(Status::ACTIVE)));
+
+        $optPrices = OptPrice::getList();
+//        vd($optPrices);
+
         foreach($MODEL['catalog'] as $cat)
         {
             $cat->products = ProductSimple::getList(array('status'=>Status::code(Status::ACTIVE), 'catId'=>$cat->id, 'orderBy'=>'idxOpt, name'));
             foreach($cat->products as $p)
-                $p->initOptPrices();
+                $p->initOptPrices($optPrices);
         }
 
         $MODEL['crumbs'][] = '<a href="'.Route::getByName(Route::MAIN)->url().'">Главная</a>';

@@ -33,20 +33,45 @@ class OptPrice{
 			return $u;
 		}
 	}
+
+
+
+	function getList()
+    {
+        $sql = "SELECT * FROM `".self::TBL."` WHERE 1";
+        $qr = DB::query($sql);
+        echo mysql_error();
+
+        while($next = mysql_fetch_array($qr, MYSQL_ASSOC))
+        {
+            //vd($next);
+            $arr[$next['productId']][] = $next ;
+//            $arr[$next['sum']] = $next['price'];
+        }
+
+        return $arr;
+    }
+
+
+
 	
-	
-	function getArrByProductId($productId)
+	function getArrByProductId($productId, $prices=null)
 	{
-		$sql = "SELECT * FROM `".self::TBL."` WHERE productId=".intval($productId);
-		$qr = DB::query($sql);
-		echo mysql_error();
-		
-		while($next = mysql_fetch_array($qr, MYSQL_ASSOC))
-		{
-			//vd($next);
-			$arr[$next['sum']] = $next['price'];
-			
-		}
+	    if($prices)
+	        $tmp = $prices[$productId];
+ 	    else
+        {
+            $sql = "SELECT * FROM `".self::TBL."` WHERE productId=".intval($productId);
+            $qr = DB::query($sql);
+            echo mysql_error();
+
+            while($next = mysql_fetch_array($qr, MYSQL_ASSOC))
+                $tmp[] = $next;
+        }
+
+
+		foreach ($tmp as $next)
+            $arr[$next['sum']] = $next['price'];
 	
 		return $arr;
 	}

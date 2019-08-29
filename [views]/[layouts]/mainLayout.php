@@ -18,7 +18,10 @@
     <title><?=$CONTENT->title?></title>
 
 	<!-- jquery -->
-	<script type="text/javascript" src="/js/libs/jquery-1.11.0.min.js"></script>
+<!--	<script type="text/javascript" src="/js/libs/jquery-1.11.0.min.js"></script>-->
+	<script type="text/javascript" src="/js/libs/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="/js/libs/jquery-ui.1.11.4.min.js"></script>
+<!--      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>-->
 
 	<script type="text/javascript" src="/js/common.js"></script>
 	<script type="text/javascript" src="/js/script.js"></script>
@@ -27,14 +30,14 @@
 	
 	<!--stickr-->
 	<script src="/js/plugins/jquery.stickr.js" type="text/javascript"></script>
-	
+
 	<!--fancyBox-->
 	<script type="text/javascript" src="/js/plugins/jquery.fancyBox-v2.1.5/jquery.fancybox.pack.js?v=2.1.5"></script>
 	<link rel="stylesheet" type="text/css" href="/js/plugins/jquery.fancyBox-v2.1.5/jquery.fancybox.css?v=2.1.5" media="screen" />
-	
+
     <!-- Bootstrap -->
     <link href="/css/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!--LESS-->
 	<link rel="stylesheet/less" type="text/css" href="/css/style.less?1" />
 	<!-- <link href="/css/style.css" rel="stylesheet"> -->
@@ -42,36 +45,35 @@
 
 	<!-- font-awesome -->
 	<link href="/css/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	
-	
+
+
 	<!-- unslider -->
 	<script type="text/javascript" src="/js/plugins/jquery.unslider/dist/js/unslider-min.js"></script>
 	<link rel="stylesheet" type="text/css" href="/js/plugins/jquery.unslider/dist/css/unslider2.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="/js/plugins/jquery.unslider/dist/css/unslider-dots.css" media="screen" />
-	
-	
+
+
 	<!-- Open Sans -->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300,300italic,600,600italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css' />
-	
+
 	<!-- rateYo -->
 	<link rel="stylesheet" href="/js/plugins/jquery.rateYo-master/min/jquery.rateyo.min.css"/>
 	<script type="text/javascript" src="/js/plugins/jquery.rateYo-master/min/jquery.rateyo.min.js"></script>
-	
+
 	<!-- masked-input -->
 	<script type="text/javascript" src="/js/plugins/jquery.maskedInput.js"></script>
-	
+
 	<!-- flipcountdown -->
 	<script type="text/javascript" src="/js/plugins/flipcountdown-master/jquery.flipcountdown.js"></script>
 	<link rel="stylesheet" href="/js/plugins/flipcountdown-master/jquery.flipcountdown2.css">
-	
+
 	<!-- fliClock -->
 	<script type="text/javascript" src="/js/plugins/FlipClock-master/compiled/flipclock.min.js"></script>
 	<link rel="stylesheet" href="/js/plugins/FlipClock-master/src/flipclock/css/flipclock.css">
 
 
 
-      <script type="text/javascript" src="/js/slonne.dev.js"></script>
-      <script type="text/javascript" src="/js/optCart.js"></script>
+
 
 	
 	<!-- highslide -->
@@ -188,7 +190,7 @@ $(window).resize(function() {
 
           <button type="button" class="close-btn" onclick="$('.dev-panel').slideToggle('fast');" >&times;</button>
       </div>
-      <div class="data" style="display: none; ">
+      <div class="data" style="display: none; ">asdasd
           <div class="item cart">
           </div>
       </div>
@@ -501,10 +503,14 @@ $(window).resize(function() {
 		  </div>
 		</div>
 
-	
 
 
 
+
+
+  <script type="text/javascript" src="/js/slonne.dev.js"></script>
+  <script type="text/javascript" src="/js/optCart.js"></script>
+  <script type="text/javascript" src="/js/optCartNotification.js"></script>
 
     
 	<!-- Bootstrap core JavaScript
@@ -527,7 +533,15 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 ga('create', 'UA-83898254-1', 'auto');
 ga('send', 'pageview');
 
-</script> 
+</script>
+
+
+  <script>
+      $(document).ready(function(){
+          OptCartNotification.showBookmark()
+          OptCartNotification.updateInfo(true)
+      })
+  </script>
     
   </body>
 </html>

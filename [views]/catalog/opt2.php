@@ -153,3 +153,44 @@ foreach($MODEL['catalog'] as $cat)
 
     </div>
 </div>
+
+
+
+<!--notifications-->
+<div class="notification" id="notification" style="display: ; ">
+    <div class="inner">
+        <div class="bookmark" style="display: none; ">
+            <a class="expand-arrow" href="#" onclick="OptCartNotification.expand('open'); return false; ">
+                <span class="not-loading">
+                    <span class="arr open" style="display: none; ">&lt;</span>
+                    <span class="arr close1" style="display: none; ">&gt;</span>
+                    <span class="inf">
+                        <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size: 1.2em; "></i>: <span class="val cart-quan">5</span>
+                    </span>
+                </span>
+                <span class="loading" style="display: none; "><img src="/img/preloader-white.gif" alt="" height="23"></span>
+            </a>
+        </div>
+
+        <div class="main-block" style="display: none; ">
+            <div class="inner">
+                <div class="r cart-row">
+                    <nobr>Товаров в корзине: <b class="cart-quan">??</b></nobr>
+                    <br><nobr>на сумму: <b class="cart-sum">??</b></nobr>
+                    <div style="margin: 4px 0 0 0; "><a href="{{\App\Models\Cart::isJs() ? route('cart2') : route('cart')}}" class="btn orange ">Перейти в корзину</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btns" style="display: ; ">
+            <button onclick="OptCartNotification.quake()">quake</button><br>
+            <button onclick="OptCartNotification.loading()">loa 1</button><br>
+            <button onclick="OptCartNotification.loading(false)">loa 0</button><br>
+            <button onclick="OptCartNotification.showBookmark()">showBookmark()</button><br>
+            <button onclick="OptCartNotification.showBookmark(false)">showBookmark(false)</button><br>
+            <button onclick="OptCartNotification.updateInfo()">updateInfo()</button><br>
+        </div>
+
+    </div>
+</div>
+<!--//notifications-->

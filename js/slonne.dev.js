@@ -5,17 +5,16 @@ var SlonneDev = {
     //  само окно консоли (чёрное)
     console: {
         w: $('.dev-panel').find('.data'),
-        show: function(){/*$('.dev-panel').find('.data').slideDown('fast');*/$('.dev-panel').find('.data').slideDown('fast') },
-        hide: function(){/*$('.dev-panel').find('.data').slideUp('fast');*/$('.dev-panel').find('.data').slideUp('fast')},
+        show: function(){$(this.w).slideDown('fast'); },
+        hide: function(){$(this.w).slideUp('fast');},
         toggle: function(){
-            // $('.dev-panel').find('.data').slideDown();
             if(this.isVisible())
                 this.hide()
             else
                 this.show()
         },
-        isVisible: function(){return $('.dev-panel').find('.data').is(':visible')},
-        text: function(txt){ $('.dev-panel').find('.data').html(txt) ; },
+        isVisible: function(){return $(this.w).is(':visible')},
+        text: function(txt){ $(this.w).html(txt) ; },
         clear: function(){this.text('')},
         vd: function(obj){ this.text('<pre11>'+vd(obj)+'</pre11>') }
     },

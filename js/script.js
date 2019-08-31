@@ -6,6 +6,12 @@ var Currency = {
 		this.current = Currency.items[code]
 		// alert(vd(this.current, true))
 	},
+
+	calcPrice: function(priceInBucks, currencyCode) {
+		currencyCode = currencyCode || Currency.current.code
+		ret = (priceInBucks * Currency.items[currencyCode].coef)
+		return ret
+	}
 }
 
 
@@ -62,8 +68,10 @@ function switchCurrency(code)
 			$('.cur-btn').removeClass('active')
 			$('.cur-btn-'+code).addClass('active')
 
-
 			Currency.set(code)
+
+			if(typeof OptCart != 'undefined')
+				OptCart.Notificator.update()
 		},
 		success: function(data){
 			if(!data.errors)

@@ -93,27 +93,29 @@ var OptCart = {
     Calc: {
 
         info: function(){
-            var ret = { quan: 0, sum: 0, sumStr: '', baseSum: 0, baseSumStr: '', }
+            var ret = {
+                quan: 0,
+                sum: 0,
+                sumInCurrency: 0,
+                sumStr: '',
+                baseSum: 0,
+                baseSumInCurrency: 0,
+                baseSumStr: '',
+
+            }
 
             for(var prId in OptCart.ids){
-                // var pr = OptCart.ProductsDict[prId]
                 var quan = OptCart.ids[prId]
                 ret.quan += quan
-
-                // var basePrice = pr.price
-                // var price = basePrice
-                // if(OptCart.optStep > 0 )
-                //     price = OptCart.ProductsDict[pr.id].optPrices[OptCart.optStep]
-                // // alert(pr.price)
-                // ret.baseSum += basePrice*quan
-                // ret.sum += price*quan
             }
 
             ret.baseSum = OptCart.Calc.cartSum(0)
-            ret.baseSumStr = formatPrice(ret.baseSum)+' $'
+            ret.baseSumInCurrency = Currency.calcPrice(ret.baseSum)
+            ret.baseSumStr = formatPrice(ret.baseSumInCurrency)+' '+Currency.current.sign
 
             ret.sum = OptCart.Calc.cartSum(OptCart.optStep)
-            ret.sumStr = formatPrice(ret.sum)+' $'
+            ret.sumInCurrency = Currency.calcPrice(ret.sum)
+            ret.sumStr = formatPrice(ret.sumInCurrency)+' '+Currency.current.sign
 
             return ret;
         },

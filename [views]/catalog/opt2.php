@@ -1,5 +1,6 @@
 <?php
 $arr = array();
+$productsDict = [];
 foreach($MODEL['catalog'] as $cat)
 {
 	$products = array();
@@ -8,10 +9,17 @@ foreach($MODEL['catalog'] as $cat)
 	    if(!$product->optPricesArr['250'])
 	        continue;
 		$products[$product->name][] = $product;
+
+		#   формируем словарь товаров (для js)
+        $productsDict[$product->id] = $product->json('micro');
 	}
 	$cat->products = $products;
 	$arr[] = $cat;
 }
+
+$productsDictJson = json_encode($productsDict);
+//vd($productsDict);
+//vd($productsDictJson);
 
 
 //vd($arr);
@@ -19,6 +27,31 @@ foreach($MODEL['catalog'] as $cat)
 <!--крамбсы-->
 <? Core::renderPartial(SHARED_VIEWS_DIR.'/crumbs.php', $MODEL['crumbs']);?>
 <!--//крамбсы-->
+
+
+
+<!--<script type="text/javascript" src="/js/optCart.js"></script>-->
+<!--<script type="text/javascript" src="/js/optCartNotification.js"></script>-->
+<!--<script>-->
+<!--    $(document).ready(function(){-->
+<!--        OptCartNotification.showBookmark()-->
+<!--        OptCartNotification.updateInfo(true)-->
+<!--    })-->
+<!--</script>-->
+
+<?//vd ($productsDictJson)?>
+
+<?//vd($CONTENT)?>
+<?ob_start()?>
+<script>
+    // $(document).ready(function(){
+        OptCart.ProductsDict = <?=$productsDictJson?>;
+        // alert(vd(OptCart.ProductsDict, true))
+    // })
+</script>
+<?$CONTENT->section('documentReadyJs', ob_get_clean())?>
+
+<?//vd($CONTENT)?>
 
 
 <script>
@@ -66,33 +99,32 @@ foreach($MODEL['catalog'] as $cat)
                         </tr>
                         <?foreach($cat->products as $name=>$products):?>
                             <?foreach($products as $product):?>
-                                <?if(!$product->optPricesArr) continue;?>
-                                <tr class="product-row product-row-<?=$product->id?>">
-                                        <td class="product" >
-                                            <a href="<?=$product->url()?>" target="_blank" >
-                                            <div class="name"><?=$product->name?></div>
-                                            <div class="doze">
-                                                <?=OptPrice::shortenDozeStr($product->inPackage)?>
-                                            </div>
-                                            </a>
-                                        </td>
+                        <tr class="product-row product-row-<?=$product->id?>">
+                            <td class="product" >
+                                <a href="<?=$product->url()?>" target="_blank" >
+                                <div class="name"><?=$product->name?></div>
+                                <div class="doze">
+                                    <?=OptPrice::shortenDozeStr($product->inPackage)?>
+                                </div>
+                                </a>
+                            </td>
 
-                                    <td><input type="button" class="btn-small" value="В корзину" onclick="addProductToCart(16, $('#product-quan-16').val())"></td>
+                            <td>
+                                <div class="to-cart-btn-wrapper">
+                                    <input type="button" class="btn-small" value="В корзину" onclick="/*addProductToCart(16, $('#product-quan-16').val())*/ OptCart.Product.add(<?=$product->id?>)">
+                                </div>
+                                <div class="quans-wrapper" style="display: none; ">123123213</div>
+                            </td>
 
+                            <td class="price price-step-0 base-price" onmouseover="highlightPriceStepCol(0); $(this).addClass('current')" onmouseout="highlightPriceStepCol(0, true); $(this).removeClass('current')"> <?=Currency::drawAllCurrenciesPrice($product->price)?></td>
 
-                                    <td class="price price-step-0 base-price" onmouseover="highlightPriceStepCol(0); $(this).addClass('current')" onmouseout="highlightPriceStepCol(0, true); $(this).removeClass('current')"> <?=Currency::drawAllCurrenciesPrice($product->price)?></td>
-
-                                    <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
-                                        <?if(!$isShown)continue;?>
-                                        <td class="price price-step-<?=$sum?>" title="при заказе от <?=$sum?> $" onmouseover="highlightPriceStepCol(<?=$sum?>); $(this).addClass('current')" onmouseout="highlightPriceStepCol(<?=$sum?>, true); $(this).removeClass('current')">
-                                            <?=$product->optPricesArr[$sum] ? Currency::drawAllCurrenciesPrice($product->optPricesArr[$sum]) : ' -нет- '?>
-                                        </td>
-                                    <?endforeach;?>
-
-                                </tr>
-                                <?php
-                                $i++;
-                                ?>
+                                <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
+                                    <?if(!$isShown)continue;?>
+                            <td class="price price-step-<?=$sum?>" title="при заказе от <?=$sum?> $" onmouseover="highlightPriceStepCol(<?=$sum?>); $(this).addClass('current')" onmouseout="highlightPriceStepCol(<?=$sum?>, true); $(this).removeClass('current')">
+                                <?=$product->optPricesArr[$sum] ? Currency::drawAllCurrenciesPrice($product->optPricesArr[$sum]) : ' -нет- '?>
+                            </td>
+                                <?endforeach;?>
+                        </tr>
                             <?endforeach;?>
                         <?endforeach;?>
                     <?endforeach;?>
@@ -100,6 +132,10 @@ foreach($MODEL['catalog'] as $cat)
             </div>
 
 
+
+
+
+            <!--mobile-->
             <script>
                 function productInfo(id)
                 {

@@ -183,10 +183,10 @@ $(window).resize(function() {
           <button type="button" onclick=" SlonneDev.console.toggle(); ">toggle</button>
           <button type="button" onclick=" SlonneDev.console.clear(); SlonneDev.console.show(); ">clear</button>
           <button type="button" onclick=" SlonneDev.console.vd({a:5, qwe:[1,5,3],pop:{bb:7, mmmm:10}}); SlonneDev.console.show(); ">vd()</button>
-          <button type="button" onclick=" SlonneDev.console.vd(123); SlonneDev.console.show(); ">CooKie</button>
+<!--          <button type="button" onclick=" SlonneDev.console.vd(123); SlonneDev.console.show(); ">CooKie</button>-->
           <button type="button" onclick=" SlonneDev.cart(); SlonneDev.console.show(); ">CaRT <sup>new</sup></button>
-          <button type="button" onclick=" Cart2.load(); SlonneDev.cart(); ">CaRT LoaD <sup>new</sup></button>
-          <button type="button" onclick=" Cart2.reset();  SlonneDev.cart(); ">CaRT CLeaR!!!</button>
+<!--          <button type="button" onclick=" Cart2.load(); SlonneDev.cart(); ">CaRT LoaD <sup>new</sup></button>-->
+<!--          <button type="button" onclick=" Cart2.reset();  SlonneDev.cart(); ">CaRT CLeaR!!!</button>-->
 
           <button type="button" class="close-btn" onclick="$('.dev-panel').slideToggle('fast');" >&times;</button>
       </div>
@@ -508,9 +508,7 @@ $(window).resize(function() {
 
 
 
-  <script type="text/javascript" src="/js/slonne.dev.js"></script>
-  <script type="text/javascript" src="/js/optCart.js"></script>
-  <script type="text/javascript" src="/js/optCartNotification.js"></script>
+
 
     
 	<!-- Bootstrap core JavaScript
@@ -535,6 +533,12 @@ ga('send', 'pageview');
 
 </script>
 
+  <script type="text/javascript" src="/js/optCart.js"></script>
+  <script type="text/javascript" src="/js/optCartNotification.js"></script>
+  <script type="text/javascript" src="/js/slonne.dev.js"></script>
+
+
+  <?=$CONTENT->section('documentReadyJs')?>
 
   <script>
       $(document).ready(function(){

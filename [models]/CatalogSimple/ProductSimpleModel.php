@@ -555,6 +555,28 @@ class ProductSimple
 	{
 		$this->optPricesArr = OptPrice::getArrByProductId($this->id, $prices);
 	}
+
+
+
+
+	function json($scenario)
+    {
+        $ret = (array)$this;
+
+        if($scenario == 'micro')
+        {
+            $ret = [];
+            $ret['id'] = $this->id;
+            $ret['name'] = $this->name;
+            $ret['inPackage'] = $this->inPackage;
+            $ret['price'] = $this->price;
+            $ret['priceStr'] = $this->priceStr;
+            $ret['priceInCurrency'] = $this->priceInCurrency;
+            $ret['stock'] = $this->stock;
+        }
+
+        return $ret;
+    }
 	
 	
 	

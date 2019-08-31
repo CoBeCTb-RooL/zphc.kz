@@ -13,6 +13,9 @@ class Content{
 	public $titlePostfix;
 	public $titleSeparator;
 	public $isTitleStartsWithPostfix;
+
+
+	private $_sections;
 	
 	
 	function __construct()
@@ -33,7 +36,23 @@ class Content{
 		
 		$this->title = $title;
 	}
-	
+
+
+
+
+	function section($name, $str=null)
+    {
+        if($str !== null)
+            $this->_sections[$name][] = $str;
+
+        else
+        {
+            foreach ($this->_sections[$name] as $val)
+                $ret .= $val;
+            return $ret;
+        }
+//        vd($name);
+    }
 	
 	
 }

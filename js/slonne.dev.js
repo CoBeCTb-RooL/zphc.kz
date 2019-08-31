@@ -23,31 +23,10 @@ var SlonneDev = {
 
     //  короткие методы
     cookie: function(){this.console.vd(document.cookie)},
+
     cart: function(){
-        Cart2.load();
-        //Cart2.UI.updateNotificationBox(Cart2.Calc.stat(), true)
-        var txt = ''
-            + 'oRG iNFo: <br>' + vd(Cart2.org)
-            +'<br>-------------------------------------<br>'
-
-
-        txt+=''
-            + 'TiMeR: <br>'
-        //+'&nbsp;&nbsp;&nbsp;TS: '+Cart2.CartTimer.get()+' s<br>'
-        if(Cart2.CartTimer.get())
-            txt+=''
-                //+'&nbsp;&nbsp;&nbsp;iDLe: '+Cart2.CartTimer.idleTime()+' s <br>'
-                +'&nbsp;&nbsp;&nbsp;eXPiReS iN: '+Cart2.CartTimer.expiresIn()+' s <br>'
-                +'&nbsp;&nbsp;&nbsp;iS eXPiReD: '+(Cart2.CartTimer.isExpired() ? "<span style='color: red; font-weight: bold'>TRUE</span>" : "false")  +'  <br>'
-
-        txt+=''
-            +'<br>-------------------------------------<br>'
-            +'PRoDuCTs:<br>' + vd(Cart2.products)
-            +'<br>-------------------------------------<br>'
-            +'PRoDuCTs iNFo:<br>' + vd(Cart2.productsDict)
-
-        this.console.text(txt)
-        //this.console.show();
+            
+        this.console.show();
     },
 
 }

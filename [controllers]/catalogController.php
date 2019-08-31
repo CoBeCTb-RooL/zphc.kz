@@ -249,6 +249,8 @@ class CatalogController extends MainController{
         Startup::execute(Startup::FRONTEND);
         $CONTENT->setTitle('Оптовые прайсы');
 
+//        vd($CONTENT);
+
         $_GLOBALS['activeMenu'][32] = true;
         $_GLOBALS['activeMenu'][53] = true;
 

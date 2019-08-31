@@ -7,8 +7,9 @@ class OptPrice{
 	public $productId;
 	public $sum;
 	public $price;
-	
-	
+
+
+
 	
 	function __construct($productId, $sum, $price)
 	{
@@ -141,6 +142,17 @@ class OptPrice{
 		
 		return $ret;
 	}
+
+
+
+	function steps()
+    {
+        $ret = [];
+        foreach (ProductSimple::$optPrices as $step=>$bool)
+            if($bool)
+                $ret[] = $step;
+        return $ret;
+    }
 	
 }
 ?>

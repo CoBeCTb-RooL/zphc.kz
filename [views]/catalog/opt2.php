@@ -47,7 +47,9 @@ $productsDictJson = json_encode($productsDict);
     // $(document).ready(function(){
 
     OptCart.ProductsDict = <?=$productsDictJson?>;
+    OptCart.optSteps = <?=json_encode(array_keys(ProductSimple::$optPrices))?>;
     OptCart.State.load();
+    OptCart.setStep(0)
     OptCart.Notificator.update()
 
         // OptCart.ids[9999] = 88
@@ -61,7 +63,7 @@ $productsDictJson = json_encode($productsDict);
 
 <script>
     function highlightPriceStepCol(sum, off){
-        $('.price').removeClass('highlighted')
+        $('.product-price').removeClass('highlighted')
         if(!off)
             $('.price-step-'+sum).addClass('highlighted')
     }
@@ -133,11 +135,11 @@ $productsDictJson = json_encode($productsDict);
                                 </div>
                             </td>
 
-                            <td class="price price-step-0 base-price" onmouseover="highlightPriceStepCol(0); $(this).addClass('current')" onmouseout="highlightPriceStepCol(0, true); $(this).removeClass('current')"> <?=Currency::drawAllCurrenciesPrice($product->price)?></td>
+                            <td class="product-price price-step-0 " onmouseover="highlightPriceStepCol(0); $(this).addClass('current')" onmouseout="highlightPriceStepCol(0, true); $(this).removeClass('current')"> <?=Currency::drawAllCurrenciesPrice($product->price)?></td>
 
                                 <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
                                     <?if(!$isShown)continue;?>
-                            <td class="price price-step-<?=$sum?>" title="при заказе от <?=$sum?> $" onmouseover="highlightPriceStepCol(<?=$sum?>); $(this).addClass('current')" onmouseout="highlightPriceStepCol(<?=$sum?>, true); $(this).removeClass('current')">
+                            <td class="product-price price-step-<?=$sum?>" title="при заказе от <?=$sum?> $" onmouseover="highlightPriceStepCol(<?=$sum?>); $(this).addClass('current')" onmouseout="highlightPriceStepCol(<?=$sum?>, true); $(this).removeClass('current')">
                                 <?=$product->optPricesArr[$sum] ? Currency::drawAllCurrenciesPrice($product->optPricesArr[$sum]) : ' -нет- '?>
                             </td>
                                 <?endforeach;?>
@@ -235,13 +237,18 @@ $productsDictJson = json_encode($productsDict);
             </div>
         </div>
 
-        <div class="btns" style="display: none; ">
+        <div class="btns" style="display: ; ">
             <button onclick="OptCartNotification.quake()">quake</button><br>
             <button onclick="OptCartNotification.loading()">loa 1</button><br>
             <button onclick="OptCartNotification.loading(false)">loa 0</button><br>
             <button onclick="OptCartNotification.showBookmark()">showBookmark()</button><br>
             <button onclick="OptCartNotification.showBookmark(false)">showBookmark(false)</button><br>
             <button onclick="OptCartNotification.updateInfo()">updateInfo()</button><br>
+
+            <button onclick="OptCart.setStep(0)">0$</button>
+            <?foreach ($steps=OptPrice::steps() as $step):?>
+            <button onclick="OptCart.setStep(<?=$step?>)"><?=$step?>$</button>
+            <?endforeach;?>
         </div>
 
     </div>

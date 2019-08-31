@@ -22,7 +22,6 @@ var OptCart = {
         },
 
 
-
         setQuan: function(id, quan)
         {
             OptCart.ids[id] = parseInt(quan)
@@ -137,6 +136,21 @@ var OptCart = {
                     OptCartNotification.show()
             }
         }
+    },
+
+
+
+
+    setStep: function(step){
+        // alert(step)
+        // return false;
+        $('.product-price.price-step-'+OptCart.optStep).css('background', 'none').removeClass('current-step')
+        OptCart.optStep = step
+
+        // $('.product-price').removeClass('current-step')
+        $('.product-price.price-step-'+step).addClass('current-step')
+
+        $('.product-price.price-step-'+step).css( 'background', '#FFEA00').animate( { backgroundColor: "#0669B3" } , 600)
     },
 
 

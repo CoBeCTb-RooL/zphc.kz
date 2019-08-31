@@ -45,7 +45,11 @@ $productsDictJson = json_encode($productsDict);
 <?ob_start()?>
 <script>
     // $(document).ready(function(){
-        OptCart.ProductsDict = <?=$productsDictJson?>;
+
+    OptCart.ProductsDict = <?=$productsDictJson?>;
+    OptCart.State.load();
+
+        // OptCart.ids[9999] = 88
         // alert(vd(OptCart.ProductsDict, true))
     // })
 </script>
@@ -111,9 +115,21 @@ $productsDictJson = json_encode($productsDict);
 
                             <td>
                                 <div class="to-cart-btn-wrapper">
-                                    <input type="button" class="btn-small" value="В корзину" onclick="/*addProductToCart(16, $('#product-quan-16').val())*/ OptCart.Product.add(<?=$product->id?>)">
+                                    <input type="button" class="btn-small" value="В корзину" onclick="OptCart.Product.add(<?=$product->id?>)">
                                 </div>
-                                <div class="quans-wrapper" style="display: none; ">123123213</div>
+                                <div class="quans-wrapper" style="display: none; ">
+                                    <div class="inner">
+                                        <a href="#" class="btn btn-minus" onclick="OptCart.Product.add(<?=$product->id?>, -1); return false; ">-</a>
+                                        <div class="quan">
+                                            <select name="" onchange="OptCart.Product.setQuan(<?=$product->id?>, $(this).val())">
+                                                <?for($i=1; $i<=200; $i++):?>
+                                                <option value="<?=$i?>"><?=$i?></option>
+                                                <?endfor;?>
+                                            </select>
+                                        </div>
+                                        <a href="#" class="btn btn-plus" onclick="OptCart.Product.add(<?=$product->id?>); return false; ">+</a>
+                                    </div>
+                                </div>
                             </td>
 
                             <td class="price price-step-0 base-price" onmouseover="highlightPriceStepCol(0); $(this).addClass('current')" onmouseout="highlightPriceStepCol(0, true); $(this).removeClass('current')"> <?=Currency::drawAllCurrenciesPrice($product->price)?></td>

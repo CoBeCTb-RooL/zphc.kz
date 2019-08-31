@@ -574,6 +574,10 @@ class ProductSimple
             $ret['priceStr'] = $this->priceStr;
             $ret['priceInCurrency'] = $this->priceInCurrency;
 //            $ret['stock'] = $this->stock;
+//            vd($this);
+//            vd($this->optPricesArr);
+            if(isset($this->optPricesArr));
+                $ret['optPrices'] = $this->optPricesArr;
         }
 
         return $ret;

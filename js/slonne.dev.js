@@ -29,7 +29,7 @@ var SlonneDev = {
         var txt = ''
 
         txt+=''
-            +'PRoDuCTs:<br>' + vd(OptCart.products)
+            +'PRoDuCTs:<br>' + vd(OptCart.ids)
             +'<br>-------------------------------------<br>'
             +'PRoDuCTs iNFo:<br>' + vd(OptCart.ProductsDict)
 

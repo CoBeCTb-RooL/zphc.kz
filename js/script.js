@@ -1,3 +1,16 @@
+var Currency = {
+	currentCode: null,
+
+
+	set: function(code){
+		this.current = Currency.items[code]
+		alert(vd(this.current, true))
+	},
+}
+
+
+
+
 function switchMenu(id)
 {
 	$('.left-primary-menu ul').slideUp();
@@ -36,6 +49,9 @@ function switchCurrency(code)
 			
 			$('.cur-btn').removeClass('active')
 			$('.cur-btn-'+code).addClass('active')
+
+
+			Currency.set(code)
 		},
 		success: function(data){
 			if(!data.errors)

@@ -533,6 +533,14 @@ ga('send', 'pageview');
 
 </script>
 
+
+  <script>
+      Currency.items = <?=json_encode(Currency::$items)?>;
+      Currency.set('<?=$_SESSION['currencyCode']?>')
+      // alert(vd(Currency.items, true))
+  </script>
+
+
   <script type="text/javascript" src="/js/optCart.js"></script>
   <script type="text/javascript" src="/js/optCartNotification.js"></script>
   <script type="text/javascript" src="/js/slonne.dev.js"></script>

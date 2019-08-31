@@ -105,16 +105,26 @@ var OptCart = {
             }
 
             for(var prId in OptCart.ids){
+                var pr = OptCart.ProductsDict[prId]
                 var quan = OptCart.ids[prId]
                 ret.quan += quan
+
+                var price = pr.price
+
+                ret.baseSumInCurrency +=  Currency.calcPrice(price)*quan
+
+                if(OptCart.optStep > 0 )
+                    price = OptCart.ProductsDict[pr.id].optPrices[OptCart.optStep]
+
+                ret.sumInCurrency += Currency.calcPrice(price)*quan
             }
 
             ret.baseSum = OptCart.Calc.cartSum(0)
-            ret.baseSumInCurrency = Currency.calcPrice(ret.baseSum)
+            // ret.baseSumInCurrency = Currency.calcPrice(ret.baseSum)
             ret.baseSumStr = formatPrice(ret.baseSumInCurrency)+' '+Currency.current.sign
 
             ret.sum = OptCart.Calc.cartSum(OptCart.optStep)
-            ret.sumInCurrency = Currency.calcPrice(ret.sum)
+            // ret.sumInCurrency = Currency.calcPrice(ret.sum)
             ret.sumStr = formatPrice(ret.sumInCurrency)+' '+Currency.current.sign
 
             return ret;

@@ -31,6 +31,8 @@ var SlonneDev = {
         txt+=''
             +'CuRReNT oPT STeP: '+OptCart.optStep+''
             +'<br>-------------------------------------<br>'
+            +'CaRT iNFo: '+vd(OptCart.Calc.info())
+            +'<br>-------------------------------------<br>'
             +'PRoDuCTs:<br>' + vd(OptCart.ids)
             +'<br>-------------------------------------<br>'
             +'PRoDuCTs iNFo:<br>' + vd(OptCart.ProductsDict)

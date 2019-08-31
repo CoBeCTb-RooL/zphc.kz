@@ -93,19 +93,47 @@ var OptCart = {
     Calc: {
 
         info: function(){
-            var ret = { quan: 0, sum: 0, sumStr: '', }
+            var ret = { quan: 0, sum: 0, sumStr: '', baseSum: 0, baseSumStr: '', }
 
             for(var prId in OptCart.ids){
-                var pr = OptCart.ProductsDict[prId]
-
+                // var pr = OptCart.ProductsDict[prId]
                 var quan = OptCart.ids[prId]
                 ret.quan += quan
-                // alert(pr.price)
-                ret.sum += pr.price*quan
+
+                // var basePrice = pr.price
+                // var price = basePrice
+                // if(OptCart.optStep > 0 )
+                //     price = OptCart.ProductsDict[pr.id].optPrices[OptCart.optStep]
+                // // alert(pr.price)
+                // ret.baseSum += basePrice*quan
+                // ret.sum += price*quan
             }
+
+            ret.baseSum = OptCart.Calc.cartSum(0)
+            ret.baseSumStr = formatPrice(ret.baseSum)+' $'
+
+            ret.sum = OptCart.Calc.cartSum(OptCart.optStep)
             ret.sumStr = formatPrice(ret.sum)+' $'
 
             return ret;
+        },
+
+
+        cartSum: function(step){
+            if(typeof step == 'undefined')
+                step=0
+            ret = 0
+            for(var prId in OptCart.ids){
+                var pr = OptCart.ProductsDict[prId]
+                var quan = OptCart.ids[prId]
+
+                var price = pr.price
+                if(OptCart.optStep > 0 )
+                    price = OptCart.ProductsDict[pr.id].optPrices[OptCart.optStep]
+                ret += price*quan
+            }
+
+            return ret
         },
 
     },
@@ -142,15 +170,13 @@ var OptCart = {
 
 
     setStep: function(step){
-        // alert(step)
-        // return false;
-        $('.product-price.price-step-'+OptCart.optStep).css('background', 'none').removeClass('current-step')
+        $('.product-price.price-step-'+OptCart.optStep).stop().css('background', 'none').removeClass('current-step')
+
         OptCart.optStep = step
-
-        // $('.product-price').removeClass('current-step')
         $('.product-price.price-step-'+step).addClass('current-step')
-
         $('.product-price.price-step-'+step).css( 'background', '#FFEA00').animate( { backgroundColor: "#0669B3" } , 600)
+
+        OptCart.Notificator.update()
     },
 
 

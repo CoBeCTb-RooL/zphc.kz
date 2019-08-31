@@ -4,10 +4,22 @@ var Currency = {
 
 	set: function(code){
 		this.current = Currency.items[code]
-		alert(vd(this.current, true))
+		// alert(vd(this.current, true))
 	},
 }
 
+
+
+function formatPrice(n) {
+	// alert(n)
+	var tmp =n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 ")
+	if(n % 1 == 0)
+	{
+		var arr = tmp.split('.')
+		tmp = arr[0]
+	}
+	return tmp;
+}
 
 
 

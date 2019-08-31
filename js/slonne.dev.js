@@ -29,13 +29,15 @@ var SlonneDev = {
         var txt = ''
 
         txt+=''
+            +'CuRReNT oPT STeP: '+OptCart.optStep+''
+            +'<br>-------------------------------------<br>'
             +'PRoDuCTs:<br>' + vd(OptCart.ids)
             +'<br>-------------------------------------<br>'
             +'PRoDuCTs iNFo:<br>' + vd(OptCart.ProductsDict)
 
         this.console.text(txt)
 
-        this.console.show();
+
     },
 
 }

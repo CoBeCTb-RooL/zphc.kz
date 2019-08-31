@@ -17,19 +17,21 @@ var OptCart = {
             if(typeof OptCart.ids[id] == 'undefined')
                 OptCart.ids[id] = 0
 
-            OptCart.ids[id] = OptCart.ids[id] + quan
+            var newQuan = OptCart.ids[id] + quan
+            this.setQuan(id, newQuan);
+        },
+
+
+
+        setQuan: function(id, quan)
+        {
+            OptCart.ids[id] = parseInt(quan)
             if(OptCart.ids[id] == 0)
                 OptCart.UI.Table.showBtn(id)
 
             OptCart.State.save()
 
-            SlonneDev.cart();
-        },
-
-        setQuan: function(id, quan)
-        {
-            OptCart.ids[id] = parseInt(quan)
-            OptCart.State.save()
+            OptCart.Notificator.update()
 
             SlonneDev.cart();
         },
@@ -84,6 +86,59 @@ var OptCart = {
                     delete OptCart.ids[i]
         },
     },
+
+
+
+
+
+    Calc: {
+
+        info: function(){
+            var ret = { quan: 0, sum: 0, sumStr: '', }
+
+            for(var prId in OptCart.ids){
+                var pr = OptCart.ProductsDict[prId]
+
+                var quan = OptCart.ids[prId]
+                ret.quan += quan
+                // alert(pr.price)
+                ret.sum += pr.price*quan
+            }
+            ret.sumStr = formatPrice(ret.sum)+' $'
+
+            return ret;
+        },
+
+    },
+
+
+
+
+
+    Notificator: {
+        update: function(){
+            OptCart.Notificator.setData(OptCart.Calc.info(), true)
+        },
+
+        setData: function(data, show)
+        {
+            show = show || false
+
+            OptCartNotification.setCartQuan(data.quan)
+            OptCartNotification.setCartSum(data.sumStr)
+            if(data.quan == 0){
+                OptCartNotification.showBookmark(false)
+                OptCartNotification.hide()
+            }
+            else{
+                OptCartNotification.showBookmark()
+                OptCartNotification.quake()
+                if(show)
+                    OptCartNotification.show()
+            }
+        }
+    },
+
 
 
 

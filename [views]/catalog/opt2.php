@@ -48,6 +48,7 @@ $productsDictJson = json_encode($productsDict);
 
     OptCart.ProductsDict = <?=$productsDictJson?>;
     OptCart.State.load();
+    OptCart.Notificator.update()
 
         // OptCart.ids[9999] = 88
         // alert(vd(OptCart.ProductsDict, true))
@@ -234,7 +235,7 @@ $productsDictJson = json_encode($productsDict);
             </div>
         </div>
 
-        <div class="btns" style="display: ; ">
+        <div class="btns" style="display: none; ">
             <button onclick="OptCartNotification.quake()">quake</button><br>
             <button onclick="OptCartNotification.loading()">loa 1</button><br>
             <button onclick="OptCartNotification.loading(false)">loa 0</button><br>

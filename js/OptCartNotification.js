@@ -60,10 +60,10 @@ OptCartNotification = {
 
 
     setCartQuan: function(quan){
-        this.w.find('.cart-quan').html(formatPrice(quan))
+        this.w.find('.cart-quan').html((quan))
     },
     setCartSum: function(sum){
-        this.w.find('.cart-sum').html(formatPrice(sum)+' тг')
+        this.w.find('.cart-sum').html((sum)+'')
     },
 
 

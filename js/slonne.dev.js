@@ -20,12 +20,21 @@ var SlonneDev = {
     },
 
 
-
+    //////////////////////////////////////////
+    //////////////////////////////////////////
     //  короткие методы
     cookie: function(){this.console.vd(document.cookie)},
 
     cart: function(){
-            
+        var txt = ''
+
+        txt+=''
+            +'PRoDuCTs:<br>' + vd(OptCart.products)
+            +'<br>-------------------------------------<br>'
+            +'PRoDuCTs iNFo:<br>' + vd(OptCart.ProductsDict)
+
+        this.console.text(txt)
+
         this.console.show();
     },
 

@@ -569,10 +569,11 @@ class ProductSimple
             $ret['id'] = $this->id;
             $ret['name'] = $this->name;
             $ret['inPackage'] = $this->inPackage;
+            $ret['inPackage'] = OptPrice::shortenDozeStr($this->inPackage);
             $ret['price'] = $this->price;
             $ret['priceStr'] = $this->priceStr;
             $ret['priceInCurrency'] = $this->priceInCurrency;
-            $ret['stock'] = $this->stock;
+//            $ret['stock'] = $this->stock;
         }
 
         return $ret;

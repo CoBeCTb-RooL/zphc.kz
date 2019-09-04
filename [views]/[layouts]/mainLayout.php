@@ -39,7 +39,7 @@
     <link href="/css/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!--LESS-->
-	<link rel="stylesheet/less" type="text/css" href="/css/style.less?1" />
+	<link rel="stylesheet/less" type="text/css" href="/css/style.less?2" />
 	<!-- <link href="/css/style.css" rel="stylesheet"> -->
 	<script src="/js/libs/less/less-1.7.3.min.js" type="text/javascript"></script>
 

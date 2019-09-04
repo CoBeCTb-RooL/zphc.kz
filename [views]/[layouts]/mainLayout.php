@@ -542,7 +542,7 @@ ga('send', 'pageview');
 
 
   <script type="text/javascript" src="/js/optCart.js"></script>
-  <script type="text/javascript" src="/js/optCartNotification.js"></script>
+  <script type="text/javascript" src="/js/OptCartNotification.js"></script>
   <script type="text/javascript" src="/js/slonne.dev.js"></script>
 
 

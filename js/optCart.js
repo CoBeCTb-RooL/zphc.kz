@@ -31,10 +31,54 @@ var OptCart = {
             OptCart.State.save()
 
             OptCart.Notificator.update()
+            var step = OptCart.OptStep.getStepBySum(OptCart.Calc.info().sum)
+            if(step != OptCart.OptStep.current)
+                OptCart.OptStep.setStep(step)
+            // alert(step+' = '+ OptCart.Calc.cartSum(step))
+
 
             SlonneDev.cart();
         },
 
+    },
+
+
+
+
+    OptStep: {
+        current: 0,
+        steps: [],
+
+        getStepBySum: function(sumInBucks){
+            var step = 0;
+            // alert(sumInBucks);
+            // alert(vd(OptCart.OptStep.steps, true))
+            // console.log(OptCart.OptStep.steps)
+
+            var sum = OptCart.Calc.cartSum()
+            // alert(sum)
+            if(sum < OptCart.OptStep.steps[0])
+                return step;
+
+            for(var i in OptCart.OptStep.steps){
+                sum = OptCart.Calc.cartSum(OptCart.OptStep.steps[i])
+                if(sum < OptCart.OptStep.steps[i])
+                    return step;
+                step = OptCart.OptStep.steps[i]
+            }
+            return step;
+        },
+
+
+        setStep: function(step){
+            $('.product-price.price-step-'+OptCart.OptStep.current).stop().css('background', 'none').removeClass('current-step')
+
+            OptCart.OptStep.current = step
+            $('.product-price.price-step-'+step).addClass('current-step')
+            $('.product-price.price-step-'+step).css( 'background', '#FFEA00').animate( { backgroundColor: "#0669B3" } , 600)
+
+            OptCart.Notificator.update()
+        },
     },
 
 
@@ -113,8 +157,8 @@ var OptCart = {
 
                 ret.baseSumInCurrency +=  Currency.calcPrice(price)*quan
 
-                if(OptCart.optStep > 0 )
-                    price = OptCart.ProductsDict[pr.id].optPrices[OptCart.optStep]
+                if(OptCart.OptStep.current > 0 )
+                    price = OptCart.ProductsDict[pr.id].optPrices[OptCart.OptStep.current]
 
                 ret.sumInCurrency += Currency.calcPrice(price)*quan
             }
@@ -123,7 +167,7 @@ var OptCart = {
             // ret.baseSumInCurrency = Currency.calcPrice(ret.baseSum)
             ret.baseSumStr = formatPrice(ret.baseSumInCurrency)+' '+Currency.current.sign
 
-            ret.sum = OptCart.Calc.cartSum(OptCart.optStep)
+            ret.sum = OptCart.Calc.cartSum(OptCart.OptStep.current)
             // ret.sumInCurrency = Currency.calcPrice(ret.sum)
             ret.sumStr = formatPrice(ret.sumInCurrency)+' '+Currency.current.sign
 
@@ -133,19 +177,19 @@ var OptCart = {
 
         cartSum: function(step){
             if(typeof step == 'undefined')
-                step=0
+                step = OptCart.OptStep.current
             ret = 0
             for(var prId in OptCart.ids){
                 var pr = OptCart.ProductsDict[prId]
                 var quan = OptCart.ids[prId]
 
                 var price = pr.price
-                if(OptCart.optStep > 0 )
-                    price = OptCart.ProductsDict[pr.id].optPrices[OptCart.optStep]
+                if(step > 0 )
+                    price = OptCart.ProductsDict[pr.id].optPrices[step]
                 ret += price*quan
             }
 
-            return ret
+            return Currency.calcPrice(ret)
         },
 
     },
@@ -181,15 +225,7 @@ var OptCart = {
 
 
 
-    setStep: function(step){
-        $('.product-price.price-step-'+OptCart.optStep).stop().css('background', 'none').removeClass('current-step')
 
-        OptCart.optStep = step
-        $('.product-price.price-step-'+step).addClass('current-step')
-        $('.product-price.price-step-'+step).css( 'background', '#FFEA00').animate( { backgroundColor: "#0669B3" } , 600)
-
-        OptCart.Notificator.update()
-    },
 
 
 

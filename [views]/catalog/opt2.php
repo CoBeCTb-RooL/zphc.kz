@@ -157,13 +157,15 @@ $productsDictJson = json_encode($productsDict);
                                         <div class="col img"><img src="<?=$product->photo ? Media::img($product->photo) : Funx::noPhotoSrc()?>&width=50" alt="" /></div>
                                         <div class="col info" style="text-align: left; ">
 
-                                                <div class="name"><?=$product->name?></div>
-                                                <div class="doze"><?=OptPrice::shortenDozeStr($product->inPackage)?></div>
-
+                                            <div class="name"><?=$product->name?></div>
+                                            <div class="doze"><?=OptPrice::shortenDozeStr($product->inPackage)?></div>
+                                            <div class="btn" onclick="/*productInfo(<?=$product->id?>); return false;*/ ">Смотреть цены</div>
                                         </div>
+
                                     </a>
 
                                 <div class="clear"></div>
+
                             </div>
 
 

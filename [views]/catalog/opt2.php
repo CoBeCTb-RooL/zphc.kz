@@ -351,7 +351,7 @@ $productsDictJson = json_encode($productsDict);
         <div class="inner">
             <a href="#" class="btn btn-minus" onclick="OptCart.Product.add(_ID_, -1); OptCart.Modal.drawCart(); return false; ">-</a>
             <div class="quan11">
-                <select name="" onchange="OptCart.Product.setQuan(_ID_, $(this).val()); OptCart.Modal.drawCart();" class="quan-_ID_">
+                <select name="" onchange="OptCart.Product.setQuan(_ID_, $(this).val()); OptCart.Modal.drawCart();" class="quan-_ID_" style="background: #fff; ">
                     <?for($i=1; $i<=200; $i++):?>
                         <option value="<?=$i?>"><?=$i?></option>
                     <?endfor;?>

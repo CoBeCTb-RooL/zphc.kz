@@ -321,20 +321,16 @@ var OptCart = {
             //  скелет корзины
             $('#optCartModal .modal-body').html($('#cartTmpl').html())
 
-
+            //  товары
             if(OptCart.data.quan > 0){
-                //  втыкаем ряд
-                for(var i in OptCart.ids){
-                    // alert(OptCart.ProductsDict[i].name)
+                for(var i in OptCart.ids)
                     $('#optCartModal .modal-body .items').append( OptCart.Modal.HTML.product(i)/*$('#optCartProductRowTmpl').html()*/ )
-                }
             }
 
             //  выставляем селекты
             for(var i in OptCart.ids){
                 $('.quan-'+i).val(OptCart.ids[i])
             }
-
         },
 
 
@@ -349,21 +345,30 @@ var OptCart = {
                 str = str.replace(/_PHOTO_/g, prod.photo);
                 // alert(str)
 
-                // alert(OptCart.Product.price(id))
 
+                //  разруливаем с ценами
                 var step = OptCart.step()
-
-                var pricePrimeSingle = prod.price
-                var priceOptSingle = step == 0 ? prod.price :  OptCart.ProductsDict[id].optPrices[step]
+                var pricePrimeSingle = Currency.calcPrice(prod.price)
+                var priceOptSingle = step == 0 ? pricePrimeSingle :  Currency.calcPrice(OptCart.ProductsDict[id].optPrices[step])
                 var pricePrimeTotal = pricePrimeSingle * OptCart.ids[id]
                 var priceOptTotal = priceOptSingle * OptCart.ids[id]
 
-                str = str.replace(/_PRICE_PRIME_SINGLE_/g, formatPrice(Currency.calcPrice(pricePrimeSingle))+''+Currency.current.sign);
-                str = str.replace(/_PRICE_OPT_SINGLE_/g, formatPrice(Currency.calcPrice(priceOptSingle))+''+Currency.current.sign);
-                str = str.replace(/_PRICE_PRIME_TOTAL_/g, formatPrice(Currency.calcPrice(pricePrimeTotal))+''+Currency.current.sign);
-                str = str.replace(/_PRICE_OPT_TOTAL_/g, formatPrice(Currency.calcPrice(priceOptTotal))+''+Currency.current.sign);
+                var primeSingleStr = step>0 ? formatPrice(pricePrimeSingle)+''+Currency.current.sign : ''
+                var primeTotalStr = step>0 ? formatPrice(pricePrimeTotal)+''+Currency.current.sign : ''
+
+                str = str.replace(/_PRICE_PRIME_SINGLE_/g, primeSingleStr);
+                str = str.replace(/_PRICE_OPT_SINGLE_/g, formatPrice(priceOptSingle)+''+Currency.current.sign);
+                str = str.replace(/_PRICE_PRIME_TOTAL_/g, primeTotalStr);
+                str = str.replace(/_PRICE_OPT_TOTAL_/g, formatPrice(priceOptTotal)+''+Currency.current.sign);
+                //  переносы строк цен, если надо
+                if(step > 0)
+                    str = str.replace(/_PRICE_BR_IF_NECESSARY_/g, '<br>');
+                else
+                    str = str.replace(/_PRICE_BR_IF_NECESSARY_/g, '');
 
 
+
+                //  разруливаем с ценами
                 var quanStr = $('#quansWrapperTmpl').html()
                 quanStr = quanStr.replace(/_ID_/g, id);
                 str = str.replace(/_QUAN_SECTION_/g, quanStr);

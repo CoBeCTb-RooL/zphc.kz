@@ -325,7 +325,7 @@ $productsDictJson = json_encode($productsDict);
             <a href="/catalog/item/_URL_PIECE_" target="_blank">_NAME_</a>
         </div>
         <div class="kol price" style="line-height: 100%; ">
-            <span class="old-price">_PRICE_PRIME_SINGLE_</span><br>
+            <span class="old-price">_PRICE_PRIME_SINGLE_</span>_PRICE_BR_IF_NECESSARY_
             <b>_PRICE_OPT_SINGLE_</b>
         </div>
         <div class="kol quan">
@@ -333,7 +333,7 @@ $productsDictJson = json_encode($productsDict);
 
         </div>
         <div class="kol final-price" style="line-height: 100%; ">
-            <span class="old-price">_PRICE_PRIME_TOTAL_</span><br>
+            <span class="old-price">_PRICE_PRIME_TOTAL_</span>_PRICE_BR_IF_NECESSARY_
             <b>_PRICE_OPT_TOTAL_</b>
         </div>
         <div class="kol delete">

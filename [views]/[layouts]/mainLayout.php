@@ -1,4 +1,4 @@
-<?$random = 13; ?>
+<?$random = 15; ?>
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -485,31 +485,6 @@ $(window).resize(function() {
 
   <!-- Modal -->
   <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-
-          <!-- Modal content-->
-          <div class="modal-content">
-              <div class="modal-header" style="text-align: center; ">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <img src="/img/logo.png" height="50" alt="" />
-              </div>
-              <div class="modal-body">
-                  ывффыв
-              </div>
-              <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
-              </div> -->
-          </div>
-
-      </div>
-  </div>
-
-
-
-
-
-  <!-- Modal -->
-  <div id="optCartModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
           <!-- Modal content-->

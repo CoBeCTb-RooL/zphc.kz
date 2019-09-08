@@ -324,7 +324,7 @@ var OptCart = {
             //  товары
             if(OptCart.data.quan > 0){
                 for(var i in OptCart.ids)
-                    $('#optCartModal .modal-body .items').append( OptCart.Modal.HTML.product(i)/*$('#optCartProductRowTmpl').html()*/ )
+                    $('#optCartModal .modal-body .items').append( OptCart.Modal.HTML.product(i))
             }
             else
                 $('#optCartModal .modal-body .items').html('Корзина пуста.')
@@ -333,6 +333,11 @@ var OptCart = {
             for(var i in OptCart.ids){
                 $('.quan-'+i).val(OptCart.ids[i])
             }
+
+            //  ИТОГО
+            var overallStr = $('#overallTmpl').html()
+            overallStr = overallStr.replace(/_SUM_/g, OptCart.data.sumStr);
+            $('#optCartModal .modal-body .overall-wrapper').html(  overallStr  )
         },
 
 

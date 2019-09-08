@@ -302,6 +302,31 @@ $productsDictJson = json_encode($productsDict);
 
 
 
+<!-- Modal -->
+<div id="optCartModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="text-align: center; ">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <img src="/img/logo.png" height="50" alt="" />
+            </div>
+            <div class="modal-body">
+                ывффыв
+            </div>
+            <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
+            </div> -->
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
 <!--cart TMPLs-->
 <div id="cartTmpl" style="display: none; ">
     <div class="cart">
@@ -310,7 +335,10 @@ $productsDictJson = json_encode($productsDict);
                 <div class="block1 cart-individuals1" >
                     <div class="items"></div>
                 </div>
+                <hr>
+                <div class="overall-wrapper" ></div>
             </div>
+
         </div>
     </div>
 </div>
@@ -337,7 +365,7 @@ $productsDictJson = json_encode($productsDict);
             <b>_PRICE_OPT_TOTAL_</b>
         </div>
         <div class="kol delete">
-            <a href="#delete" title="Убрать товар" onclick="if(confirm('Убрать товар из корзины?')){alert('AA (это тоже вопрос)'); return false; ">
+            <a href="#delete" title="Убрать товар" onclick="if(confirm('Убрать товар из корзины?')){OptCart.Product.setQuan(_ID_, 0); OptCart.Modal.drawCart();} return false; ">
                 <span class="word-delete"> <span style="font-size: 20px; font-weight: bold; line-height:50%; vertical-align: middle;  display: inline-block;   border: 0px solid red;   font-size: 30px;  ">×</span> <span style="display: inline-block; vertical-align: middle;">убрать из корзины</span></span>
                 <span class="x">×</span>
             </a>
@@ -359,7 +387,14 @@ $productsDictJson = json_encode($productsDict);
             </div>
             <a href="#" class="btn btn-plus" onclick="OptCart.Product.add(_ID_); OptCart.Modal.drawCart(); return false; ">+</a>
         </div>
-<!--        <a href="#" style="font-size: 12px; " onclick="if(confirm('Убрать товар?')){OptCart.Product.setQuan(_ID_, 0); } return false; ">&times; убрать</a>-->
+    </div>
+</div>
+
+
+<div id="overallTmpl" style="display: none; ">
+    <div class="overall">
+        <div class="lbl">Итого товаров на сумму: </div>
+        <b>_SUM_</b>
     </div>
 </div>
 

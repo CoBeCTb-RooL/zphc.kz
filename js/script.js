@@ -9,9 +9,17 @@ var Currency = {
 
 	calcPrice: function(priceInBucks, currencyCode) {
 		currencyCode = currencyCode || Currency.current.code
-		ret = (priceInBucks * Currency.items[currencyCode].coef).toFixed(2)
+		ret = (parseFloat(priceInBucks).toFixed(2) * Currency.items[currencyCode].coef).toFixed(2)
 		return ret
-	}
+	},
+
+	price: function(sum, currencyCode){
+		currencyCode = currencyCode || Currency.current.code
+
+		var cur = this.items[currencyCode]
+		var str = formatPrice(this.calcPrice(sum, currencyCode))+''+cur.sign
+		return str
+	},
 }
 
 

@@ -568,6 +568,7 @@ class ProductSimple
             $ret = [];
             $ret['id'] = $this->id;
             $ret['name'] = $this->name;
+            $ret['photo'] = $this->photo;
             $ret['inPackage'] = $this->inPackage;
             $ret['inPackage'] = OptPrice::shortenDozeStr($this->inPackage);
             $ret['price'] = $this->price;

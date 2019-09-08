@@ -6,6 +6,8 @@ var OptCart = {
     optStep: 0,
     ids: [],
 
+    data: {},
+
     ProductsDict: {},
 
 
@@ -37,6 +39,16 @@ var OptCart = {
             // alert(step+' = '+ OptCart.Calc.cartSum(step))
 
             SlonneDev.cart();
+        },
+
+        price: function(productId, step){
+            step = step || 0
+            // if(typeof step == 'undefined')
+            //     step = 0
+            alert(step)
+
+
+
         },
 
     },
@@ -99,7 +111,8 @@ var OptCart = {
                 obj.find('.quans-wrapper').slideUp('fast')
             },
             setValue: function(id, quan){
-                $('.product-row-'+id+' select').val(quan)
+                // $('.product-row-'+id+' select').val(quan)
+                $('.quan-'+id).val(quan)
             },
         },
     },
@@ -172,6 +185,8 @@ var OptCart = {
             // ret.sumInCurrency = Currency.calcPrice(ret.sum)
             ret.sumStr = formatPrice(ret.sumInCurrency)+' '+Currency.current.sign
 
+            OptCart.data = ret
+
             return ret;
         },
 
@@ -235,6 +250,137 @@ var OptCart = {
                     OptCartNotification.show()
             }
         }
+    },
+
+
+
+
+    Modal: {
+        show: function(){
+            // $('#optCartModal .modal-body').html($('#cartModalTmpl').html())
+            $('#optCartModal').modal('show');
+
+            this.drawCart()
+        },
+
+        drawCart: function(){
+
+            return this.drawCart2()
+            // var str = ''
+            // str+=''
+            //     +'<div class="cart">'
+            //     +'    <div id="products">'
+            //     +'        <div class="products-wrapper">'
+            //     +'            <div class="block1 cart-individuals1">'
+            //     +'                <div class="item">'
+            //     +'                    <div class="kol title">'
+            //     +'		<span class=" pic">'
+            //     +'			<a href="/catalog/item/16_methandienone" target="_blank" title="Methandienone"><img src="/include/resize.slonne.php?img=../upload/images/catalogSimple/0641_5aed99019eaa0.jpg&amp;width=500" alt="Methandienone"></a>'
+            //     +'		</span>'
+            //     +'                        <a href="/catalog/item/16_methandienone" target="_blank">Methandienone</a>'
+            //     +'                    </div>'
+            //     +'                    <div class="kol price" style="line-height: 100%; ">'
+            //     +'                        <span class="old-price">7 747,13 <span class="arial-narrow-tenge" style="font-weight: normal; ">т</span></span><br>'
+            //     +'                        <b>5 422,99 <span class="arial-narrow-tenge" style="font-weight: normal; ">т</span></b>'
+            //     +'                    </div>'
+            //     +'                    <div class="kol quan">'
+            //     +'                        <div class="val">'
+            //     +'                            <a href="#" class="change-quan-btn" onclick="addQuan(16, -1); return false; " title="убрать">–</a>'
+            //     +'                            ×3			<a href="#" class="change-quan-btn" onclick="addQuan(16, 1);return false; " title="добавить">+</a>'
+            //     +'                        </div>'
+            //     +'                    </div>'
+            //     +'                    <div class="kol final-price" style="line-height: 100%; ">'
+            //     +'                        <span class="old-price">23 241,39 <span class="arial-narrow-tenge" style="font-weight: normal; ">т</span></span><br>'
+            //     +''
+            //     +'                        <b>16 268,97 <span class="arial-narrow-tenge" style="font-weight: normal; ">т</span></b>'
+            //     +'                    </div>'
+            //     +'                    <div class="kol delete">'
+            //     +'                        <a href="#delete" title="Убрать товар" onclick="if(confirm(\'Убрать товар из корзины?\')){addQuan(16, -3)}; return false; ">'
+            //     +'                            <span class="word-delete"> <span style="font-size: 20px; font-weight: bold; line-height:50%; vertical-align: middle;  display: inline-block;   border: 0px solid red;   font-size: 30px;  ">×</span> <span style="display: inline-block; vertical-align: middle;">убрать из корзины</span></span>'
+            //     +'                            <span class="x">×</span>'
+            //     +'                        </a>'
+            //     +'                    </div>'
+            //     +'                </div>'
+            //     +'                <hr>'
+            //     +'                <div class="overall">'
+            //     +'                    <div class="lbl">Итого товаров на сумму: </div>'
+            //     +'                    <b>{{(cart.data.sum)}}</b>'
+            //     +'                </div>'
+            //     +'            </div>'
+            //     +'        </div>'
+            //     +'    </div>'
+            //     +'</div>';
+            //
+            //
+            //     $('#optCartModal .modal-body').html(str)
+            //     return str
+        },
+
+
+        drawCart2: function(){
+            //  скелет корзины
+            $('#optCartModal .modal-body').html($('#cartTmpl').html())
+
+
+            if(OptCart.data.quan > 0){
+                //  втыкаем ряд
+                for(var i in OptCart.ids){
+                    // alert(OptCart.ProductsDict[i].name)
+                    $('#optCartModal .modal-body .items').append( OptCart.Modal.HTML.product(i)/*$('#optCartProductRowTmpl').html()*/ )
+                }
+            }
+
+            //  выставляем селекты
+            for(var i in OptCart.ids){
+                $('.quan-'+i).val(OptCart.ids[i])
+            }
+
+        },
+
+
+        HTML: {
+            product: function(id){
+                var prod = OptCart.ProductsDict[id];
+                var str = $('#optCartProductRowTmpl').html()
+
+                str = str.replace(/_ID_/g, prod.id);
+                str = str.replace(/_URL_PIECE_/g, prod.id);
+                str = str.replace(/_NAME_/g, prod.name);
+                str = str.replace(/_PHOTO_/g, prod.photo);
+                // alert(str)
+
+                // alert(OptCart.Product.price(id))
+
+                var step = OptCart.step()
+
+                var pricePrimeSingle = prod.price
+                var priceOptSingle = step == 0 ? prod.price :  OptCart.ProductsDict[id].optPrices[step]
+                var pricePrimeTotal = pricePrimeSingle * OptCart.ids[id]
+                var priceOptTotal = priceOptSingle * OptCart.ids[id]
+
+                str = str.replace(/_PRICE_PRIME_SINGLE_/g, formatPrice(Currency.calcPrice(pricePrimeSingle))+''+Currency.current.sign);
+                str = str.replace(/_PRICE_OPT_SINGLE_/g, formatPrice(Currency.calcPrice(priceOptSingle))+''+Currency.current.sign);
+                str = str.replace(/_PRICE_PRIME_TOTAL_/g, formatPrice(Currency.calcPrice(pricePrimeTotal))+''+Currency.current.sign);
+                str = str.replace(/_PRICE_OPT_TOTAL_/g, formatPrice(Currency.calcPrice(priceOptTotal))+''+Currency.current.sign);
+
+
+                var quanStr = $('#quansWrapperTmpl').html()
+                quanStr = quanStr.replace(/_ID_/g, id);
+                str = str.replace(/_QUAN_SECTION_/g, quanStr);
+
+
+
+                // alert(step)
+                // if(OptCart.)
+
+                // var price = OptCart.ProductsDict[pr.id].optPrices[OptCart.OptStep.current]
+                // ret.sumInCurrency += Currency.calcPrice(price)*quan
+
+                return str
+            },
+        },
+
+
     },
 
 

@@ -31,10 +31,25 @@ $productsDictJson = json_encode($productsDict);
 
 
 <?ob_start()?>
+
+<!-- development version, includes helpful console warnings -->
+<!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
 <script>
+
     OptCart.ProductsDict = <?=$productsDictJson?>;
     OptCart.OptStep.steps = <?=json_encode(array_keys(ProductSimple::$optPrices))?>;
     OptCart.State.load();
+
+
+</script>
+<script>
+    var app = new Vue({
+        el: '#cartModalTmpl',
+        data: {
+            message: 'Hello Vue!',
+            cart: OptCart
+        }
+    })
 </script>
 <?$CONTENT->section('documentReadyJs', ob_get_clean())?>
 
@@ -103,7 +118,7 @@ $productsDictJson = json_encode($productsDict);
                                     <div class="inner">
                                         <a href="#" class="btn btn-minus" onclick="OptCart.Product.add(<?=$product->id?>, -1); return false; ">-</a>
                                         <div class="quan">
-                                            <select name="" onchange="OptCart.Product.setQuan(<?=$product->id?>, $(this).val())">
+                                            <select name="" onchange="OptCart.Product.setQuan(<?=$product->id?>, $(this).val())" class="quan-<?=$product->id?>">
                                                 <?for($i=1; $i<=200; $i++):?>
                                                 <option value="<?=$i?>"><?=$i?></option>
                                                 <?endfor;?>
@@ -201,7 +216,7 @@ $productsDictJson = json_encode($productsDict);
                                             <div class="inner">
                                                 <a href="#" class="btn btn-minus" onclick="OptCart.Product.add(<?=$product->id?>, -1); return false; ">-</a>
                                                 <div class="quan">
-                                                    <select name="" onchange="OptCart.Product.setQuan(<?=$product->id?>, $(this).val())">
+                                                    <select name="" onchange="OptCart.Product.setQuan(<?=$product->id?>, $(this).val())" class="quan-<?=$product->id?>">
                                                         <?for($i=1; $i<=200; $i++):?>
                                                             <option value="<?=$i?>"><?=$i?></option>
                                                         <?endfor;?>
@@ -260,7 +275,7 @@ $productsDictJson = json_encode($productsDict);
                 <div class="r cart-row">
                     <nobr>Товаров в корзине: <b class="cart-quan">??</b></nobr>
                     <br><nobr>на сумму: <b class="cart-sum">??</b></nobr>
-                    <div style="margin: 4px 0 0 0; "><a href="{{\App\Models\Cart::isJs() ? route('cart2') : route('cart')}}" class="btn orange ">Перейти в корзину</a></div>
+                    <div style="margin: 4px 0 0 0; "><a href="#" onclick="OptCart.Modal.show(); " class="btn orange ">Перейти в корзину</a></div>
                 </div>
             </div>
         </div>
@@ -282,3 +297,72 @@ $productsDictJson = json_encode($productsDict);
     </div>
 </div>
 <!--//notifications-->
+
+
+
+
+
+<!--cart TMPLs-->
+<div id="cartTmpl" style="display: none; ">
+    <div class="cart">
+        <div id="products">
+            <div class="products-wrapper">
+                <div class="block1 cart-individuals1" >
+                    <div class="items"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="optCartProductRowTmpl" style="display: none; ">
+    <div class="item " id="cart-item-_ID_">
+        <div class="kol title">
+		<span class=" pic">
+			<a href="/catalog/item/_URL_PIECE_" target="_blank" title="_NAME_"><img src="/include/resize.slonne.php?img=../upload/images/_PHOTO_&amp;width=500" alt="_NAME_"></a>
+		</span>
+            <a href="/catalog/item/_URL_PIECE_" target="_blank">_NAME_</a>
+        </div>
+        <div class="kol price" style="line-height: 100%; ">
+            <span class="old-price">_PRICE_PRIME_SINGLE_</span><br>
+            <b>_PRICE_OPT_SINGLE_</b>
+        </div>
+        <div class="kol quan">
+            <div style="display: inline-block;">_QUAN_SECTION_</div>
+
+        </div>
+        <div class="kol final-price" style="line-height: 100%; ">
+            <span class="old-price">_PRICE_PRIME_TOTAL_</span><br>
+            <b>_PRICE_OPT_TOTAL_</b>
+        </div>
+        <div class="kol delete">
+            <a href="#delete" title="Убрать товар" onclick="if(confirm('Убрать товар из корзины?')){alert('AA (это тоже вопрос)'); return false; ">
+                <span class="word-delete"> <span style="font-size: 20px; font-weight: bold; line-height:50%; vertical-align: middle;  display: inline-block;   border: 0px solid red;   font-size: 30px;  ">×</span> <span style="display: inline-block; vertical-align: middle;">убрать из корзины</span></span>
+                <span class="x">×</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div id="quansWrapperTmpl" style="display: none; ">
+    <div class="quans-wrapper" >
+        <div class="inner">
+            <a href="#" class="btn btn-minus" onclick="OptCart.Product.add(_ID_, -1); OptCart.Modal.drawCart(); return false; ">-</a>
+            <div class="quan11">
+                <select name="" onchange="OptCart.Product.setQuan(_ID_, $(this).val()); OptCart.Modal.drawCart();" class="quan-_ID_">
+                    <?for($i=1; $i<=200; $i++):?>
+                        <option value="<?=$i?>"><?=$i?></option>
+                    <?endfor;?>
+                </select>
+            </div>
+            <a href="#" class="btn " onclick="OptCart.Product.add(_ID_); OptCart.Modal.drawCart(); return false; ">+</a>
+        </div>
+<!--        <a href="#" style="font-size: 12px; " onclick="if(confirm('Убрать товар?')){OptCart.Product.setQuan(_ID_, 0); } return false; ">&times; убрать</a>-->
+    </div>
+</div>
+
+<!--/cart TMPLs-->
+
+

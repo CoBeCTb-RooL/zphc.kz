@@ -31,11 +31,10 @@ var OptCart = {
             OptCart.State.save()
 
             OptCart.Notificator.update()
-            var step = OptCart.OptStep.getStepBySum(OptCart.Calc.info().sum)
-            if(step != OptCart.OptStep.current)
-                OptCart.OptStep.setStep(step)
+            var step = OptCart.stepBySum()
+            if(step != OptCart.step())
+                OptCart.step(step)
             // alert(step+' = '+ OptCart.Calc.cartSum(step))
-
 
             SlonneDev.cart();
         },
@@ -51,12 +50,9 @@ var OptCart = {
 
         getStepBySum: function(sumInBucks){
             var step = 0;
-            // alert(sumInBucks);
-            // alert(vd(OptCart.OptStep.steps, true))
-            // console.log(OptCart.OptStep.steps)
-
-            var sum = OptCart.Calc.cartSum()
-            // alert(sum)
+            var sum = sumInBucks
+            if(typeof sumInBucks == 'undefined')
+                sum = OptCart.Calc.cartSum()
             if(sum < OptCart.OptStep.steps[0])
                 return step;
 
@@ -71,7 +67,7 @@ var OptCart = {
 
 
         setStep: function(step){
-            $('.product-price.price-step-'+OptCart.OptStep.current).stop().css('background', 'none').removeClass('current-step')
+            $('.product-price.price-step-'+OptCart.step()).stop().css('background', 'none').removeClass('current-step')
 
             OptCart.OptStep.current = step
             $('.product-price.price-step-'+step).addClass('current-step')
@@ -121,7 +117,12 @@ var OptCart = {
             obj = localStorage[this.COOKIE_CART_KEY] ? JSON.parse(localStorage[this.COOKIE_CART_KEY]) : {}
             OptCart.ids = obj.ids || {}
             this.normalize();
+
             OptCart.UI.Table.init()
+
+            OptCart.step(OptCart.stepBySum())
+
+            OptCart.Notificator.update()
         },
         normalize: function(){  //  вычистить несуществующие товары
             for(var i in OptCart.ids)
@@ -189,7 +190,7 @@ var OptCart = {
                 ret += price*quan
             }
 
-            return Currency.calcPrice(ret)
+            return ret.toFixed(2)
         },
 
     },
@@ -223,6 +224,23 @@ var OptCart = {
     },
 
 
+
+
+
+
+    /////////////////////////////////////////////
+    sum: function(step){
+        return OptCart.Calc.cartSum(step)
+    },
+    stepBySum: function(sum){
+        return OptCart.OptStep.getStepBySum(sum)
+    },
+    step: function(step){
+        if(typeof step == 'undefined')
+            return OptCart.OptStep.current
+        else
+            OptCart.OptStep.setStep(step)
+    },
 
 
 

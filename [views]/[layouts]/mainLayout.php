@@ -1,3 +1,4 @@
+<?$random = 4; ?>
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -23,8 +24,8 @@
 	<script type="text/javascript" src="/js/libs/jquery-ui.1.11.4.min.js"></script>
 <!--      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>-->
 
-	<script type="text/javascript" src="/js/common.js"></script>
-	<script type="text/javascript" src="/js/script.js"></script>
+	<script type="text/javascript" src="/js/common.js?<?=$random?>"></script>
+	<script type="text/javascript" src="/js/script.js?<?=$random?>"></script>
 	<!--кабинет-->
 	<script src="/js/slonne.cabinet.js" type="text/javascript"></script>
 	
@@ -39,7 +40,7 @@
     <link href="/css/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!--LESS-->
-	<link rel="stylesheet/less" type="text/css" href="/css/style.less?2" />
+	<link rel="stylesheet/less" type="text/css" href="/css/style.less?<?=$random?>" />
 	<!-- <link href="/css/style.css" rel="stylesheet"> -->
 	<script src="/js/libs/less/less-1.7.3.min.js" type="text/javascript"></script>
 
@@ -541,17 +542,18 @@ ga('send', 'pageview');
   </script>
 
 
-  <script type="text/javascript" src="/js/optCart.js"></script>
-  <script type="text/javascript" src="/js/OptCartNotification.js"></script>
-  <script type="text/javascript" src="/js/slonne.dev.js"></script>
+  <script type="text/javascript" src="/js/optCart.js?<?=$random?>"></script>
+  <script type="text/javascript" src="/js/OptCartNotification.js?<?=$random?>"></script>
+  <script type="text/javascript" src="/js/slonne.dev.js?<?=$random?>"></script>
 
 
   <?=$CONTENT->section('documentReadyJs')?>
 
   <script>
       $(document).ready(function(){
-          OptCartNotification.showBookmark()
-          OptCartNotification.updateInfo(true)
+          // OptCartNotification.showBookmark()
+          OptCart.Notificator.update()
+          // OptCartNotification.updateInfo(true)
       })
   </script>
     

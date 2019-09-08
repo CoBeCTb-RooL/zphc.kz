@@ -30,42 +30,14 @@ $productsDictJson = json_encode($productsDict);
 
 
 
-<!--<script type="text/javascript" src="/js/optCart.js"></script>-->
-<!--<script type="text/javascript" src="/js/optCartNotification.js"></script>-->
-<!--<script>-->
-<!--    $(document).ready(function(){-->
-<!--        OptCartNotification.showBookmark()-->
-<!--        OptCartNotification.updateInfo(true)-->
-<!--    })-->
-<!--</script>-->
-
-<?//vd ($productsDictJson)?>
-
-<?//vd($CONTENT)?>
 <?ob_start()?>
 <script>
-    // $(document).ready(function(){
-
     OptCart.ProductsDict = <?=$productsDictJson?>;
     OptCart.OptStep.steps = <?=json_encode(array_keys(ProductSimple::$optPrices))?>;
     OptCart.State.load();
-
-    OptCart.OptStep.current = 0
-    var step = OptCart.OptStep.getStepBySum(OptCart.Calc.info().sum)
-
-    if(step != OptCart.OptStep.current){
-        OptCart.OptStep.setStep(step)
-    }
-
-    OptCart.Notificator.update()
-
-        // OptCart.ids[9999] = 88
-        // alert(vd(OptCart.ProductsDict, true))
-    // })
 </script>
 <?$CONTENT->section('documentReadyJs', ob_get_clean())?>
 
-<?//vd($CONTENT)?>
 
 
 <script>
@@ -192,18 +164,63 @@ $productsDictJson = json_encode($productsDict);
                                     </a>
 
                                 <div class="clear"></div>
+                            </div>
+
+
+
+
+
+                            <div class=" prices">
+
+
+
+                                <div class="price-row">
+                                    <div class="product-price price-step-0"><?=Currency::drawAllCurrenciesPrice($product->price)?></div>
                                 </div>
-                                <div class=" prices">
                                 <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
                                     <?if(!$isShown)continue;?>
-                                    <div class="price">
+                                    <div class="price-row">
+                                        <div class=" product-price price-step-<?=$sum?>">
                                         <?=$product->optPricesArr[$sum] ? Currency::drawAllCurrenciesPrice($product->optPricesArr[$sum]) : ' -нет- '?>
+                                        </div>
+                                    <?if($product->optPricesArr[$sum]):?>
+                                        <div class="hint">(при заказе &ge;<?=Currency::drawAllCurrenciesPrice($sum)?>)</div>
+                                    <?endif;?>
                                     </div>
                                 <?endforeach;?>
+
+
+                                <div style="display: inline-block; text-align: center; border: 0px solid green; float: left; ">
+                                    <div class="inner" style="margin: 10px 0 10px 20px;    border: 0px solid red; display: inline-block; ">
+                                        <div class="to-cart-btn-wrapper" >
+                                            <input type="button" class="btn-small" value="В корзину" onclick="OptCart.Product.add(<?=$product->id?>)">
+                                        </div>
+                                        <div class="quans-wrapper" style="display: none; ">
+                                            <div class="inner">
+                                                <a href="#" class="btn btn-minus" onclick="OptCart.Product.add(<?=$product->id?>, -1); return false; ">-</a>
+                                                <div class="quan">
+                                                    <select name="" onchange="OptCart.Product.setQuan(<?=$product->id?>, $(this).val())">
+                                                        <?for($i=1; $i<=200; $i++):?>
+                                                            <option value="<?=$i?>"><?=$i?></option>
+                                                        <?endfor;?>
+                                                    </select>
+                                                </div>
+                                                <a href="#" class="btn " onclick="OptCart.Product.add(<?=$product->id?>); return false; ">+</a>
+                                            </div>
+
+                                            <a href="#" style="font-size: 12px; " onclick="if(confirm('Убрать товар?')){OptCart.Product.setQuan(<?=$product->id?>, 0); } return false; ">&times; убрать</a>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="clear"></div>
+
 
                             </div>
-                            <?endforeach;?>
+
+
+
+                        </div>
+                        <?endforeach;?>
 
 
                         <?endforeach;?>
@@ -229,7 +246,7 @@ $productsDictJson = json_encode($productsDict);
                     <span class="arr open" style="display: none; ">&lt;</span>
                     <span class="arr close1" style="display: none; ">&gt;</span>
                     <span class="inf">
-                        <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size: 1.2em; "></i>: <span class="val cart-quan">5</span>
+                        <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size: 1.2em; "></i>: <span class="val cart-quan">??</span>
                     </span>
                 </span>
                 <span class="loading" style="display: none; "><img src="/img/preloader-white.gif" alt="" height="23"></span>
@@ -246,7 +263,7 @@ $productsDictJson = json_encode($productsDict);
             </div>
         </div>
 
-        <div class="btns" style="display: ; ">
+        <div class="btns" style="display: none; ">
             <button onclick="OptCartNotification.quake()">quake</button><br>
             <button onclick="OptCartNotification.loading()">loa 1</button><br>
             <button onclick="OptCartNotification.loading(false)">loa 0</button><br>

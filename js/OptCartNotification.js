@@ -86,30 +86,30 @@ OptCartNotification = {
 
 
 
-    updateInfo: function(show){
-        if(typeof show == 'undefined')
-            show = false
-
-        $.ajax({
-            url:'/profile/getOptCartNotificationsJSON',
-            dataType: 'json',
-            beforeSend: function(){ OptCartNotification.loading(); OptCartNotification.showBookmark();  },
-            complete: function(){OptCartNotification.loading(false); },
-            success: function(data){
-                if(data.cart.info.totalQuan == 0){
-                    OptCartNotification.showBookmark(false)
-                    OptCartNotification.hide()
-                    return
-                }
-                OptCartNotification.quake()
-                if(show)
-                    OptCartNotification.show()
-                OptCartNotification.setCartQuan(data.cart.info.totalQuan)
-                OptCartNotification.setCartSum(data.cart.info.totalPrice)
-            },
-            error: function(){ /*alert('Возникла ошибка на сервере.. Пожалуйста, попробуйте позднее')*/ }
-        })
-    },
+    // updateInfo: function(show){
+    //     if(typeof show == 'undefined')
+    //         show = false
+    //
+    //     $.ajax({
+    //         url:'/profile/getOptCartNotificationsJSON',
+    //         dataType: 'json',
+    //         beforeSend: function(){ OptCartNotification.loading(); OptCartNotification.showBookmark();  },
+    //         complete: function(){OptCartNotification.loading(false); },
+    //         success: function(data){
+    //             if(data.cart.info.totalQuan == 0){
+    //                 OptCartNotification.showBookmark(false)
+    //                 OptCartNotification.hide()
+    //                 return
+    //             }
+    //             OptCartNotification.quake()
+    //             if(show)
+    //                 OptCartNotification.show()
+    //             OptCartNotification.setCartQuan(data.cart.info.totalQuan)
+    //             OptCartNotification.setCartSum(data.cart.info.totalPrice)
+    //         },
+    //         error: function(){ /*alert('Возникла ошибка на сервере.. Пожалуйста, попробуйте позднее')*/ }
+    //     })
+    // },
 
 
 

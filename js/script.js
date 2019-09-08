@@ -17,7 +17,7 @@ var Currency = {
 
 
 function formatPrice(n) {
-	// alert(n)
+	n = Number.parseFloat(n)
 	var tmp =n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 ")
 	if(n % 1 == 0)
 	{

@@ -179,6 +179,8 @@ var OptCart = {
         cartSum: function(step){
             if(typeof step == 'undefined')
                 step = OptCart.OptStep.current
+            // alert(step)
+
             ret = 0
             for(var prId in OptCart.ids){
                 var pr = OptCart.ProductsDict[prId]
@@ -189,6 +191,7 @@ var OptCart = {
                     price = OptCart.ProductsDict[pr.id].optPrices[step]
                 ret += price*quan
             }
+            // alert(ret)
 
             return ret.toFixed(2)
         },
@@ -206,10 +209,21 @@ var OptCart = {
 
         setData: function(data, show)
         {
+            // alert(Currency.calcPrice(OptCart.sum(0)))
+            // alert(formatPrice(Currency.calcPrice(OptCart.sum(0))))
             show = show || false
 
             OptCartNotification.setCartQuan(data.quan)
-            OptCartNotification.setCartSum(data.sumStr)
+            // alert(data.sumStr)
+            var sumStr = data.sumStr
+            if(OptCart.step() > 0){
+                //sumStr = OptCart.sum(0)
+                sumStr = '<span style="text-decoration: line-through; font-size: .9em; font-weight: normal; ">'+formatPrice(Currency.calcPrice(OptCart.sum(0)))+''+Currency.current.sign+'</span><br>'
+                        + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '
+                        + sumStr
+            }
+
+            OptCartNotification.setCartSum(sumStr)
             if(data.quan == 0){
                 OptCartNotification.showBookmark(false)
                 OptCartNotification.hide()

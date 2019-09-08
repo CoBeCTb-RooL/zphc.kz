@@ -326,6 +326,8 @@ var OptCart = {
                 for(var i in OptCart.ids)
                     $('#optCartModal .modal-body .items').append( OptCart.Modal.HTML.product(i)/*$('#optCartProductRowTmpl').html()*/ )
             }
+            else
+                $('#optCartModal .modal-body .items').html('Корзина пуста.')
 
             //  выставляем селекты
             for(var i in OptCart.ids){

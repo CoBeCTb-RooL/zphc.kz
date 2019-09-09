@@ -1,14 +1,20 @@
-
 var OptCart = {
 
     COOKIE_CART_KEY: 'optCart',
 
-    optStep: 0,
-    ids: [],
+    ids: [],            //  инфа о корзине
 
-    data: {},
+    data: {},           //  текущее состояние корзины (суммы, количества и тд)
 
-    ProductsDict: {},
+    settings: {},       //  настройки, типа ЦЕНЫ ДОСТАВКИ и тд
+
+    Dict: {             //  словари
+        products: [],
+        deliveryTypes: [],
+        paymentTypes: [],
+    },
+
+    formData: {},
 
 
 
@@ -77,7 +83,6 @@ var OptCart = {
             return step;
         },
 
-
         setStep: function(step){
             $('.product-price.price-step-'+OptCart.step()).stop().css('background', 'none').removeClass('current-step')
 
@@ -139,7 +144,7 @@ var OptCart = {
         },
         normalize: function(){  //  вычистить несуществующие товары
             for(var i in OptCart.ids)
-                if (typeof OptCart.ProductsDict[i] == 'undefined' || OptCart.ids[i] <= 0)
+                if (typeof OptCart.Dict.products[i] == 'undefined' || OptCart.ids[i] <= 0)
                     delete OptCart.ids[i]
         },
     },
@@ -163,7 +168,7 @@ var OptCart = {
             }
 
             for(var prId in OptCart.ids){
-                var pr = OptCart.ProductsDict[prId]
+                var pr = OptCart.Dict.products[prId]
                 var quan = OptCart.ids[prId]
                 ret.quan += quan
 
@@ -172,7 +177,7 @@ var OptCart = {
                 ret.baseSumInCurrency +=  Currency.calcPrice(price)*quan
 
                 if(OptCart.OptStep.current > 0 )
-                    price = OptCart.ProductsDict[pr.id].optPrices[OptCart.OptStep.current]
+                    price = OptCart.Dict.products[pr.id].optPrices[OptCart.OptStep.current]
 
                 ret.sumInCurrency += Currency.calcPrice(price)*quan
             }
@@ -198,12 +203,12 @@ var OptCart = {
 
             ret = 0
             for(var prId in OptCart.ids){
-                var pr = OptCart.ProductsDict[prId]
+                var pr = OptCart.Dict.products[prId]
                 var quan = OptCart.ids[prId]
 
                 var price = pr.price
                 if(step > 0 )
-                    price = OptCart.ProductsDict[pr.id].optPrices[step]
+                    price = OptCart.Dict.products[pr.id].optPrices[step]
                 ret += price*quan
             }
             // alert(ret)
@@ -319,10 +324,11 @@ var OptCart = {
 
         drawCart2: function(){
             //  скелет корзины
-            $('#optCartModal .modal-body').html($('#cartTmpl').html())
+            //$('#optCartModal .modal-body').html($('#cartTmpl').html())
 
             //  товары
             if(OptCart.data.quan > 0){
+                $('#optCartModal .modal-body .items').empty()
                 for(var i in OptCart.ids)
                     $('#optCartModal .modal-body .items').append( OptCart.Modal.HTML.product(i))
             }
@@ -338,12 +344,25 @@ var OptCart = {
             var overallStr = $('#overallTmpl').html()
             overallStr = overallStr.replace(/_SUM_/g, OptCart.data.sumStr);
             $('#optCartModal .modal-body .overall-wrapper').html(  overallStr  )
+
+
+            //  плюс ещё места, где нужно вывести цену
+            $('.price-for-all-products').html(OptCart.data.sumStr)
+
+
+            if(typeof OptCart.formData != undefined && typeof OptCart.formData.deliveryType != undefined)
+                OptCart.switchDeliveryType(OptCart.formData.deliveryType)
+
+            // alert(OptCart.data.sumInCurrency)
+            // alert(Currency.calcPrice(OptCart.formData.deliveryCost))
+
+            OptCart.showFinalPrice()
         },
 
 
         HTML: {
             product: function(id){
-                var prod = OptCart.ProductsDict[id];
+                var prod = OptCart.Dict.products[id];
                 var str = $('#optCartProductRowTmpl').html()
 
                 str = str.replace(/_ID_/g, prod.id);
@@ -356,7 +375,7 @@ var OptCart = {
                 //  разруливаем с ценами
                 var step = OptCart.step()
                 var pricePrimeSingle = Currency.calcPrice(prod.price)
-                var priceOptSingle = step == 0 ? pricePrimeSingle :  Currency.calcPrice(OptCart.ProductsDict[id].optPrices[step])
+                var priceOptSingle = step == 0 ? pricePrimeSingle :  Currency.calcPrice(OptCart.Dict.products[id].optPrices[step])
                 var pricePrimeTotal = pricePrimeSingle * OptCart.ids[id]
                 var priceOptTotal = priceOptSingle * OptCart.ids[id]
 
@@ -385,7 +404,7 @@ var OptCart = {
                 // alert(step)
                 // if(OptCart.)
 
-                // var price = OptCart.ProductsDict[pr.id].optPrices[OptCart.OptStep.current]
+                // var price = OptCart.Dict.products[pr.id].optPrices[OptCart.OptStep.current]
                 // ret.sumInCurrency += Currency.calcPrice(price)*quan
 
                 return str
@@ -393,6 +412,41 @@ var OptCart = {
         },
 
 
+    },
+
+
+
+
+    switchPaymentType: function(type){
+        OptCart.formData.paymentType = type
+        var p = OptCart.Dict.paymentTypes[type]
+        $('.order-info .paymentType .val').html('<img  src="'+p.icon+'" alt=""  width="58" /> '+p.name)
+        $('.order-info .paymentType').slideDown('fast');
+    },
+    switchDeliveryType: function(type){
+        OptCart.formData.deliveryType = type
+        OptCart.formData.deliveryCost = 0
+        var p = OptCart.Dict.deliveryTypes[type]
+        if(typeof p == 'undefined')
+            return
+        var str = p.name
+
+        if(type != 'pickup'){
+            if(OptCart.data.sum < OptCart.settings.orderSumForFreeDelivery) {
+                str += '<span style="font-weight: normal; "> (' + formatPrice(Currency.calcPrice(OptCart.settings.deliveryCost)) + '' + Currency.current.sign + ')</span>'
+                OptCart.formData.deliveryCost = OptCart.settings.deliveryCost
+            }
+            else
+                str+='<span style="font-weight: normal; "> (Бесплатно)</span>'
+        }
+
+        $('.order-info .deliveryType .val').html(str)
+        $('.order-info .deliveryType').slideDown('fast');
+
+        OptCart.showFinalPrice()
+    },
+    showFinalPrice: function(){
+        $('.cart-price-final').html( formatPrice(OptCart.data.sumInCurrency + Currency.calcPrice(OptCart.formData.deliveryCost))+' '+Currency.current.sign )
     },
 
 

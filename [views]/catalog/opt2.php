@@ -18,38 +18,28 @@ foreach($MODEL['catalog'] as $cat)
 }
 
 $productsDictJson = json_encode($productsDict);
-//vd($productsDict);
-//vd($productsDictJson);
 
 
 //vd($arr);
 ?>
 <!--крамбсы-->
 <? Core::renderPartial(SHARED_VIEWS_DIR.'/crumbs.php', $MODEL['crumbs']);?>
-<!--//крамбсы-->
-
-
 
 <?ob_start()?>
-
-<!-- development version, includes helpful console warnings -->
-<!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
 <script>
-
-    OptCart.ProductsDict = <?=$productsDictJson?>;
+    OptCart.Dict.products = <?=$productsDictJson?>;
     OptCart.OptStep.steps = <?=json_encode(array_keys(ProductSimple::$optPrices))?>;
     OptCart.State.load();
 
+    OptCart.settings.orderSumForFreeDelivery = <?=$_CONFIG['SETTINGS']['order_sum_for_free_delivery'] ?>;
+    OptCart.settings.deliveryCost = <?=$_CONFIG['SETTINGS']['delivery_cost'] ?>;
 
+    OptCart.Dict.deliveryTypes = <?=json_encode(DeliveryType::$items)?>;
+    OptCart.Dict.paymentTypes = <?=json_encode(PaymentType::$items)?>;
 </script>
+
 <script>
-    var app = new Vue({
-        el: '#cartModalTmpl',
-        data: {
-            message: 'Hello Vue!',
-            cart: OptCart
-        }
-    })
+    OptCart.Modal.show()
 </script>
 <?$CONTENT->section('documentReadyJs', ob_get_clean())?>
 
@@ -64,12 +54,9 @@ $productsDictJson = json_encode($productsDict);
 </script>
 
 
-
 <div class="opt" style="text-align: center; ">
     <div  class="limiter" style="margin: 0 auto; ">
-
         <div class=" ">
-
             <div class="row limiter">
                 <?=$MODEL['textBefore']->attrs['descr']?>
             </div>
@@ -78,7 +65,6 @@ $productsDictJson = json_encode($productsDict);
                 <div class="col-md-6 logo-container" ><img src="/img/logo.png" /></div>
                 <div class="col-md-6 info-container"><?=$MODEL['textTableTop']->attrs['descr']?></div>
             </div>
-
 
             <div class="row  ">
                 <table class="price-tbl" style="width: 100%; ">
@@ -109,7 +95,6 @@ $productsDictJson = json_encode($productsDict);
                                 </div>
                                 </a>
                             </td>
-
                             <td >
                                 <div class="to-cart-btn-wrapper" >
                                     <input type="button" class="btn-small" value="В корзину" onclick="OptCart.Product.add(<?=$product->id?>)">
@@ -152,11 +137,9 @@ $productsDictJson = json_encode($productsDict);
 
             <!--mobile-->
             <script>
-                function productInfo(id)
-                {
-                    // alert(id)
-                    $('.product-row-'+id+' .prices').slideToggle()
-                }
+            function productInfo(id){
+                $('.product-row-'+id+' .prices').slideToggle()
+            }
             </script>
 
             <div class="row ">
@@ -171,26 +154,14 @@ $productsDictJson = json_encode($productsDict);
                                     <a href="<?=$product->url()?>" target="_blank" onclick="productInfo(<?=$product->id?>); return false; " >
                                         <div class="col img"><img src="<?=$product->photo ? Media::img($product->photo) : Funx::noPhotoSrc()?>&width=50" alt="" /></div>
                                         <div class="col info" style="text-align: left; ">
-
                                             <div class="name"><?=$product->name?></div>
                                             <div class="doze"><?=OptPrice::shortenDozeStr($product->inPackage)?></div>
                                             <div class="btn" onclick="/*productInfo(<?=$product->id?>); return false;*/ ">Смотреть цены</div>
                                         </div>
-
                                     </a>
-
                                 <div class="clear"></div>
-
                             </div>
-
-
-
-
-
                             <div class=" prices">
-
-
-
                                 <div class="price-row">
                                     <div class="product-price price-step-0"><?=Currency::drawAllCurrenciesPrice($product->price)?></div>
                                 </div>
@@ -205,8 +176,6 @@ $productsDictJson = json_encode($productsDict);
                                     <?endif;?>
                                     </div>
                                 <?endforeach;?>
-
-
                                 <div style="display: inline-block; text-align: center; border: 0px solid green; float: left; ">
                                     <div class="inner" style="margin: 10px 0 10px 20px;    border: 0px solid red; display: inline-block; ">
                                         <div class="to-cart-btn-wrapper" >
@@ -230,25 +199,14 @@ $productsDictJson = json_encode($productsDict);
                                     </div>
                                 </div>
                                 <div class="clear"></div>
-
-
                             </div>
-
-
-
                         </div>
+                            <?endforeach;?>
                         <?endforeach;?>
-
-
-                        <?endforeach;?>
-
                     <?endforeach;?>
                 </div>
             </div>
-
-
         </div>
-
     </div>
 </div>
 
@@ -302,7 +260,7 @@ $productsDictJson = json_encode($productsDict);
 
 
 
-<!-- Modal -->
+<!-- optCart Modal -->
 <div id="optCartModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -313,7 +271,125 @@ $productsDictJson = json_encode($productsDict);
                 <img src="/img/logo.png" height="50" alt="" />
             </div>
             <div class="modal-body">
-                ывффыв
+                <div class="cart">
+                    <div id="products">
+                        <div class="products-wrapper">
+                            <div class="block1 cart-individuals1" >
+                                <div class="items"></div>
+                            </div>
+                            <hr>
+                            <div class="overall-wrapper" ></div>
+                        </div>
+                        <div class="form-wrapper">
+                            <!-- способы оплаты -->
+                            <div class="section payment-types">
+                                <h2>Способы оплаты</h2>
+                                <div class="inner">
+                                    <?foreach(PaymentType::$items as $type):?>
+                                        <label class="item <?=$type->code?>" ><input type="radio" name="paymentType" onclick="OptCart.switchPaymentType('<?=$type->code?>')" /><img src="<?=$type->icon?>" alt="" /><?=$type->name?></label>
+                                    <?endforeach;?>
+                                </div>
+                            </div>
+                            <!-- /способы оплаты -->
+
+                            <!-- способы доставки -->
+                            <div class="section even payment-types">
+                                <h2>Выберите вариант доставки</h2>
+                                <?php
+                                foreach(DeliveryType::$items as $type)
+                                {?>
+                                    <label class="item <?=$type->code?>">
+                                        <input type="radio" name="deliveryType"  onclick="OptCart.switchDeliveryType('<?=$type->code?>')"  />
+                                        <!-- <img src="<?=$type->icon?>" alt="" /> -->
+                                        <span class="name">
+					<?=$type->name?><br/>
+				</span>
+                                        <span class="info">(<?=$type->info?>)</span>
+                                    </label>
+                                    <?php
+                                }?>
+                            </div>
+                            <!-- /способы доставки -->
+
+                            <div class="clear"></div>
+
+                            <!-- инфа о покупателе -->
+                            <div class="section customer-info">
+                                <h2>Информация о покупателе</h2>
+
+                                <div class="r">
+                                    <div class="lbl">ФИО<span class="req">*</span>:</div>
+                                    <div class="input"><input type="text" name="name" value="<?=$USER->name?>" /></div>
+                                </div>
+
+                                <div class="r">
+                                    <div class="lbl">E-mail<span class="req">*</span>:</div>
+                                    <div class="input"><input type="text" name="email" value="<?=$USER->email?>" /></div>
+                                </div>
+
+                                <div class="r">
+                                    <div class="lbl">Телефон<span class="req">*</span>:</div>
+                                    <div class="input"><input type="text" name="phone" value="<?=$USER->phone?>" /></div>
+                                </div>
+
+                                <div class="r">
+                                    <div class="lbl">Адрес<span class="req">*</span>:</div>
+                                    <div class="input"><input type="text" name="address" value="<?=$USER->address?>"/></div>
+                                </div>
+                                <div class="r">
+                                    <div class="lbl">Почтовый индекс<span class="req">*</span>:</div>
+                                    <div class="input"><input type="text" name="index" value="<?=$USER->index?>" /></div>
+                                </div>
+                                <div class="r">
+                                    <div class="lbl">Примечание к заказу:</div>
+                                    <div class="input"><textarea name="comment" ></textarea></div>
+                                </div>
+
+
+                            </div>
+                            <!-- /инфа о покупателе -->
+
+                            <!-- инфа о заказе -->
+                            <div class="section even order-info">
+                                <h2>Информация о заказе</h2>
+                                <div class="inner">
+
+                                    <div class="order-summary">
+                                        <div class="r">
+                                            <div class="lbl">Товаров на сумму: </div>
+                                            <div class="val price price-for-all-products"></div>
+                                        </div>
+
+                                        <div class="r deliveryType" style="display: none; ">
+                                            <div class="lbl">Доставка: </div>
+                                            <div class="val">
+                                                <?=$CART->deliveryType->name?>
+                                                <div class="delivery-price">Стоимость: <b><?=$CART->deliveryCostInCurrency ? Currency::formatPrice($CART->deliveryCostInCurrency) : 'БЕСПЛАТНО'?></b></div>
+                                            </div>
+                                        </div>
+                                        <div class="r paymentType" style="display: none; ">
+                                            <div class="lbl">Оплата: </div>
+                                            <div class="val"><img  src="<?=$CART->paymentType->icon?>" alt=""  width="58" /><?=$CART->paymentType->name?></div>
+                                        </div>
+
+                                        <div class="r overall">
+                                            <div class="lbl">Итого: </div>
+                                            <div class="val cart-price-final"></div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <button onclick="sendOrder()" id="send-order-btn">Отправить заказ</button>
+                                <span class="loading" style="display: none; ">Секунду...</span>
+                                <div class="error"></div>
+                            </div>
+                            <!-- /инфа о заказе -->
+
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
@@ -329,18 +405,7 @@ $productsDictJson = json_encode($productsDict);
 
 <!--cart TMPLs-->
 <div id="cartTmpl" style="display: none; ">
-    <div class="cart">
-        <div id="products">
-            <div class="products-wrapper">
-                <div class="block1 cart-individuals1" >
-                    <div class="items"></div>
-                </div>
-                <hr>
-                <div class="overall-wrapper" ></div>
-            </div>
 
-        </div>
-    </div>
 </div>
 
 

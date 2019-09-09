@@ -35,7 +35,12 @@ var SlonneDev = {
             +'<br>-------------------------------------<br>'
             +'PRoDuCTs:<br>' + vd(OptCart.ids)
             +'<br>-------------------------------------<br>'
-            +'PRoDuCTs iNFo:<br>' + vd(OptCart.ProductsDict)
+            +'PRoDuCTs iNFo:<br>' + vd(OptCart.Dict.products)
+
+            +'<br>-------------------------------------<br>'
+            +'DeLiVeRy TyPeS:<br>' + vd(OptCart.Dict.deliveryTypes)
+            +'<br>-------------------------------------<br>'
+            +'PayMeNT TyPeS:<br>' + vd(OptCart.Dict.paymentTypes)
 
         this.console.text(txt)
 

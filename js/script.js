@@ -10,7 +10,7 @@ var Currency = {
 	calcPrice: function(priceInBucks, currencyCode) {
 		currencyCode = currencyCode || Currency.current.code
 		ret = (parseFloat(priceInBucks).toFixed(2) * Currency.items[currencyCode].coef).toFixed(2)
-		return ret
+		return parseFloat(ret)
 	},
 
 	price: function(sum, currencyCode){

@@ -1674,7 +1674,15 @@ ul.left-menu{border: 0px solid red;  overflow-y: auto; padding: 0; width: 150px;
 		}
 	}
 }
-.cart .quans-wrapper select{color: @bodyColor !important; font-weight: normal !important; font-size: .9em !important; height: 35px !important;; border: none; background: #fff !important;   }
+.cart .quans-wrapper select{color: @bodyColor !important; font-weight: normal !important; font-size: .9em !important; height: 35px !important;; border: none; background: #fff !important;  text-align: center;   }
+
+
+
+.cart .form-wrapper{ margin: 0 0 0 50px;
+	@media screen and (max-width: @screen-xs){
+		margin: 0 0 0 0 ;
+	}
+}
 
 
 
@@ -1742,7 +1750,7 @@ ul.left-menu{border: 0px solid red;  overflow-y: auto; padding: 0; width: 150px;
 
 
 #optCartModal{
-	.modal-dialog{ width: 850px;
+	.modal-dialog{ width: 1000px;
 		@media screen and (max-width: @screen-xs){
 			width: auto;
 		}

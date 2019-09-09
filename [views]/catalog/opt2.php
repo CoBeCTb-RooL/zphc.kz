@@ -39,7 +39,7 @@ $productsDictJson = json_encode($productsDict);
 </script>
 
 <script>
-    OptCart.Modal.show()
+    // OptCart.Modal.show()
 </script>
 <?$CONTENT->section('documentReadyJs', ob_get_clean())?>
 
@@ -272,123 +272,170 @@ $productsDictJson = json_encode($productsDict);
             </div>
             <div class="modal-body">
                 <div class="cart">
-                    <div id="products">
-                        <div class="products-wrapper">
-                            <div class="block1 cart-individuals1" >
-                                <div class="items"></div>
-                            </div>
-                            <hr>
-                            <div class="overall-wrapper" ></div>
-                        </div>
-                        <div class="form-wrapper">
-                            <!-- способы оплаты -->
-                            <div class="section payment-types">
-                                <h2>Способы оплаты</h2>
-                                <div class="inner">
-                                    <?foreach(PaymentType::$items as $type):?>
-                                        <label class="item <?=$type->code?>" ><input type="radio" name="paymentType" onclick="OptCart.switchPaymentType('<?=$type->code?>')" /><img src="<?=$type->icon?>" alt="" /><?=$type->name?></label>
-                                    <?endforeach;?>
+                    <form action="" onsubmit="OptCart.sendOrder(); return false; ">
+                        <div id="products">
+                            <div class="products-wrapper">
+                                <div class="block1 cart-individuals1" >
+                                    <div class="items"></div>
                                 </div>
+                                <hr>
+                                <div class="overall-wrapper" ></div>
                             </div>
-                            <!-- /способы оплаты -->
+                            <div class="form-wrapper">
+                                <!-- способы оплаты -->
+                                <div class="section payment-types">
+                                    <h2>Способы оплаты</h2>
+                                    <div class="inner">
+                                        <?foreach(PaymentType::$items as $type):?>
+                                            <label class="item <?=$type->code?>" ><input type="radio" name="paymentType" value="<?=$type->code?>" onclick="OptCart.switchPaymentType('<?=$type->code?>')"  /><img src="<?=$type->icon?>" alt="" /><?=$type->name?></label>
+                                        <?endforeach;?>
+                                    </div>
+                                </div>
+                                <!-- /способы оплаты -->
 
-                            <!-- способы доставки -->
-                            <div class="section even payment-types">
-                                <h2>Выберите вариант доставки</h2>
-                                <?php
-                                foreach(DeliveryType::$items as $type)
-                                {?>
-                                    <label class="item <?=$type->code?>">
-                                        <input type="radio" name="deliveryType"  onclick="OptCart.switchDeliveryType('<?=$type->code?>')"  />
-                                        <!-- <img src="<?=$type->icon?>" alt="" /> -->
-                                        <span class="name">
-					<?=$type->name?><br/>
-				</span>
-                                        <span class="info">(<?=$type->info?>)</span>
-                                    </label>
+                                <!-- способы доставки -->
+                                <div class="section even delivery-types">
+                                    <h2>Выберите вариант доставки</h2>
                                     <?php
-                                }?>
-                            </div>
-                            <!-- /способы доставки -->
-
-                            <div class="clear"></div>
-
-                            <!-- инфа о покупателе -->
-                            <div class="section customer-info">
-                                <h2>Информация о покупателе</h2>
-
-                                <div class="r">
-                                    <div class="lbl">ФИО<span class="req">*</span>:</div>
-                                    <div class="input"><input type="text" name="name" value="<?=$USER->name?>" /></div>
+                                    foreach(DeliveryType::$items as $type)
+                                    {?>
+                                        <label class="item <?=$type->code?>">
+                                            <input type="radio" name="deliveryType"  value="<?=$type->code?>" onclick="OptCart.switchDeliveryType('<?=$type->code?>')"  />
+                                            <!-- <img src="<?=$type->icon?>" alt="" /> -->
+                                            <span class="name">
+                        <?=$type->name?><br/>
+                    </span>
+                                            <span class="info">(<?=$type->info?>)</span>
+                                        </label>
+                                        <?php
+                                    }?>
                                 </div>
+                                <!-- /способы доставки -->
 
-                                <div class="r">
-                                    <div class="lbl">E-mail<span class="req">*</span>:</div>
-                                    <div class="input"><input type="text" name="email" value="<?=$USER->email?>" /></div>
-                                </div>
+                                <div class="clear"></div>
 
-                                <div class="r">
-                                    <div class="lbl">Телефон<span class="req">*</span>:</div>
-                                    <div class="input"><input type="text" name="phone" value="<?=$USER->phone?>" /></div>
-                                </div>
+                                <!-- инфа о покупателе -->
+                                <div class="section customer-info">
+                                    <h2>Информация о покупателе</h2>
 
-                                <div class="r">
-                                    <div class="lbl">Адрес<span class="req">*</span>:</div>
-                                    <div class="input"><input type="text" name="address" value="<?=$USER->address?>"/></div>
-                                </div>
-                                <div class="r">
-                                    <div class="lbl">Почтовый индекс<span class="req">*</span>:</div>
-                                    <div class="input"><input type="text" name="index" value="<?=$USER->index?>" /></div>
-                                </div>
-                                <div class="r">
-                                    <div class="lbl">Примечание к заказу:</div>
-                                    <div class="input"><textarea name="comment" ></textarea></div>
-                                </div>
+                                    <div class="r">
+                                        <div class="lbl">ФИО<span class="req">*</span>:</div>
+                                        <div class="input"><input type="text" name="name" value="<?=$USER->name?>" /></div>
+                                    </div>
 
+                                    <div class="r">
+                                        <div class="lbl">E-mail<span class="req">*</span>:</div>
+                                        <div class="input"><input type="text" name="email" value="<?=$USER->email?>" /></div>
+                                    </div>
 
-                            </div>
-                            <!-- /инфа о покупателе -->
+                                    <div class="r">
+                                        <div class="lbl">Телефон<span class="req">*</span>:</div>
+                                        <div class="input"><input type="text" name="phone" value="<?=$USER->phone?>" /></div>
+                                    </div>
 
-                            <!-- инфа о заказе -->
-                            <div class="section even order-info">
-                                <h2>Информация о заказе</h2>
-                                <div class="inner">
-
-                                    <div class="order-summary">
-                                        <div class="r">
-                                            <div class="lbl">Товаров на сумму: </div>
-                                            <div class="val price price-for-all-products"></div>
-                                        </div>
-
-                                        <div class="r deliveryType" style="display: none; ">
-                                            <div class="lbl">Доставка: </div>
-                                            <div class="val">
-                                                <?=$CART->deliveryType->name?>
-                                                <div class="delivery-price">Стоимость: <b><?=$CART->deliveryCostInCurrency ? Currency::formatPrice($CART->deliveryCostInCurrency) : 'БЕСПЛАТНО'?></b></div>
-                                            </div>
-                                        </div>
-                                        <div class="r paymentType" style="display: none; ">
-                                            <div class="lbl">Оплата: </div>
-                                            <div class="val"><img  src="<?=$CART->paymentType->icon?>" alt=""  width="58" /><?=$CART->paymentType->name?></div>
-                                        </div>
-
-                                        <div class="r overall">
-                                            <div class="lbl">Итого: </div>
-                                            <div class="val cart-price-final"></div>
-                                        </div>
+                                    <div class="r">
+                                        <div class="lbl">Адрес<span class="req">*</span>:</div>
+                                        <div class="input"><input type="text" name="address" value="<?=$USER->address?>"/></div>
+                                    </div>
+                                    <div class="r">
+                                        <div class="lbl">Почтовый индекс<span class="req">*</span>:</div>
+                                        <div class="input"><input type="text" name="index" value="<?=$USER->index?>" /></div>
+                                    </div>
+                                    <div class="r">
+                                        <div class="lbl">Примечание к заказу:</div>
+                                        <div class="input"><textarea name="comment" ></textarea></div>
                                     </div>
 
 
                                 </div>
-                                <button onclick="sendOrder()" id="send-order-btn">Отправить заказ</button>
-                                <span class="loading" style="display: none; ">Секунду...</span>
-                                <div class="error"></div>
-                            </div>
-                            <!-- /инфа о заказе -->
+                                <!-- /инфа о покупателе -->
 
-                            <div class="clear"></div>
+                                <!-- инфа о заказе -->
+                                <div class="section even order-info">
+                                    <h2>Информация о заказе</h2>
+                                    <div class="inner">
+
+                                        <div class="order-summary">
+                                            <div class="r">
+                                                <div class="lbl">Товаров на сумму: </div>
+                                                <div class="val price price-for-all-products"></div>
+                                            </div>
+
+                                            <div class="r deliveryType" style="display: none; white-space: nowrap; vertical-align: top;    ">
+                                                <div class="lbl" style="vertical-align: top; ">Доставка: </div>
+                                                <div class="val" style="vertical-align: top; ">
+                                                    <?=$CART->deliveryType->name?>
+                                                    <div class="delivery-price">Стоимость: <b><?=$CART->deliveryCostInCurrency ? Currency::formatPrice($CART->deliveryCostInCurrency) : 'БЕСПЛАТНО'?></b></div>
+                                                </div>
+                                            </div>
+                                            <div class="r paymentType" style="display: none; ">
+                                                <div class="lbl">Оплата: </div>
+                                                <div class="val"><img  src="<?=$CART->paymentType->icon?>" alt=""  width="58" /><?=$CART->paymentType->name?></div>
+                                            </div>
+
+                                            <div class="r overall">
+                                                <div class="lbl">Итого: </div>
+                                                <div class="val cart-price-final"></div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <button type="submit" id="send-order-btn">Отправить заказ</button>
+                                    <span class="loading" style="display: none; ">Секунду...</span>
+                                    <div class="error"></div>
+                                </div>
+                                <!-- /инфа о заказе -->
+
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- УСПЕХ -->
+                    <div class="success1" style="display: none;text-align: center;  ">
+                        <h1>Ваш заказ успешно отправлен!</h1>
+                        <h2>На указанный e-mail отправлено письмо с подробностями заказа.</h2>
+
+<!--                        <button onclick="OptCart.showSuccess(false)"><-</button>-->
+                        <div class="requisites">
+
+                            <div class="info">
+                                Вы выбрали способ оплаты
+                                <b class="payment-type-lbl"></b>.
+                                <br>Пожалуйста, используйте следующие реквизиты для оплаты Вашего заказа:
+                            </div>
+
+                            <? $type = PaymentType::code(PaymentType::YANDEX_MONEY)?>
+                            <div class="item " id="<?=$type->code?>">
+                                <div class="pic"><img src="<?=$type->icon?>" alt="" /></div>
+                                <div class="title"><?=$type->name?>: </div>
+                                <div class="val"><?=$_CONFIG['SETTINGS'][$type->code]?></div>
+                            </div>
+
+                            <? $type = PaymentType::code(PaymentType::QIWI)?>
+                            <div class="item" id="<?=$type->code?>">
+                                <div class="pic"><img src="<?=$type->icon?>" alt="" /></div>
+                                <div class="title"><?=$type->name?>: </div>
+                                <div class="val"><?=$_CONFIG['SETTINGS'][$type->code]?></div>
+                            </div>
+
+                            <? $type = PaymentType::code(PaymentType::VISA)?>
+                            <div class="item" id="<?=$type->code?>">
+                                <div class="pic"><img src="<?=$type->icon?>" alt="" /></div>
+                                <div class="title"><?=$type->name?>: </div>
+                                <div class="val"><?=$_CONFIG['SETTINGS'][$type->code]?></div>
+                            </div>
+
+                            <? $type = PaymentType::code(PaymentType::WEB_MONEY)?>
+                            <div class="item" id="<?=$type->code?>">
+                                <div class="pic"><img src="<?=$type->icon?>" alt="" /></div>
+                                <div class="title"><?=$type->name?>: </div>
+                                <div class="val"><?=$_CONFIG['SETTINGS'][$type->code]?></div>
+                            </div>
+
                         </div>
                     </div>
+                    <!-- /УСПЕХ -->
                 </div>
             </div>
             <!-- <div class="modal-footer">

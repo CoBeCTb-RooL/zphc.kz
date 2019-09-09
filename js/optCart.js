@@ -42,6 +42,9 @@ var OptCart = {
             var step = OptCart.stepBySum()
             if(step != OptCart.step())
                 OptCart.step(step)
+
+            $('.form-wrapper').show()
+            $('.overall-wrapper').show()
             // alert(step+' = '+ OptCart.Calc.cartSum(step))
 
             SlonneDev.cart();
@@ -262,69 +265,13 @@ var OptCart = {
 
     Modal: {
         show: function(){
-            // $('#optCartModal .modal-body').html($('#cartModalTmpl').html())
             $('#optCartModal').modal('show');
 
             this.drawCart()
         },
 
         drawCart: function(){
-
-            return this.drawCart2()
-            // var str = ''
-            // str+=''
-            //     +'<div class="cart">'
-            //     +'    <div id="products">'
-            //     +'        <div class="products-wrapper">'
-            //     +'            <div class="block1 cart-individuals1">'
-            //     +'                <div class="item">'
-            //     +'                    <div class="kol title">'
-            //     +'		<span class=" pic">'
-            //     +'			<a href="/catalog/item/16_methandienone" target="_blank" title="Methandienone"><img src="/include/resize.slonne.php?img=../upload/images/catalogSimple/0641_5aed99019eaa0.jpg&amp;width=500" alt="Methandienone"></a>'
-            //     +'		</span>'
-            //     +'                        <a href="/catalog/item/16_methandienone" target="_blank">Methandienone</a>'
-            //     +'                    </div>'
-            //     +'                    <div class="kol price" style="line-height: 100%; ">'
-            //     +'                        <span class="old-price">7 747,13 <span class="arial-narrow-tenge" style="font-weight: normal; ">т</span></span><br>'
-            //     +'                        <b>5 422,99 <span class="arial-narrow-tenge" style="font-weight: normal; ">т</span></b>'
-            //     +'                    </div>'
-            //     +'                    <div class="kol quan">'
-            //     +'                        <div class="val">'
-            //     +'                            <a href="#" class="change-quan-btn" onclick="addQuan(16, -1); return false; " title="убрать">–</a>'
-            //     +'                            ×3			<a href="#" class="change-quan-btn" onclick="addQuan(16, 1);return false; " title="добавить">+</a>'
-            //     +'                        </div>'
-            //     +'                    </div>'
-            //     +'                    <div class="kol final-price" style="line-height: 100%; ">'
-            //     +'                        <span class="old-price">23 241,39 <span class="arial-narrow-tenge" style="font-weight: normal; ">т</span></span><br>'
-            //     +''
-            //     +'                        <b>16 268,97 <span class="arial-narrow-tenge" style="font-weight: normal; ">т</span></b>'
-            //     +'                    </div>'
-            //     +'                    <div class="kol delete">'
-            //     +'                        <a href="#delete" title="Убрать товар" onclick="if(confirm(\'Убрать товар из корзины?\')){addQuan(16, -3)}; return false; ">'
-            //     +'                            <span class="word-delete"> <span style="font-size: 20px; font-weight: bold; line-height:50%; vertical-align: middle;  display: inline-block;   border: 0px solid red;   font-size: 30px;  ">×</span> <span style="display: inline-block; vertical-align: middle;">убрать из корзины</span></span>'
-            //     +'                            <span class="x">×</span>'
-            //     +'                        </a>'
-            //     +'                    </div>'
-            //     +'                </div>'
-            //     +'                <hr>'
-            //     +'                <div class="overall">'
-            //     +'                    <div class="lbl">Итого товаров на сумму: </div>'
-            //     +'                    <b>{{(cart.data.sum)}}</b>'
-            //     +'                </div>'
-            //     +'            </div>'
-            //     +'        </div>'
-            //     +'    </div>'
-            //     +'</div>';
-            //
-            //
-            //     $('#optCartModal .modal-body').html(str)
-            //     return str
-        },
-
-
-        drawCart2: function(){
-            //  скелет корзины
-            //$('#optCartModal .modal-body').html($('#cartTmpl').html())
+            OptCart.showSuccess(false)
 
             //  товары
             if(OptCart.data.quan > 0){
@@ -332,8 +279,11 @@ var OptCart = {
                 for(var i in OptCart.ids)
                     $('#optCartModal .modal-body .items').append( OptCart.Modal.HTML.product(i))
             }
-            else
+            else {
                 $('#optCartModal .modal-body .items').html('Корзина пуста.')
+                $('.form-wrapper').slideUp('fast')
+                $('.overall-wrapper').slideUp('fast')
+            }
 
             //  выставляем селекты
             for(var i in OptCart.ids){
@@ -422,6 +372,11 @@ var OptCart = {
         var p = OptCart.Dict.paymentTypes[type]
         $('.order-info .paymentType .val').html('<img  src="'+p.icon+'" alt=""  width="58" /> '+p.name)
         $('.order-info .paymentType').slideDown('fast');
+
+        //  успешный заказ
+        $('.requisites .item').hide()
+        $('.requisites .payment-type-lbl').html(p.name)
+        $('.requisites #'+type).show()
     },
     switchDeliveryType: function(type){
         OptCart.formData.deliveryType = type
@@ -433,11 +388,11 @@ var OptCart = {
 
         if(type != 'pickup'){
             if(OptCart.data.sum < OptCart.settings.orderSumForFreeDelivery) {
-                str += '<span style="font-weight: normal; "> (' + formatPrice(Currency.calcPrice(OptCart.settings.deliveryCost)) + '' + Currency.current.sign + ')</span>'
+                str += '<br><span style="font-weight: normal; "> (' + formatPrice(Currency.calcPrice(OptCart.settings.deliveryCost)) + '' + Currency.current.sign + ')</span>'
                 OptCart.formData.deliveryCost = OptCart.settings.deliveryCost
             }
             else
-                str+='<span style="font-weight: normal; "> (Бесплатно)</span>'
+                str+='<br><span style="font-weight: normal; "> (Бесплатно)</span>'
         }
 
         $('.order-info .deliveryType .val').html(str)
@@ -450,6 +405,65 @@ var OptCart = {
     },
 
 
+
+    sendOrder: function(){
+
+        var x = $('.cart form').serializeArray()
+
+        //  сериализованную хрень приводим к просто объекту
+        var a = {}
+        $.each(x, function(i, field){
+            a[field.name] = field.value
+        });
+
+        //  избавляемся от вонючих пробелов массивов жс
+        a.products = []
+        $.each(OptCart.ids, function(key, val){
+            if(typeof val != 'undefined')
+                a.products.push({id: key, quan: val})
+        })
+
+        $('.order-info .error').css('display', 'none')
+        $('.customer-info *.field-error').removeClass('field-error')
+
+        // SlonneDev.console.text(vd(a))
+        // console.log(a)
+        $.ajax({
+            url: '/optCart/submit',
+            data: a,
+            dataType: 'json',
+            beforeSend: function(){ $('.cart .loading').slideDown('fast'); $('#send-order-btn').attr('disabled', 'disabled') },
+            complete: function(){$('.cart .loading').slideUp('fast'); $('#send-order-btn').removeAttr('disabled') },
+            success: function(data){
+                if(!data.errors){
+                    OptCart.clear()
+                    OptCart.showSuccess()
+                }
+                else{
+                    OptCart.showErrors(data.errors)
+                }
+            },
+            error: function (){},
+        })
+    },
+
+
+    showErrors: function(errors){
+        $('.order-info .error').html(getErrorsString(errors)).slideDown('fast')
+    },
+
+    showSuccess: function(isOn){
+        if(typeof isOn == 'undefined')
+            isOn = true
+        if(isOn) {
+            $('.cart form').slideUp()
+            $('.cart .success1').slideDown()
+        }
+        else{
+            $('.cart form').slideDown()
+            $('.cart .success1').slideUp()
+        }
+    },
 
 
 
@@ -469,6 +483,12 @@ var OptCart = {
     },
 
 
+
+    clear: function(){
+        for(var i in OptCart.ids){
+            OptCart.Product.setQuan(i, 0)
+        }
+    },
 
 
 

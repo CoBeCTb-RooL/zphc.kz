@@ -68,7 +68,7 @@ else
 {
 	$image = new ImageResize($img);
 	$image->quality_jpg = 100;
-	$image->quality_png = 100;
+	$image->quality_png = 1;
 	
 	$cacheInnerDirName = '';
 	

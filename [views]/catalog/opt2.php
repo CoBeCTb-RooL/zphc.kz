@@ -25,10 +25,17 @@ $productsDictJson = json_encode($productsDict);
 <!--крамбсы-->
 <? Core::renderPartial(SHARED_VIEWS_DIR.'/crumbs.php', $MODEL['crumbs']);?>
 
+
 <?ob_start()?>
 <script>
     OptCart.Dict.products = <?=$productsDictJson?>;
-    OptCart.OptStep.steps = <?=json_encode(array_keys(ProductSimple::$optPrices))?>;
+    <?
+            $optSteps = [];
+            foreach (ProductSimple::$optPrices as $step=>$val)
+                if($val)
+                    $optSteps[] = $step;
+    ?>
+    OptCart.OptStep.steps = <?=json_encode($optSteps)?>;
     OptCart.State.load();
 
     OptCart.settings.orderSumForFreeDelivery = <?=$_CONFIG['SETTINGS']['order_sum_for_free_delivery'] ?>;

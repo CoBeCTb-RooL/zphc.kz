@@ -86,12 +86,15 @@ class OptCart{
         $step = 0;
         foreach (ProductSimple::$optPrices as $price=>$v)
         {
-//            echo '--'.$price.'--';
-            $tmp = $this->sum($price, Currency::code(Currency::USD));
-//            vd($tmp);
-            if($tmp < $price)
-                return $step;
-            $step = $price;
+            if($v)
+            {
+    //            echo '--'.$price.'--';
+                $tmp = $this->sum($price, Currency::code(Currency::USD));
+    //            vd($tmp);
+                if($tmp < $price)
+                    return $step;
+                $step = $price;
+            }
         }
 
         return $step;

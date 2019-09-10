@@ -29,9 +29,9 @@ var SlonneDev = {
         var txt = ''
 
         txt+=''
-            +'CuRReNT oPT STeP: '+OptCart.optStep+''
+            +'CuRReNT oPT STeP: '+OptCart.step()+''
             +'<br>-------------------------------------<br>'
-            +'CaRT iNFo: '+vd(OptCart.Calc.info())
+            +'CaRT iNFo: <br>'+vd(OptCart.Calc.info())
             +'<br>-------------------------------------<br>'
             +'PRoDuCTs:<br>' + vd(OptCart.ids)
             +'<br>-------------------------------------<br>'

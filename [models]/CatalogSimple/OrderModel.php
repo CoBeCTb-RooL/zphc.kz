@@ -285,6 +285,8 @@ class Order
 				
 		, refererPhone = '".strPrepare($this->refererPhone)."'
 		, refererId = '".strPrepare($this->refererId)."'
+		
+		, orderType = '".($this->orderType ? strPrepare($this->orderType->code) : OrderType::COMMON)."'
 				
 		, param1 = '".strPrepare($this->param1)."'
 		, param2 = '".strPrepare($this->param2)."'

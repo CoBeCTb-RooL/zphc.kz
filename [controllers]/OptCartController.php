@@ -68,21 +68,58 @@ class OptCartController extends MainController{
             {
                 #   сохраняем заказ
 
+                $optCart = new OptCart($_REQUEST['products']);
+//
+                $o->currency = $cur;
+                $o->currencyCoef = $o->currency->coef;
+
+                $o->totalSum = $optCart->info['totalSumPrimal'];
+                $o->totalSumInCurrency = $optCart->info['totalSumPrimalInCurrency'];
+
+                $o->totalDiscount = $optCart->info['totalSumPrimal'] - $optCart->info['totalSumFinal'];
+                $o->totalDiscountInCurrency = $optCart->info['totalSumPrimalInCurrency'] - $optCart->info['totalSumFinalInCurrency'];
+
+                //$CART->sumInCurrency['discountSum']
+
+                $o->deliveryPrice = $optCart->info['totalSumFinal'] >= $_CONFIG['SETTINGS']['order_sum_for_free_delivery'] ? 0 : $_CONFIG['SETTINGS']['delivery_cost'] ;
+
+                $o->totalQuan = $optCart->info['quan'];
+                $o->userId = $USER->id;
+
+                $o->param1 = json_encode($_REQUEST['products']);
+
+                $o->orderType = OrderType::code(OrderType::OPT);
+
+                ##########################
+                $o->dateCreated = date('Y-m-d H:i:s');
+                $o->id = $o->insert();
+//                vd($o);
+                foreach($optCart->orderItems as $oi)
+                {
+                    $oi->orderId = $o->id;
+                    $oi->insert();
+                }
             }
         }
 
 
-//        vd($a);
-//        vd($cur);
+        # 	отправляем письмо с заказом
+        $o->initOrderItems();
+        $o->initOrderItemProducts();
+        $o->initReferer();
 
-
-
-//        vd($_REQUEST);
-
-
-
-
-//        vd($o);
+        $o->sortOrderItems();
+        $o->initOrderCourses();
+        $o->initOrderActions();
+        $emails = array(
+            $o->customerEmail,
+            $_CONFIG['SETTINGS']['contactEmail'],
+        );
+        foreach($emails as $email)
+        {
+            $msg = $o->getEmailHTML();
+            Funx::sendMail($email, 'robot@'.$_SERVER['HTTP_HOST'], 'Заказ №'.$o->id.' (интернет-магазин '.DOMAIN_CAPITAL.')', $msg.ReferalTail::info());
+        }
 
 
         $arr['errors'] = $errors;

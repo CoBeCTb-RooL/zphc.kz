@@ -437,7 +437,7 @@ var OptCart = {
             complete: function(){$('.cart .loading').slideUp('fast'); $('#send-order-btn').removeAttr('disabled') },
             success: function(data){
                 if(!data.errors){
-                    OptCart.clear()
+                    // OptCart.clear()
                     OptCart.showSuccess()
                 }
                 else{

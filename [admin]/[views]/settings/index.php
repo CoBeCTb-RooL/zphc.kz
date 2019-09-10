@@ -112,8 +112,9 @@ function getValuesFromYahoo()
 			<span class="input"><input name="<?=Currency::RUR?>" id="<?=Currency::RUR?>" value="<?=$_CONFIG['SETTINGS'][Currency::RUR]?>" size="6"> <?=Currency::RUR?></span>
 		</div>
 		
-		<button type="button" onclick="getValuesFromYahoo()">Получить свежие значения с Yahoo</button>
-		
+<!--		<button type="button" onclick="getValuesFromYahoo()">Получить свежие значения с Yahoo</button>-->
+		<button type="button" onclick="location.href='/tools/getCurrency?execType=manual&<?=CRON_KEY_1?>=<?=CRON_VALUE_1?>&go_btn=1'">Получить свежие значения с openexchangerates.org</button>
+
 		<p></p>
 		<hr />
 		<h4>Прирост к курсу</h4>

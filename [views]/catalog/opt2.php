@@ -188,7 +188,7 @@ $productsDictJson = json_encode($productsDict);
                                         </td>
                                         <?if($product->optPricesArr[$sum]):?>
                                         <td class="hint">
-                                            (опт, при заказе &ge;<?=Currency::drawAllCurrenciesPrice($sum)?>)
+                                            Опт, при заказе &ge;<?=Currency::drawAllCurrenciesPrice($sum)?>
                                         </td>
                                         <?endif;?>
                                     </tr>

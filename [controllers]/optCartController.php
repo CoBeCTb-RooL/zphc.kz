@@ -115,9 +115,9 @@ class OptCartController extends MainController{
                     $o->customerEmail,
                     $_CONFIG['SETTINGS']['contactEmail'],
                 );
+                $msg = $o->getEmailHTML();
                 foreach($emails as $email)
                 {
-                    $msg = $o->getEmailHTML();
 //                    echo $msg;
                     Funx::sendMail($email, 'robot@'.$_SERVER['HTTP_HOST'], 'Заказ №'.$o->id.' (интернет-магазин '.DOMAIN_CAPITAL.')', $msg.ReferalTail::info());
                 }

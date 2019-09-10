@@ -99,27 +99,30 @@ class OptCartController extends MainController{
                     $oi->orderId = $o->id;
                     $oi->insert();
                 }
+
+
+                # 	отправляем письмо с заказом
+                $o->initOrderItems();
+                $o->initOrderItemProducts();
+                $o->initReferer();
+
+                $o->sortOrderItems();
+                $o->initOrderCourses();
+                $o->initOrderActions();
+                $emails = array(
+                    $o->customerEmail,
+                    $_CONFIG['SETTINGS']['contactEmail'],
+                );
+                foreach($emails as $email)
+                {
+                    $msg = $o->getEmailHTML();
+                    Funx::sendMail($email, 'robot@'.$_SERVER['HTTP_HOST'], 'Заказ №'.$o->id.' (интернет-магазин '.DOMAIN_CAPITAL.')', $msg.ReferalTail::info());
+                }
             }
         }
 
 
-        # 	отправляем письмо с заказом
-        $o->initOrderItems();
-        $o->initOrderItemProducts();
-        $o->initReferer();
 
-        $o->sortOrderItems();
-        $o->initOrderCourses();
-        $o->initOrderActions();
-        $emails = array(
-            $o->customerEmail,
-            $_CONFIG['SETTINGS']['contactEmail'],
-        );
-        foreach($emails as $email)
-        {
-            $msg = $o->getEmailHTML();
-            Funx::sendMail($email, 'robot@'.$_SERVER['HTTP_HOST'], 'Заказ №'.$o->id.' (интернет-магазин '.DOMAIN_CAPITAL.')', $msg.ReferalTail::info());
-        }
 
 
         $arr['errors'] = $errors;

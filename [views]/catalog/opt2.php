@@ -73,7 +73,7 @@ $productsDictJson = json_encode($productsDict);
                 <table class="price-tbl" style="width: 100%; ">
                     <tr class="header head">
                         <th style="width: 100px; ">Наименование</th>
-                        <th style="min-width: 102px;  "></th>
+                        <th style="min-width: 102px;   "></th>
                         <th>Розница</th>
                         <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
                             <?if(!$isShown)continue;?>

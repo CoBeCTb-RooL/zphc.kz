@@ -1,4 +1,4 @@
-<?$random = 27; ?>
+<?$random = 28; ?>
 <!DOCTYPE html>
 <html lang="ru">
   <head>

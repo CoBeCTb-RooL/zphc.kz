@@ -1,6 +1,7 @@
 <?php
 //vd($MODEL);
 //vd($_CONFIG['SETTINGS']);
+
 ?>
 
 
@@ -113,7 +114,7 @@ function getValuesFromYahoo()
 		</div>
 		
 <!--		<button type="button" onclick="getValuesFromYahoo()">Получить свежие значения с Yahoo</button>-->
-		<button type="button" onclick="location.href='/tools/getCurrency?execType=manual&<?=CRON_KEY_1?>=<?=CRON_VALUE_1?>&go_btn=1'">Получить свежие значения с openexchangerates.org</button>
+		<button type="button" onclick="location.href='/tools/getCurrency?execType=manual&<?=Core::CRON_KEY_1?>=<?=Core::CRON_VALUE_1?>&go_btn=1'">Получить свежие значения с openexchangerates.org</button>
 
 		<p></p>
 		<hr />

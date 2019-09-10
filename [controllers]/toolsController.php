@@ -1,4 +1,5 @@
 <?php
+
 class ToolsController extends MainController{
 	
 	/*function routifyAction()

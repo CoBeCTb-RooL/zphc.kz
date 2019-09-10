@@ -240,6 +240,15 @@ $productsDictJson = json_encode($productsDict);
                 </div>
             </div>
         </div>
+<!--        <div class="main-block" style="display: none; ">-->
+<!--            <div class="inner">-->
+<!--                <div class="r cart-row">-->
+<!--                    <nobr>Товаров: <b class="cart-quan">??</b></nobr>-->
+<!--                    <br><nobr><b class="cart-sum">??</b></nobr>-->
+<!--                    <div style="margin: 4px 0 0 0; "><a href="#" onclick="OptCart.Modal.show(); " class="btn orange ">Корзина</a></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <div class="btns" style="display: none; ">
             <button onclick="OptCartNotification.quake()">quake</button><br>

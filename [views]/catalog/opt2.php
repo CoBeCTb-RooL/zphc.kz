@@ -167,6 +167,7 @@ $productsDictJson = json_encode($productsDict);
                             <div class=" prices">
                                 <div class="price-row">
                                     <div class="product-price price-step-0"><?=Currency::drawAllCurrenciesPrice($product->price)?></div>
+                                    <div class="hint">(розница)</div>
                                 </div>
                                 <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
                                     <?if(!$isShown)continue;?>
@@ -175,7 +176,7 @@ $productsDictJson = json_encode($productsDict);
                                         <?=$product->optPricesArr[$sum] ? Currency::drawAllCurrenciesPrice($product->optPricesArr[$sum]) : ' -нет- '?>
                                         </div>
                                     <?if($product->optPricesArr[$sum]):?>
-                                        <div class="hint">(при заказе &ge;<?=Currency::drawAllCurrenciesPrice($sum)?>)</div>
+                                        <div class="hint">(опт, при заказе &ge;<?=Currency::drawAllCurrenciesPrice($sum)?>)</div>
                                     <?endif;?>
                                     </div>
                                 <?endforeach;?>
@@ -505,8 +506,8 @@ $productsDictJson = json_encode($productsDict);
     <div class="quans-wrapper" >
         <div class="inner">
             <a href="#" class="btn btn-minus" onclick="OptCart.Product.add(_ID_, -1); OptCart.Modal.drawCart(); return false; ">-</a>
-            <div class="quan11">
-                <select name="" onchange="OptCart.Product.setQuan(_ID_, $(this).val()); OptCart.Modal.drawCart();" class="quan-_ID_" style="background: #fff; ">
+            <div class="quan11" style="font-size: .9em; ">
+                <select name="" onchange="OptCart.Product.setQuan(_ID_, $(this).val()); OptCart.Modal.drawCart();" class="quan-_ID_" >
                     <?for($i=1; $i<=200; $i++):?>
                         <option value="<?=$i?>"><?=$i?></option>
                     <?endfor;?>

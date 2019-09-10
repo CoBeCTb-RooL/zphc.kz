@@ -1664,7 +1664,7 @@ ul.left-menu{border: 0px solid red;  overflow-y: auto; padding: 0; width: 150px;
 .quans-wrapper{
 	.inner{ border: 1px solid @blue; border-radius: 6px; display: inline-block;
 		&>*{display: table-cell; border: 0px solid green; text-align: center; vertical-align: middle; }
-		.btn{padding: 1px !important; height: 10px !important; min-width: 20px !important;
+		.btn{padding: 1px !important; max-height: 10px !important; min-width: 23px !important;
 			&:active{color: #fff; }
 			&.btn-minus{border-radius: 4px  0 0 4px !important;  }
 			&.btn-plus{border-radius: 0 4px 4px 0 !important; }
@@ -1674,7 +1674,7 @@ ul.left-menu{border: 0px solid red;  overflow-y: auto; padding: 0; width: 150px;
 		}
 	}
 }
-.cart .quans-wrapper select{color: @bodyColor !important; font-weight: normal !important; font-size: .9em !important; height: 35px !important;; border: none; background: #fff !important;  text-align: center;  -webkit-appearance:none; }
+.cart .quans-wrapper select{color: @bodyColor !important; font-weight: normal !important; font-size: .85em !important; height: 31px !important; ; border: none; background: #fff !important;  text-align: center;  /*-webkit-appearance:none;*/ }
 
 
 
@@ -1736,7 +1736,7 @@ ul.left-menu{border: 0px solid red;  overflow-y: auto; padding: 0; width: 150px;
 			button{color: #000; border-radius: 100px ; font-size: 12px; }
 		}
 	}
-	@media screen and (max-width: @screen-xs){font-size: .8em !important; top: 73px;
+	@media screen and (max-width: @screen-xs){font-size: .8em !important; top: /*73px*/ 7px; z-index: 1000;
 		.bookmark{  }
 		.main-block{
 			&>.inner{padding: 2px 7px 10px 7px !important; min-width: 150px;

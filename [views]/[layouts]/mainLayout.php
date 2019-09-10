@@ -1,4 +1,4 @@
-<?$random = 28; ?>
+<?$random = 29; ?>
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -271,7 +271,10 @@ $(window).resize(function() {
 					</ul>
 					<div class="copy">&copy; <?=date('Y')?> Все права защищены.<br><a href="/"><?=DOMAIN_CAPITAL?></a></div>
 				</nav>
-				
+
+
+
+                <?if(!$_GLOBALS['hideRoznicaCart']):?>
 				<a href="#" class="btn-cart" title="Корзина" onclick="$('#top-cart').slideToggle('fast'); return false; "><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 				<div id="cart-items-quan"><?=intval($CART->totalQuan)?></div>
 				<div id="top-cart" class="top-cart">
@@ -281,6 +284,7 @@ $(window).resize(function() {
 					</div>
 					<!-- /корзина MOBILE -->
 				</div>
+                <?endif;?>
 			</div>
 		</div>
 		<!-- /top-menu -->
@@ -438,7 +442,8 @@ $(window).resize(function() {
 					
 					<div class="clear"></div>
 				</div>
-				
+
+
 				<?=$CONTENT->content?>
 
 

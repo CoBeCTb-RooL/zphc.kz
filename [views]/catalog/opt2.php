@@ -72,8 +72,8 @@ $productsDictJson = json_encode($productsDict);
             <div class="row  ">
                 <table class="price-tbl" style="width: 100%; ">
                     <tr class="header head">
-                        <th>Наименование</th>
-                        <th style="width: 99px; "></th>
+                        <th style="width: 100px; ">Наименование</th>
+                        <th style="min-width: 102px;  "></th>
                         <th>Розница</th>
                         <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
                             <?if(!$isShown)continue;?>
@@ -85,7 +85,7 @@ $productsDictJson = json_encode($productsDict);
                     </tr>
                     <?foreach($MODEL['catalog'] as $cat):?>
                         <tr class="header">
-                            <td class="cat-name" colspan="<?=count(ProductSimple::$optPrices)+2?>"><?=$cat->name?></td>
+                            <td class="cat-name" colspan="<?=count(ProductSimple::$optPrices)+/*2*/5?>"><?=$cat->name?></td>
                         </tr>
                         <?foreach($cat->products as $name=>$products):?>
                             <?foreach($products as $product):?>
@@ -112,10 +112,10 @@ $productsDictJson = json_encode($productsDict);
                                                 <?endfor;?>
                                             </select>
                                         </div>
-                                        <a href="#" class="btn " onclick="OptCart.Product.add(<?=$product->id?>); return false; ">+</a>
+                                        <a href="#" class="btn btn-plus" onclick="OptCart.Product.add(<?=$product->id?>); return false; ">+</a>
                                     </div>
 
-                                    <a href="#" onclick="if(confirm('Убрать товар?')){OptCart.Product.setQuan(<?=$product->id?>, 0); } return false; ">&times; убрать</a>
+                                    <a href="#" style="margin-top: -5px;  display: block; " onclick="if(confirm('Убрать товар?')){OptCart.Product.setQuan(<?=$product->id?>, 0); } return false; ">&times; убрать</a>
                                 </div>
                             </td>
 

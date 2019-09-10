@@ -8,45 +8,45 @@
 
 
 <script>
-function getValuesFromYahoo()
-{
-	$.ajax({
-		url: '<?=Currency::CURRENCY_SITE?>',
-		data: '',
-		type: "get",
-		dataType: 'json',
-		beforeSend: function(){$.fancybox.showLoading()},
-		success: function(data){
-			
-			var tg = data.query.results.rate[0].Ask;
-			var rub = data.query.results.rate[1].Ask
-
-			tg = parseFloat(tg) + parseFloat(<?=$_CONFIG['SETTINGS']['exchange_increment_'.Currency::KZT]?>);
-			rub = parseFloat(rub) + parseFloat(<?=$_CONFIG['SETTINGS']['exchange_increment_'.Currency::RUR]?>);
-			//alert(tg)
-			//alert(rub)
-			//tg=0
-			errors = []
-			if(tg > 0 )
-				$('#<?=Currency::KZT?>').val(tg)
-			else
-				errors.push({'field': "<?=Currency::KZT?>", "error": "Не удалось получить корректную валюту <b><?=Currency::KZT?></b>"})
-
-			if(rub > 0 )
-				$('#<?=Currency::RUR?>').val(rub)
-			else
-				errors.push({'field': "<?=Currency::RUR?>", "error": "Не удалось получить корректную валюту <b><?=Currency::RUR?></b>"})
-
-			if(errors.length == 0)
-				notice('Данные успешно получены. Нажмите <b>Сохранить</b>, чтобы они были зафиксированы.')
-			else
-				showErrors(errors)
-				
-		},
-		error: function(e){alert('Возникла ошибка на сервере... Попробуйте позже.')},
-		complete: function(){$.fancybox.hideLoading()}
-	});
-}
+//function getValuesFromYahoo()
+//{
+//	$.ajax({
+//		url: '<?//=Currency::CURRENCY_SITE?>//',
+//		data: '',
+//		type: "get",
+//		dataType: 'json',
+//		beforeSend: function(){$.fancybox.showLoading()},
+//		success: function(data){
+//
+//			var tg = data.query.results.rate[0].Ask;
+//			var rub = data.query.results.rate[1].Ask
+//
+//			tg = parseFloat(tg) + parseFloat(<?//=$_CONFIG['SETTINGS']['exchange_increment_'.Currency::KZT]?>//);
+//			rub = parseFloat(rub) + parseFloat(<?//=$_CONFIG['SETTINGS']['exchange_increment_'.Currency::RUR]?>//);
+//			//alert(tg)
+//			//alert(rub)
+//			//tg=0
+//			errors = []
+//			if(tg > 0 )
+//				$('#<?//=Currency::KZT?>//').val(tg)
+//			else
+//				errors.push({'field': "<?//=Currency::KZT?>//", "error": "Не удалось получить корректную валюту <b><?//=Currency::KZT?>//</b>"})
+//
+//			if(rub > 0 )
+//				$('#<?//=Currency::RUR?>//').val(rub)
+//			else
+//				errors.push({'field': "<?//=Currency::RUR?>//", "error": "Не удалось получить корректную валюту <b><?//=Currency::RUR?>//</b>"})
+//
+//			if(errors.length == 0)
+//				notice('Данные успешно получены. Нажмите <b>Сохранить</b>, чтобы они были зафиксированы.')
+//			else
+//				showErrors(errors)
+//
+//		},
+//		error: function(e){alert('Возникла ошибка на сервере... Попробуйте позже.')},
+//		complete: function(){$.fancybox.hideLoading()}
+//	});
+//}
 </script>
 
 

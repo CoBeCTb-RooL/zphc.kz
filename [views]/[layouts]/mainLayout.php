@@ -1,4 +1,4 @@
-<?$random = 24; ?>
+<?$random = 26; ?>
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -461,7 +461,9 @@ $(window).resize(function() {
 	            			<a href="<?=$_CONFIG['SETTINGS']['vk']?>" class="soc-btn soc-vk" title="ВКонтакте" target="_blank"><img src="/img/soc-vk.png" alt="" /></a>
 	            			<a href="<?=$_CONFIG['SETTINGS']['facebook']?>" class="soc-btn soc-facebook" title="Facebook" target="_blank"><img src="/img/soc-facebook.png" alt="" /></a>
 	            			<a href="<?=$_CONFIG['SETTINGS']['instagram']?>" class="soc-btn soc-insta" title="Instagram" target="_blank"><img src="/img/soc-insta.png" alt="" /></a>
-	            			<a href="<?=$_CONFIG['SETTINGS']['twitter']?>" class="soc-btn soc-twitter" title="Twitter" target="_blank"><img src="/img/soc-twitter.png" alt="" /></a>
+                            <a href="<?=$_CONFIG['SETTINGS']['twitter']?>" class="soc-btn soc-twitter" title="Twitter" target="_blank"><img src="/img/soc-twitter.png" alt="" /></a>
+
+<!--                            <a href="--><?//=$_CONFIG['SETTINGS']['twitter']?><!--" class="soc-btn soc-twitter" title="Twitter" target="_blank"><img src="/img/soc-telegram.png" alt="" /></a>-->
 	            			
             			</div>
 					</div>

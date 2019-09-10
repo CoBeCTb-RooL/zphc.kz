@@ -221,6 +221,9 @@ class ToolsController extends MainController{
 		{
 			if($execType)
 			{
+			    echo '<html lang="ru">
+                      <head>
+                        <meta charset="utf-8">';
 				echo '<h1>'.$toolType->name.'</h1>';
 				echo 'Получаем валюту с Yahoo 
 						<br>url: <a href="'.Currency::CURRENCY_SITE_2.'" target="_blank">'.Currency::CURRENCY_SITE_2.'</a> <br><input type="button" onclick="if(confirm(\'Запустить?\')){location.href=location.href+\'&go_btn=1\';} " value="Запустить" />';

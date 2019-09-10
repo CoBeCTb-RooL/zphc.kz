@@ -172,21 +172,44 @@ $productsDictJson = json_encode($productsDict);
                                 <div class="clear"></div>
                             </div>
                             <div class=" prices">
-                                <div class="price-row">
-                                    <div class="product-price price-step-0"><?=Currency::drawAllCurrenciesPrice($product->price)?></div>
-                                    <div class="hint">(розница)</div>
-                                </div>
-                                <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
-                                    <?if(!$isShown)continue;?>
-                                    <div class="price-row">
-                                        <div class=" product-price price-step-<?=$sum?>">
-                                        <?=$product->optPricesArr[$sum] ? Currency::drawAllCurrenciesPrice($product->optPricesArr[$sum]) : ' -нет- '?>
-                                        </div>
-                                    <?if($product->optPricesArr[$sum]):?>
-                                        <div class="hint">(опт, при заказе &ge;<?=Currency::drawAllCurrenciesPrice($sum)?>)</div>
-                                    <?endif;?>
-                                    </div>
-                                <?endforeach;?>
+
+                                <table border="0">
+                                    <tr class="price-row">
+                                        <td class="product-price-wrapper">
+                                            <div class="product-price price-step-0"><?=Currency::drawAllCurrenciesPrice($product->price)?></div>
+                                        </td>
+                                        <td class="hint">Розница</td>
+                                    </tr>
+                                    <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
+                                        <?if(!$isShown)continue;?>
+                                    <tr class="price-row">
+                                        <td class="product-price-wrapper">
+                                            <div class="product-price price-step-<?=$sum?>"><?=$product->optPricesArr[$sum] ? Currency::drawAllCurrenciesPrice($product->optPricesArr[$sum]) : ' -нет- '?></div>
+                                        </td>
+                                        <?if($product->optPricesArr[$sum]):?>
+                                        <td class="hint">
+                                            (опт, при заказе &ge;<?=Currency::drawAllCurrenciesPrice($sum)?>)
+                                        </td>
+                                        <?endif;?>
+                                    </tr>
+                                    <?endforeach;?>
+                                </table>
+
+<!--                                <div class="price-row">-->
+<!--                                    <div class="product-price price-step-0">--><?//=Currency::drawAllCurrenciesPrice($product->price)?><!--</div>-->
+<!--                                    <div class="hint">(розница)</div>-->
+<!--                                </div>-->
+<!--                                --><?//foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
+<!--                                    --><?//if(!$isShown)continue;?>
+<!--                                    <div class="price-row">-->
+<!--                                        <div class=" product-price price-step---><?//=$sum?><!--">-->
+<!--                                        --><?//=$product->optPricesArr[$sum] ? Currency::drawAllCurrenciesPrice($product->optPricesArr[$sum]) : ' -нет- '?>
+<!--                                        </div>-->
+<!--                                    --><?//if($product->optPricesArr[$sum]):?>
+<!--                                        <div class="hint">(опт, при заказе &ge;--><?//=Currency::drawAllCurrenciesPrice($sum)?><!--)</div>-->
+<!--                                    --><?//endif;?>
+<!--                                    </div>-->
+<!--                                --><?//endforeach;?>
                                 <div style="display: inline-block; text-align: center; border: 0px solid green; float: left; ">
                                     <div class="inner" style="margin: 10px 0 10px 20px;    border: 0px solid red; display: inline-block; ">
                                         <div class="to-cart-btn-wrapper" >

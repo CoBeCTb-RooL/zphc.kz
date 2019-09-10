@@ -1,4 +1,4 @@
-<?$random = 30; ?>
+<?$random = 32; ?>
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -178,7 +178,7 @@ $(window).resize(function() {
 
   <?if($ADMIN && $ADMIN->id == 1):?>
     <!--DeV PaNeL-->
-    <div class="dev-panel" style=" position: fixed; z-index: 100;  border: 2px solid red; display: block; width: 27%;  ">
+    <div class="dev-panel" style=" position: fixed; z-index: 100;  border: 2px solid red; display: block; width: 400px;  ">
       <div class="btns" >
           DeV PaNeL:
           <button type="button" onclick=" SlonneDev.console.toggle(); ">toggle</button>

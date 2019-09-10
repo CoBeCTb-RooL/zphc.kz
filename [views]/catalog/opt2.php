@@ -197,7 +197,7 @@ $productsDictJson = json_encode($productsDict);
                                                 <a href="#" class="btn " onclick="OptCart.Product.add(<?=$product->id?>); return false; ">+</a>
                                             </div>
 
-                                            <a href="#" style="font-size: 12px; " onclick="if(confirm('Убрать товар?')){OptCart.Product.setQuan(<?=$product->id?>, 0); } return false; ">&times; убрать</a>
+                                            <br><a href="#" style="font-size: 12px; " onclick="if(confirm('Убрать товар?')){OptCart.Product.setQuan(<?=$product->id?>, 0); } return false; ">&times; убрать</a>
                                         </div>
                                     </div>
                                 </div>

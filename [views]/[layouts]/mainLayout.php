@@ -388,11 +388,15 @@ $(window).resize(function() {
 						</ul>
 					</div>
 					<!-- //валюта -->
-					
+
+
+
 					<!-- корзина DESKTOP -->
-					<div class="kol top-cart-wrapper">
-					<?php Core::renderPartial(SHARED_VIEWS_DIR.'/cart/topCartInfoDesktop.php', $arr = array('cart'=>$CART));?>
-					</div>
+                    <?if(!$_GLOBALS['hideRoznicaCart']):?>
+                        <div class="kol top-cart-wrapper">
+                        <?php Core::renderPartial(SHARED_VIEWS_DIR.'/cart/topCartInfoDesktop.php', $arr = array('cart'=>$CART));?>
+                        </div>
+                    <?endif;?>
 					<!-- /корзина DESKTOP -->
 					
 					

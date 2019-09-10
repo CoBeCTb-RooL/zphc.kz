@@ -73,8 +73,10 @@ class OptCartController extends MainController{
                 $o->currency = $cur;
                 $o->currencyCoef = $o->currency->coef;
 
-                $o->totalSum = $optCart->info['totalSumPrimal'];
-                $o->totalSumInCurrency = $optCart->info['totalSumPrimalInCurrency'];
+//                $o->totalSum = $optCart->info['totalSumPrimal'];
+//                $o->totalSumInCurrency = $optCart->info['totalSumPrimalInCurrency'];
+                $o->totalSum = $optCart->info['totalSumFinal'];
+                $o->totalSumInCurrency = $optCart->info['totalSumFinalInCurrency'];
 
                 $o->totalDiscount = $optCart->info['totalSumPrimal'] - $optCart->info['totalSumFinal'];
                 $o->totalDiscountInCurrency = $optCart->info['totalSumPrimalInCurrency'] - $optCart->info['totalSumFinalInCurrency'];
@@ -116,6 +118,7 @@ class OptCartController extends MainController{
                 foreach($emails as $email)
                 {
                     $msg = $o->getEmailHTML();
+//                    echo $msg;
                     Funx::sendMail($email, 'robot@'.$_SERVER['HTTP_HOST'], 'Заказ №'.$o->id.' (интернет-магазин '.DOMAIN_CAPITAL.')', $msg.ReferalTail::info());
                 }
             }

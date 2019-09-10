@@ -396,6 +396,9 @@ $productsDictJson = json_encode($productsDict);
                         <h1>Ваш заказ успешно отправлен!</h1>
                         <h2>На указанный e-mail отправлено письмо с подробностями заказа.</h2>
 
+                        <div >
+                            Сумма заказа:  <b class="price-for-all-products"></b>
+                        </div>
 <!--                        <button onclick="OptCart.showSuccess(false)"><-</button>-->
                         <div class="requisites">
 

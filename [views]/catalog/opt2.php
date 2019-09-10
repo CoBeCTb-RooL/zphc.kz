@@ -36,6 +36,9 @@ $productsDictJson = json_encode($productsDict);
 
     OptCart.Dict.deliveryTypes = <?=json_encode(DeliveryType::$items)?>;
     OptCart.Dict.paymentTypes = <?=json_encode(PaymentType::$items)?>;
+
+
+    $(".customer-info input[name=phone]").mask("+7 (999) 999-99-99");
 </script>
 
 <script>

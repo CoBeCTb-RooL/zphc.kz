@@ -10,13 +10,13 @@ class SettingsController extends MainController{
 
 		if($ADMIN->hasRole(Role::SYSTEM_ADMINISTRATOR) )
 		{
-			/*if($_REQUEST['go_btn'])
+			if($_REQUEST['go_btn'])
 			{
 				//echo 123; return;
 				Settings::save($_REQUEST);
 				
 				echo'Сохранено!';
-			}*/
+			}
 			
 			$_CONFIG['SETTINGS'] = Settings::get();
 		}

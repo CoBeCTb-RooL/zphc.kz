@@ -374,7 +374,8 @@ var OptCart = {
             setQuan: function(id, quan){
                 OptCart.Product.setQuan(id, quan);
 
-                OptCart.Modal.ProductsTable.setProductRowInfo(id)
+                for(var i in OptCart.ids)
+                    OptCart.Modal.ProductsTable.setProductRowInfo(i)
                 OptCart.Modal.setTotalData()
                 // OptCart.Modal.drawCart();
             },

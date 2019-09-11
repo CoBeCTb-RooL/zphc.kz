@@ -50,6 +50,7 @@ $productsDictJson = json_encode($productsDict);
     //  чиним долбаные селекты в долбаном айос
     // jQuery(function ($) {
         if (navigator.userAgent.match('iPad|iPhone|iPod') != -1  ) {
+            alert(3131)
             $('.quans-wrapper select').addClass('iOSselect'); // provide a class for iOS select box
         }
     // });

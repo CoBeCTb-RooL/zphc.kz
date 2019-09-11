@@ -307,6 +307,8 @@ var OptCart = {
             // alert(Currency.calcPrice(OptCart.formData.deliveryCost))
 
             OptCart.showFinalPrice()
+
+
         },
 
 

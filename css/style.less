@@ -569,7 +569,7 @@ ul.left-menu{border: 0px solid red;  overflow-y: auto; padding: 0; width: 150px;
 		}
 		
 	}
-	.price-wrapper{font-size: 1.4em; font-weight: bold; font-style: italic;  color: @blue; margin: 0 0 15px 0; border: 0px solid red; float: left; vertical-align: top; display: inline-block;
+	.price-wrapper{font-size: 1.4em; font-weight: bold; font-style: italic;  color: @blue; margin: 0 0 15px 0; border: 0px solid purple; float: left; vertical-align: top; display: inline-block;
 		.price{color: #aaa; text-decoration: line-through; font-weight: normal; 
 			& *{text-decoration: line-through !important; }
 		}
@@ -616,7 +616,7 @@ ul.left-menu{border: 0px solid red;  overflow-y: auto; padding: 0; width: 150px;
 				}
 				
 			}
-			.price-wrapper{font-size: 1.3em; font-weight: bold; font-style: italic;  color: @blue; margin: 10px 0 10px 0; border: 0px solid red; float: none; vertical-align: top; display: block;
+			.price-wrapper{font-size: 1.3em; font-weight: bold; font-style: italic;  color: @blue; margin: 10px 0 10px 0; border: 0px solid purple; float: none; vertical-align: top; display: block;
 				.price{color: #aaa; text-decoration: line-through; font-weight: normal; }
 				.discount-price{font-size: 1.6em; }
 			}
@@ -1676,7 +1676,7 @@ ul.left-menu{border: 0px solid red;  overflow-y: auto; padding: 0; width: 150px;
 		}
 	}
 }
-.cart .quans-wrapper select{color: @bodyColor !important; font-weight: normal !important; font-size: .85em !important; height: 31px !important; ; border: none; background: #fff !important;  text-align: center;  /*-webkit-appearance:none;*/ }
+.cart .quans-wrapper select{color: @bodyColor !important; font-weight: normal !important; font-size: .85em !important; height: 31px !important; ; border: none;  text-align: center;  /*-webkit-appearance:none;*/ }
 
 
 
@@ -1684,6 +1684,22 @@ ul.left-menu{border: 0px solid red;  overflow-y: auto; padding: 0; width: 150px;
 	@media screen and (max-width: @screen-xs){
 		margin: 0 0 0 0 ;
 	}
+}
+
+select.iOSselect {
+	/*-webkit-appearance: none;
+	background-color: white;
+	background-image: url('images/iOS-select-arrow');
+	background-position : right center;
+	background-repeat: no-repeat;
+	padding-right: 1.5em;*/
+	-webkit-appearance: none;
+	background-color: white;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAJCAYAAAA/33wPAAAAvklEQVQoFY2QMQqEMBBFv7ERa/EMXkGw11K8QbDXzuN4BHv7QO6ifUgj7v4UAdlVM8Uwf+b9YZJISnlqrfEUZVlinucnBGKaJgghbiHOyLyFKIoCbdvecpyReYvo/Ma2bajrGtbaC58kCdZ1RZ7nl/4/4d5EsO/7nzl7IUtodBexMMagaRrs+06JLMvcNWmaOv2W/C/TMAyD58dxROgSmvxFFMdxoOs6lliWBXEcuzokXRbRoJRyvqqqQvye+QDMDz1D6yuj9wAAAABJRU5ErkJggg==);
+	background-position : right center;
+	background-size: 15px 8px;
+	background-repeat: no-repeat;
+	padding-right: 1.5em;
 }
 
 

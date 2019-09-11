@@ -46,6 +46,14 @@ $productsDictJson = json_encode($productsDict);
 
 
     $(".customer-info input[name=phone]").mask("+7 (999) 999-99-99");
+
+    //  чиним долбаные селекты в долбаном айос
+    jQuery(function ($) {
+        if (navigator.userAgent.match('iPad|iPhone|iPod') != -1  ) {
+            $('.quans-wrapper select').addClass('iOSselect'); // provide a class for iOS select box
+        }
+    });
+
 </script>
 
 <script>

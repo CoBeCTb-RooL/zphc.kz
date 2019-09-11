@@ -332,15 +332,24 @@ var OptCart = {
             },
 
             showFinalPrice: function(){
-                $('.cart-price-final').html( formatPrice(OptCart.data.sumInCurrency + Currency.calcPrice(OptCart.formData.deliveryCost))+' '+Currency.current.sign )
+                var str = ''
+                var sumPrime = OptCart.data.baseSumInCurrency + Currency.calcPrice(OptCart.formData.deliveryCost)
+                var sumFinal = OptCart.data.sumInCurrency + Currency.calcPrice(OptCart.formData.deliveryCost)
+                if(sumPrime == sumFinal){
+                    str = formatPrice(OptCart.data.sumInCurrency + Currency.calcPrice(OptCart.formData.deliveryCost))+' '+Currency.current.sign
+                    $('.economy-info').html('')
+                }
+                else{
+                    str = '<span style="text-decoration: line-through; color: #665; font-size: .9em;   font-weight: normal; ">'+formatPrice(sumPrime)+' '+Currency.current.sign+'</span>'
+                    + '<br>'+formatPrice(sumFinal)+' '+Currency.current.sign
+
+                    $('.economy-info').html('(Благодаря оптовому заказу вы экономите <b>'+formatPrice(sumPrime - sumFinal)+' '+Currency.current.sign+'</b>!)')
+                }
+                $('.cart-price-final').html( str)
             },
 
             setProductRowInfo: function(productId){
-                // alert(productId)
                 var $pr = $('#cart-item-'+productId)
-                // alert(pr.html())
-                // $pr.find('.old-price').html('BLAAA')
-
                 var prod = OptCart.Dict.products[productId];
 
                 //  разруливаем с ценами
@@ -353,22 +362,10 @@ var OptCart = {
                 var primeSingleStr = step>0 ? formatPrice(pricePrimeSingle)+' '+Currency.current.sign : ''
                 var primeTotalStr = step>0 ? formatPrice(pricePrimeTotal)+' '+Currency.current.sign : ''
 
-                // str = str.replace(/_PRICE_PRIME_SINGLE_/g, primeSingleStr);
-                // str = str.replace(/_PRICE_OPT_SINGLE_/g, formatPrice(priceOptSingle)+' '+Currency.current.sign);
-                // str = str.replace(/_PRICE_PRIME_TOTAL_/g, primeTotalStr);
-                // str = str.replace(/_PRICE_OPT_TOTAL_/g, formatPrice(priceOptTotal)+' '+Currency.current.sign);
                 $pr.find('.pricePrimeSingle').html(primeSingleStr + (priceOptSingle != pricePrimeSingle ? '<br>' : ''))
                 $pr.find('.priceOptSingle').html(formatPrice(priceOptSingle)+' '+Currency.current.sign)
                 $pr.find('.pricePrimeTotal').html(primeTotalStr + (priceOptTotal != pricePrimeTotal ? '<br>' : ''))
                 $pr.find('.priceOptTotal').html(formatPrice(priceOptTotal)+' '+Currency.current.sign)
-                //  переносы строк цен, если надо
-                // if(step > 0)
-                //     str = str.replace(/_PRICE_BR_IF_NECESSARY_/g, '<br>');
-                // else
-                //     str = str.replace(/_PRICE_BR_IF_NECESSARY_/g, '');
-
-
-
             },
 
             setQuan: function(id, quan){
@@ -395,42 +392,6 @@ var OptCart = {
                 str = str.replace(/_URL_PIECE_/g, prod.id);
                 str = str.replace(/_NAME_/g, prod.name);
                 str = str.replace(/_PHOTO_/g, prod.photo);
-                // alert(str)
-
-
-                //  разруливаем с ценами
-                // var step = OptCart.step()
-                // var pricePrimeSingle = Currency.calcPrice(prod.price)
-                // var priceOptSingle = step == 0 ? pricePrimeSingle :  Currency.calcPrice(OptCart.Dict.products[id].optPrices[step])
-                // var pricePrimeTotal = pricePrimeSingle * OptCart.ids[id]
-                // var priceOptTotal = priceOptSingle * OptCart.ids[id]
-                //
-                // var primeSingleStr = step>0 ? formatPrice(pricePrimeSingle)+' '+Currency.current.sign : ''
-                // var primeTotalStr = step>0 ? formatPrice(pricePrimeTotal)+' '+Currency.current.sign : ''
-                //
-                // str = str.replace(/_PRICE_PRIME_SINGLE_/g, primeSingleStr);
-                // str = str.replace(/_PRICE_OPT_SINGLE_/g, formatPrice(priceOptSingle)+' '+Currency.current.sign);
-                // str = str.replace(/_PRICE_PRIME_TOTAL_/g, primeTotalStr);
-                // str = str.replace(/_PRICE_OPT_TOTAL_/g, formatPrice(priceOptTotal)+' '+Currency.current.sign);
-                // //  переносы строк цен, если надо
-                // if(step > 0)
-                //     str = str.replace(/_PRICE_BR_IF_NECESSARY_/g, '<br>');
-                // else
-                //     str = str.replace(/_PRICE_BR_IF_NECESSARY_/g, '');
-
-
-                //
-                // var quanStr = $('#quansWrapperTmpl').html()
-                // quanStr = quanStr.replace(/_ID_/g, id);
-                // str = str.replace(/_QUAN_SECTION_/g, quanStr);
-
-
-
-                // alert(step)
-                // if(OptCart.)
-
-                // var price = OptCart.Dict.products[pr.id].optPrices[OptCart.OptStep.current]
-                // ret.sumInCurrency += Currency.calcPrice(price)*quan
 
                 return str
             },

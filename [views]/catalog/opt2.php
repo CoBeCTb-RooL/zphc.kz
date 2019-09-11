@@ -403,7 +403,9 @@ $productsDictJson = json_encode($productsDict);
                                             <div class="r overall">
                                                 <div class="lbl">Итого: </div>
                                                 <div class="val cart-price-final"></div>
+
                                             </div>
+                                            <div class="economy-info" style="color: #555; font-size: .9em; font-style: italic; "></div>
                                         </div>
 
 

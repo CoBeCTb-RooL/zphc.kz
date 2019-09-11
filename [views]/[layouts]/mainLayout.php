@@ -1,4 +1,4 @@
-<?$random = 39; ?>
+<?$random = 40; ?>
 <!DOCTYPE html>
 <html lang="ru">
   <head>

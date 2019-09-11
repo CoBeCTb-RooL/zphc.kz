@@ -218,8 +218,8 @@ $productsDictJson = json_encode($productsDict);
 <!--                                    --><?//endif;?>
 <!--                                    </div>-->
 <!--                                --><?//endforeach;?>
-                                <div style="display: inline-block; text-align: center; border: 0px solid green; float: left; ">
-                                    <div class="inner" style="margin: 10px 0 10px 20px; border: 0px solid red; display: inline-block; height: 47px;  ">
+                                <div style="display: inline-block;  float: left; ">
+                                    <div class="inner" style="margin: 10px 0 10px 20px; text-align: center; display: inline-block; height: 47px; width: 102px;  ">
                                         <div class="to-cart-btn-wrapper" >
                                             <input type="button" class="btn-small" value="В корзину" onclick="OptCart.Product.add(<?=$product->id?>)">
                                         </div>
@@ -236,7 +236,7 @@ $productsDictJson = json_encode($productsDict);
                                                 <a href="#" class="btn btn-plus" onclick="OptCart.Product.add(<?=$product->id?>); return false; ">+</a>
                                             </div>
 
-                                            <a href="#" style="font-size: 12px; display: block; margin-top: -6px;  " onclick="if(confirm('Убрать товар?')){OptCart.Product.setQuan(<?=$product->id?>, 0); } return false; " >&times; убрать</a>
+                                            <a href="#" style="font-size: 12px; display: block; text-align: center;  margin-top: -6px;  " onclick="if(confirm('Убрать товар?')){OptCart.Product.setQuan(<?=$product->id?>, 0); } return false; " >&times; убрать</a>
                                         </div>
                                     </div>
                                 </div>

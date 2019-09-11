@@ -33,8 +33,11 @@ var OptCart = {
         setQuan: function(id, quan)
         {
             OptCart.ids[id] = parseInt(quan)
-            if(OptCart.ids[id] == 0)
+
+            if(OptCart.ids[id] == 0){
                 OptCart.UI.Table.showBtn(id)
+                $('#cart-item-'+id).hide()     //  скрываем в корзине
+            }
 
             OptCart.State.save()
 
@@ -45,7 +48,12 @@ var OptCart = {
 
             $('.form-wrapper').show()
             $('.overall-wrapper').show()
-            // alert(step+' = '+ OptCart.Calc.cartSum(step))
+
+            if(OptCart.data.quan == 0){    //  если надо - скрываем корзину
+                $('#optCartModal .modal-body .items').html('Корзина пуста.')
+                $('.form-wrapper').slideUp('fast')
+                $('.overall-wrapper').slideUp('fast')
+            }
 
             SlonneDev.cart();
         },
@@ -270,45 +278,110 @@ var OptCart = {
             this.drawCart()
         },
 
-        drawCart: function(){
+        initModal: function(){
             OptCart.showSuccess(false)
 
-            //  товары
+            //  отрисовка товаров
             if(OptCart.data.quan > 0){
                 $('#optCartModal .modal-body .items').empty()
-                for(var i in OptCart.ids)
+                for(var i in OptCart.ids){
                     $('#optCartModal .modal-body .items').append( OptCart.Modal.HTML.product(i))
+                    OptCart.Modal.ProductsTable.setProductRowInfo(i)
+                }
             }
-            else {
+            else {  //  корзина пуста
                 $('#optCartModal .modal-body .items').html('Корзина пуста.')
                 $('.form-wrapper').slideUp('fast')
                 $('.overall-wrapper').slideUp('fast')
             }
+        },
 
+        setTotalData: function(){
             //  выставляем селекты
-            for(var i in OptCart.ids){
-                $('.quan-'+i).val(OptCart.ids[i])
-            }
+            OptCart.Modal.ProductsTable.makeSelectsSet()
 
-            //  ИТОГО
-            var overallStr = $('#overallTmpl').html()
-            overallStr = overallStr.replace(/_SUM_/g, OptCart.data.sumStr);
-            $('#optCartModal .modal-body .overall-wrapper').html(  overallStr  )
+            //  рассчёт и вывод суммы ИТОГО за товары (пока без доставки)
+            OptCart.Modal.ProductsTable.recountAndShowOverallPrice()
 
-
-            //  плюс ещё места, где нужно вывести цену
-            $('.price-for-all-products').html(OptCart.data.sumStr)
-
-
+            //  выставление и рассчёт стоимости доставки при перерисовке
             if(typeof OptCart.formData != undefined && typeof OptCart.formData.deliveryType != undefined)
                 OptCart.switchDeliveryType(OptCart.formData.deliveryType)
 
-            // alert(OptCart.data.sumInCurrency)
-            // alert(Currency.calcPrice(OptCart.formData.deliveryCost))
+            OptCart.Modal.ProductsTable.showFinalPrice()
+        },
 
-            OptCart.showFinalPrice()
+        drawCart: function(){
+            OptCart.Modal.initModal()
+            OptCart.Modal.setTotalData()
+        },
+
+        ProductsTable: {
+            makeSelectsSet: function(){
+                for(var i in OptCart.ids){
+                    $('.quan-'+i).val(OptCart.ids[i])
+                }
+            },
+
+            recountAndShowOverallPrice: function(){
+                var overallStr = $('#overallTmpl').html()
+                overallStr = overallStr.replace(/_SUM_/g, OptCart.data.sumStr);
+                $('#optCartModal .modal-body .overall-wrapper').html(  overallStr  )
+
+                //  плюс ещё места, где нужно вывести цену
+                $('.price-for-all-products').html(OptCart.data.sumStr)
+            },
+
+            showFinalPrice: function(){
+                $('.cart-price-final').html( formatPrice(OptCart.data.sumInCurrency + Currency.calcPrice(OptCart.formData.deliveryCost))+' '+Currency.current.sign )
+            },
+
+            setProductRowInfo: function(productId){
+                // alert(productId)
+                var $pr = $('#cart-item-'+productId)
+                // alert(pr.html())
+                // $pr.find('.old-price').html('BLAAA')
+
+                var prod = OptCart.Dict.products[productId];
+
+                //  разруливаем с ценами
+                var step = OptCart.step()
+                var pricePrimeSingle = Currency.calcPrice(prod.price)
+                var priceOptSingle = step == 0 ? pricePrimeSingle :  Currency.calcPrice(OptCart.Dict.products[productId].optPrices[step])
+                var pricePrimeTotal = pricePrimeSingle * OptCart.ids[productId]
+                var priceOptTotal = priceOptSingle * OptCart.ids[productId]
+
+                var primeSingleStr = step>0 ? formatPrice(pricePrimeSingle)+' '+Currency.current.sign : ''
+                var primeTotalStr = step>0 ? formatPrice(pricePrimeTotal)+' '+Currency.current.sign : ''
+
+                // str = str.replace(/_PRICE_PRIME_SINGLE_/g, primeSingleStr);
+                // str = str.replace(/_PRICE_OPT_SINGLE_/g, formatPrice(priceOptSingle)+' '+Currency.current.sign);
+                // str = str.replace(/_PRICE_PRIME_TOTAL_/g, primeTotalStr);
+                // str = str.replace(/_PRICE_OPT_TOTAL_/g, formatPrice(priceOptTotal)+' '+Currency.current.sign);
+                $pr.find('.pricePrimeSingle').html(primeSingleStr + (priceOptSingle != pricePrimeSingle ? '<br>' : ''))
+                $pr.find('.priceOptSingle').html(formatPrice(priceOptSingle)+' '+Currency.current.sign)
+                $pr.find('.pricePrimeTotal').html(primeTotalStr + (priceOptTotal != pricePrimeTotal ? '<br>' : ''))
+                $pr.find('.priceOptTotal').html(formatPrice(priceOptTotal)+' '+Currency.current.sign)
+                //  переносы строк цен, если надо
+                // if(step > 0)
+                //     str = str.replace(/_PRICE_BR_IF_NECESSARY_/g, '<br>');
+                // else
+                //     str = str.replace(/_PRICE_BR_IF_NECESSARY_/g, '');
 
 
+
+            },
+
+            setQuan: function(id, quan){
+                OptCart.Product.setQuan(id, quan);
+
+                OptCart.Modal.ProductsTable.setProductRowInfo(id)
+                OptCart.Modal.setTotalData()
+                // OptCart.Modal.drawCart();
+            },
+            add: function(id, quan){
+                quan = quan || 1
+                OptCart.Modal.ProductsTable.setQuan(id, OptCart.ids[id] + quan)
+            },
         },
 
 
@@ -325,31 +398,30 @@ var OptCart = {
 
 
                 //  разруливаем с ценами
-                var step = OptCart.step()
-                var pricePrimeSingle = Currency.calcPrice(prod.price)
-                var priceOptSingle = step == 0 ? pricePrimeSingle :  Currency.calcPrice(OptCart.Dict.products[id].optPrices[step])
-                var pricePrimeTotal = pricePrimeSingle * OptCart.ids[id]
-                var priceOptTotal = priceOptSingle * OptCart.ids[id]
+                // var step = OptCart.step()
+                // var pricePrimeSingle = Currency.calcPrice(prod.price)
+                // var priceOptSingle = step == 0 ? pricePrimeSingle :  Currency.calcPrice(OptCart.Dict.products[id].optPrices[step])
+                // var pricePrimeTotal = pricePrimeSingle * OptCart.ids[id]
+                // var priceOptTotal = priceOptSingle * OptCart.ids[id]
+                //
+                // var primeSingleStr = step>0 ? formatPrice(pricePrimeSingle)+' '+Currency.current.sign : ''
+                // var primeTotalStr = step>0 ? formatPrice(pricePrimeTotal)+' '+Currency.current.sign : ''
+                //
+                // str = str.replace(/_PRICE_PRIME_SINGLE_/g, primeSingleStr);
+                // str = str.replace(/_PRICE_OPT_SINGLE_/g, formatPrice(priceOptSingle)+' '+Currency.current.sign);
+                // str = str.replace(/_PRICE_PRIME_TOTAL_/g, primeTotalStr);
+                // str = str.replace(/_PRICE_OPT_TOTAL_/g, formatPrice(priceOptTotal)+' '+Currency.current.sign);
+                // //  переносы строк цен, если надо
+                // if(step > 0)
+                //     str = str.replace(/_PRICE_BR_IF_NECESSARY_/g, '<br>');
+                // else
+                //     str = str.replace(/_PRICE_BR_IF_NECESSARY_/g, '');
 
-                var primeSingleStr = step>0 ? formatPrice(pricePrimeSingle)+' '+Currency.current.sign : ''
-                var primeTotalStr = step>0 ? formatPrice(pricePrimeTotal)+' '+Currency.current.sign : ''
 
-                str = str.replace(/_PRICE_PRIME_SINGLE_/g, primeSingleStr);
-                str = str.replace(/_PRICE_OPT_SINGLE_/g, formatPrice(priceOptSingle)+' '+Currency.current.sign);
-                str = str.replace(/_PRICE_PRIME_TOTAL_/g, primeTotalStr);
-                str = str.replace(/_PRICE_OPT_TOTAL_/g, formatPrice(priceOptTotal)+' '+Currency.current.sign);
-                //  переносы строк цен, если надо
-                if(step > 0)
-                    str = str.replace(/_PRICE_BR_IF_NECESSARY_/g, '<br>');
-                else
-                    str = str.replace(/_PRICE_BR_IF_NECESSARY_/g, '');
-
-
-
-                //  разруливаем с ценами
-                var quanStr = $('#quansWrapperTmpl').html()
-                quanStr = quanStr.replace(/_ID_/g, id);
-                str = str.replace(/_QUAN_SECTION_/g, quanStr);
+                //
+                // var quanStr = $('#quansWrapperTmpl').html()
+                // quanStr = quanStr.replace(/_ID_/g, id);
+                // str = str.replace(/_QUAN_SECTION_/g, quanStr);
 
 
 
@@ -400,11 +472,9 @@ var OptCart = {
         $('.order-info .deliveryType .val').html(str)
         $('.order-info .deliveryType').slideDown('fast');
 
-        OptCart.showFinalPrice()
+        OptCart.Modal.ProductsTable.showFinalPrice()
     },
-    showFinalPrice: function(){
-        $('.cart-price-final').html( formatPrice(OptCart.data.sumInCurrency + Currency.calcPrice(OptCart.formData.deliveryCost))+' '+Currency.current.sign )
-    },
+
 
 
 

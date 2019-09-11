@@ -88,7 +88,7 @@ $productsDictJson = json_encode($productsDict);
                 <table class="price-tbl" style="width: 100%; ">
                     <tr class="header head">
                         <th style="width: 100px; ">Наименование</th>
-                        <th style="min-width: 102px;   "></th>
+                        <th style="min-width: 104px;   "></th>
                         <th>Розница</th>
                         <?foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
                             <?if(!$isShown)continue;?>
@@ -203,21 +203,6 @@ $productsDictJson = json_encode($productsDict);
                                     <?endforeach;?>
                                 </table>
 
-<!--                                <div class="price-row">-->
-<!--                                    <div class="product-price price-step-0">--><?//=Currency::drawAllCurrenciesPrice($product->price)?><!--</div>-->
-<!--                                    <div class="hint">(розница)</div>-->
-<!--                                </div>-->
-<!--                                --><?//foreach(ProductSimple::$optPrices as $sum=>$isShown):?>
-<!--                                    --><?//if(!$isShown)continue;?>
-<!--                                    <div class="price-row">-->
-<!--                                        <div class=" product-price price-step---><?//=$sum?><!--">-->
-<!--                                        --><?//=$product->optPricesArr[$sum] ? Currency::drawAllCurrenciesPrice($product->optPricesArr[$sum]) : ' -нет- '?>
-<!--                                        </div>-->
-<!--                                    --><?//if($product->optPricesArr[$sum]):?>
-<!--                                        <div class="hint">(опт, при заказе &ge;--><?//=Currency::drawAllCurrenciesPrice($sum)?><!--)</div>-->
-<!--                                    --><?//endif;?>
-<!--                                    </div>-->
-<!--                                --><?//endforeach;?>
                                 <div style="display: inline-block;  float: left; ">
                                     <div class="inner" style="margin: 10px 0 10px 20px; text-align: center; display: inline-block; height: 47px; width: 102px;  ">
                                         <div class="to-cart-btn-wrapper" >
@@ -279,15 +264,6 @@ $productsDictJson = json_encode($productsDict);
                 </div>
             </div>
         </div>
-<!--        <div class="main-block" style="display: none; ">-->
-<!--            <div class="inner">-->
-<!--                <div class="r cart-row">-->
-<!--                    <nobr>Товаров: <b class="cart-quan">??</b></nobr>-->
-<!--                    <br><nobr><b class="cart-sum">??</b></nobr>-->
-<!--                    <div style="margin: 4px 0 0 0; "><a href="#" onclick="OptCart.Modal.show(); " class="btn orange ">Корзина</a></div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
 
         <div class="btns" style="display: none; ">
             <button onclick="OptCartNotification.quake()">quake</button><br>
@@ -492,9 +468,7 @@ $productsDictJson = json_encode($productsDict);
                     <!-- /УСПЕХ -->
                 </div>
             </div>
-            <!-- <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
-            </div> -->
+
         </div>
 
     </div>
@@ -505,25 +479,42 @@ $productsDictJson = json_encode($productsDict);
 
 
 <!--cart TMPLs-->
+
 <div id="optCartProductRowTmpl" style="display: none; ">
     <div class="item " id="cart-item-_ID_">
         <div class="kol title">
 		<span class=" pic">
-			<a href="/catalog/item/_URL_PIECE_" target="_blank" title="_NAME_" style="height: 40px;"><img src="/include/resize.slonne.php?img=../upload/images/_PHOTO_&amp;width=120" alt="_NAME_" style="height: 40px width: auto; "></a>
+			<a href="/catalog/item/_URL_PIECE_" target="_blank" title="_NAME_" ><img src="/include/resize.slonne.php?img=../upload/images/_PHOTO_&amp;width=120" alt="_NAME_" ></a>
 		</span>
             <a href="/catalog/item/_URL_PIECE_" target="_blank">_NAME_</a>
         </div>
         <div class="kol price" style="line-height: 100%; ">
-            <span class="old-price">_PRICE_PRIME_SINGLE_</span>_PRICE_BR_IF_NECESSARY_
-            <b>_PRICE_OPT_SINGLE_</b>
+            <span class="old-price pricePrimeSingle">_PRICE_PRIME_SINGLE_</span>
+            <b class="priceOptSingle">_PRICE_OPT_SINGLE_</b>
         </div>
-        <div class="kol quan">
-            <div style="display: inline-block;">_QUAN_SECTION_</div>
 
+        <div class="kol quan" >
+            <div style="display: inline-block; ">
+                <div class="quans-wrapper" >
+                    <div class="inner">
+                        <a href="#" class="btn btn-minus" onclick="OptCart.Modal.ProductsTable.add(_ID_, -1);  return false; ">-</a>
+                        <div class="quan11" style="font-size: .9em; ">
+                            <select name="" onchange="OptCart.Modal.ProductsTable.setQuan(_ID_, $(this).val()); " class="quan-_ID_" >
+                                <?for($i=1; $i<=200; $i++):?>
+                                    <option value="<?=$i?>"><?=$i?></option>
+                                <?endfor;?>
+                            </select>
+                        </div>
+                        <a href="#" class="btn btn-plus" onclick="OptCart.Modal.ProductsTable.add(_ID_); return false; ">+</a>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
         <div class="kol final-price" style="line-height: 100%; ">
-            <span class="old-price">_PRICE_PRIME_TOTAL_</span>_PRICE_BR_IF_NECESSARY_
-            <b>_PRICE_OPT_TOTAL_</b>
+            <span class="old-price pricePrimeTotal">_PRICE_PRIME_TOTAL_</span>
+            <b class="priceOptTotal">_PRICE_OPT_TOTAL_</b>
         </div>
         <div class="kol delete">
             <a href="#delete" title="Убрать товар" onclick="if(confirm('Убрать товар из корзины?')){OptCart.Product.setQuan(_ID_, 0); OptCart.Modal.drawCart();} return false; ">
@@ -535,21 +526,21 @@ $productsDictJson = json_encode($productsDict);
 </div>
 
 
-<div id="quansWrapperTmpl" style="display: none; ">
-    <div class="quans-wrapper" >
-        <div class="inner">
-            <a href="#" class="btn btn-minus" onclick="OptCart.Product.add(_ID_, -1); OptCart.Modal.drawCart(); return false; ">-</a>
-            <div class="quan11" style="font-size: .9em; ">
-                <select name="" onchange="OptCart.Product.setQuan(_ID_, $(this).val()); OptCart.Modal.drawCart();" class="quan-_ID_" >
-                    <?for($i=1; $i<=200; $i++):?>
-                        <option value="<?=$i?>"><?=$i?></option>
-                    <?endfor;?>
-                </select>
-            </div>
-            <a href="#" class="btn btn-plus" onclick="OptCart.Product.add(_ID_); OptCart.Modal.drawCart(); return false; ">+</a>
-        </div>
-    </div>
-</div>
+<!--<div id="quansWrapperTmpl" style="display: none; ">-->
+<!--    <div class="quans-wrapper" >-->
+<!--        <div class="inner">-->
+<!--            <a href="#" class="btn btn-minus" onclick="OptCart.Product.add(_ID_, -1); OptCart.Modal.drawCart(); return false; ">-</a>-->
+<!--            <div class="quan11" style="font-size: .9em; ">-->
+<!--                <select name="" onchange="OptCart.Product.setQuan(_ID_, $(this).val()); OptCart.Modal.drawCart();" class="quan-_ID_" >-->
+<!--                    --><?//for($i=1; $i<=200; $i++):?>
+<!--                        <option value="--><?//=$i?><!--">--><?//=$i?><!--</option>-->
+<!--                    --><?//endfor;?>
+<!--                </select>-->
+<!--            </div>-->
+<!--            <a href="#" class="btn btn-plus" onclick="OptCart.Product.add(_ID_); OptCart.Modal.drawCart(); return false; ">+</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 
 <div id="overallTmpl" style="display: none; ">
@@ -559,6 +550,5 @@ $productsDictJson = json_encode($productsDict);
     </div>
 </div>
 
-<!--/cart TMPLs-->
 
 

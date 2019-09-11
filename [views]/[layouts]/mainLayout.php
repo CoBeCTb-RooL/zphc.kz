@@ -1,4 +1,4 @@
-<?$random = 43; ?>
+<?$random = 44; ?>
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -284,6 +284,8 @@ $(window).resize(function() {
 					</div>
 					<!-- /корзина MOBILE -->
 				</div>
+                <?else:?>
+                    <a href="#" class="btn-cart"  onclick=" return false; " style="cursor: default;"></a>
                 <?endif;?>
 			</div>
 		</div>

@@ -170,7 +170,7 @@ $productsDictJson = json_encode($productsDict);
                             <div class="product-row product-row-<?=$product->id?>" onclick="">
                                 <div class=" product-info">
                                     <a href="<?=$product->url()?>" target="_blank" onclick="productInfo(<?=$product->id?>); return false; " >
-                                        <div class="col img"><img src="<?=$product->photo ? Media::img($product->photo) : Funx::noPhotoSrc()?>&width=50" alt="" /></div>
+                                        <div class="col img"><img src="<?=$product->photo ? Media::img($product->photo) : Funx::noPhotoSrc()?>&width=150" alt="" /></div>
                                         <div class="col info" style="text-align: left; ">
                                             <div class="name"><?=$product->name?></div>
                                             <div class="doze"><?=OptPrice::shortenDozeStr($product->inPackage)?></div>
@@ -484,7 +484,7 @@ $productsDictJson = json_encode($productsDict);
     <div class="item " id="cart-item-_ID_">
         <div class="kol title">
 		<span class=" pic">
-			<a href="/catalog/item/_URL_PIECE_" target="_blank" title="_NAME_" ><img src="/include/resize.slonne.php?img=../upload/images/_PHOTO_&amp;width=120" alt="_NAME_" ></a>
+			<a href="/catalog/item/_URL_PIECE_" target="_blank" title="_NAME_" ><img src="/include/resize.slonne.php?img=../upload/images/_PHOTO_&amp;width=150" alt="_NAME_" ></a>
 		</span>
             <a href="/catalog/item/_URL_PIECE_" target="_blank">_NAME_</a>
         </div>
@@ -525,22 +525,6 @@ $productsDictJson = json_encode($productsDict);
     </div>
 </div>
 
-
-<!--<div id="quansWrapperTmpl" style="display: none; ">-->
-<!--    <div class="quans-wrapper" >-->
-<!--        <div class="inner">-->
-<!--            <a href="#" class="btn btn-minus" onclick="OptCart.Product.add(_ID_, -1); OptCart.Modal.drawCart(); return false; ">-</a>-->
-<!--            <div class="quan11" style="font-size: .9em; ">-->
-<!--                <select name="" onchange="OptCart.Product.setQuan(_ID_, $(this).val()); OptCart.Modal.drawCart();" class="quan-_ID_" >-->
-<!--                    --><?//for($i=1; $i<=200; $i++):?>
-<!--                        <option value="--><?//=$i?><!--">--><?//=$i?><!--</option>-->
-<!--                    --><?//endfor;?>
-<!--                </select>-->
-<!--            </div>-->
-<!--            <a href="#" class="btn btn-plus" onclick="OptCart.Product.add(_ID_); OptCart.Modal.drawCart(); return false; ">+</a>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 
 
 <div id="overallTmpl" style="display: none; ">

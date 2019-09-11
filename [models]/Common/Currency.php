@@ -39,9 +39,10 @@ class Currency{
 		*/
 		
 		$arr[self::USD] 	= new self(self::USD,  '$');
-		$arr[self::KZT] 	= new self(self::KZT,  '<span class="arial-narrow-tenge" style="font-weight: normal; ">т</span>');
-		$arr[self::RUR] 	= new self(self::RUR,  '<span class="rouble">o</span>');
-		
+//        $arr[self::KZT] 	= new self(self::KZT,  '<span class="arial-narrow-tenge" style="font-weight: normal; ">т</span>');
+//        $arr[self::RUR] 	= new self(self::RUR,  '<span class="rouble">o</span>');
+        $arr[self::KZT] 	= new self(self::KZT,  '&#8376;');
+        $arr[self::RUR] 	= new self(self::RUR,  '&#8381;');
 		
 		self::$items = $arr;
 	}

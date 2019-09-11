@@ -340,8 +340,9 @@ var OptCart = {
                     $('.economy-info').html('')
                 }
                 else{
-                    str = '<span style="text-decoration: line-through; color: #665; font-size: .9em;   font-weight: normal; ">'+formatPrice(sumPrime)+' '+Currency.current.sign+'</span>'
-                    + '<br>'+formatPrice(sumFinal)+' '+Currency.current.sign
+                    str = ''
+                    //+'<span style="text-decoration: line-through; color: #665; font-size: .9em;   font-weight: normal; ">'+formatPrice(sumPrime)+' '+Currency.current.sign+'</span><br>'
+                    + formatPrice(sumFinal)+' '+Currency.current.sign
 
                     $('.economy-info').html('Благодаря оптовому заказу вы экономите <b style="white-space: nowrap;">'+formatPrice(sumPrime - sumFinal)+' '+Currency.current.sign+'</b>')
                 }

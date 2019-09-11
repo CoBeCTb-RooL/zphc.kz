@@ -17,7 +17,7 @@ var Currency = {
 		currencyCode = currencyCode || Currency.current.code
 
 		var cur = this.items[currencyCode]
-		var str = formatPrice(this.calcPrice(sum, currencyCode))+''+cur.sign
+		var str = formatPrice(this.calcPrice(sum, currencyCode))+' '+cur.sign
 		return str
 	},
 }

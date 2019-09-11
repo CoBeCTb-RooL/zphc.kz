@@ -241,7 +241,7 @@ var OptCart = {
             var sumStr = data.sumStr
             if(OptCart.step() > 0){
                 //sumStr = OptCart.sum(0)
-                sumStr = '<span style="text-decoration: line-through; font-size: .9em; font-weight: normal; ">'+formatPrice(Currency.calcPrice(OptCart.sum(0)))+''+Currency.current.sign+'</span><br>'
+                sumStr = '<span style="text-decoration: line-through; font-size: .9em; font-weight: normal; ">'+formatPrice(Currency.calcPrice(OptCart.sum(0)))+' '+Currency.current.sign+'</span><br>'
                         + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '
                         + sumStr
             }
@@ -331,13 +331,13 @@ var OptCart = {
                 var pricePrimeTotal = pricePrimeSingle * OptCart.ids[id]
                 var priceOptTotal = priceOptSingle * OptCart.ids[id]
 
-                var primeSingleStr = step>0 ? formatPrice(pricePrimeSingle)+''+Currency.current.sign : ''
-                var primeTotalStr = step>0 ? formatPrice(pricePrimeTotal)+''+Currency.current.sign : ''
+                var primeSingleStr = step>0 ? formatPrice(pricePrimeSingle)+' '+Currency.current.sign : ''
+                var primeTotalStr = step>0 ? formatPrice(pricePrimeTotal)+' '+Currency.current.sign : ''
 
                 str = str.replace(/_PRICE_PRIME_SINGLE_/g, primeSingleStr);
-                str = str.replace(/_PRICE_OPT_SINGLE_/g, formatPrice(priceOptSingle)+''+Currency.current.sign);
+                str = str.replace(/_PRICE_OPT_SINGLE_/g, formatPrice(priceOptSingle)+' '+Currency.current.sign);
                 str = str.replace(/_PRICE_PRIME_TOTAL_/g, primeTotalStr);
-                str = str.replace(/_PRICE_OPT_TOTAL_/g, formatPrice(priceOptTotal)+''+Currency.current.sign);
+                str = str.replace(/_PRICE_OPT_TOTAL_/g, formatPrice(priceOptTotal)+' '+Currency.current.sign);
                 //  переносы строк цен, если надо
                 if(step > 0)
                     str = str.replace(/_PRICE_BR_IF_NECESSARY_/g, '<br>');
@@ -390,7 +390,7 @@ var OptCart = {
 
         if(type != 'pickup'){
             if(OptCart.data.sum < OptCart.settings.orderSumForFreeDelivery) {
-                str += '<br><span style="font-weight: normal; "> (' + formatPrice(Currency.calcPrice(OptCart.settings.deliveryCost)) + '' + Currency.current.sign + ')</span>'
+                str += '<br><span style="font-weight: normal; "> (' + formatPrice(Currency.calcPrice(OptCart.settings.deliveryCost)) + ' ' + Currency.current.sign + ')</span>'
                 OptCart.formData.deliveryCost = OptCart.settings.deliveryCost
             }
             else

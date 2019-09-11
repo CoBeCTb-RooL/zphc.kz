@@ -1122,8 +1122,8 @@ ul.left-menu{border: 0px solid red;  overflow-y: auto; padding: 0; width: 150px;
 			
 			
 			hr{margin: 0; padding: 0; }
-			.overall{display: block; padding: 0;
-				.lbl{display: block; }
+			.overall{display: block; padding: 0; vertical-align: top;
+				.lbl{display: block; vertical-align: top; }
 				
 			}
 		}
@@ -1205,8 +1205,14 @@ ul.left-menu{border: 0px solid red;  overflow-y: auto; padding: 0; width: 150px;
 				& * {vertical-align: top;}
 			}
 			
-			&.overall{ font-size: 1.5em; 
+			&.overall{ font-size: 1.5em;
+                
+                .lbl{}
 				.val{color: @blue; font-style: italic; }
+                &.opt{border: 0px solid red;
+                    .lbl{vertical-align: top; }
+                    .val{vertical-align: top; }
+                }
 			}
 		}
 		

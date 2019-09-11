@@ -400,7 +400,7 @@ $productsDictJson = json_encode($productsDict);
                                                 <div class="val"><img  src="<?=$CART->paymentType->icon?>" alt=""  width="58" /><?=$CART->paymentType->name?></div>
                                             </div>
 
-                                            <div class="r overall">
+                                            <div class="r overall opt">
                                                 <div class="lbl">Итого: </div>
                                                 <div class="val cart-price-final"></div>
 

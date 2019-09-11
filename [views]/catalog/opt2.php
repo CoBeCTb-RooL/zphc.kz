@@ -505,16 +505,11 @@ $productsDictJson = json_encode($productsDict);
 
 
 <!--cart TMPLs-->
-<div id="cartTmpl" style="display: none; ">
-
-</div>
-
-
 <div id="optCartProductRowTmpl" style="display: none; ">
     <div class="item " id="cart-item-_ID_">
         <div class="kol title">
 		<span class=" pic">
-			<a href="/catalog/item/_URL_PIECE_" target="_blank" title="_NAME_"><img src="/include/resize.slonne.php?img=../upload/images/_PHOTO_&amp;width=500" alt="_NAME_"></a>
+			<a href="/catalog/item/_URL_PIECE_" target="_blank" title="_NAME_"><img src="/include/resize.slonne.php?img=../upload/images/_PHOTO_&amp;width=200" alt="_NAME_" style="height: 50px;"></a>
 		</span>
             <a href="/catalog/item/_URL_PIECE_" target="_blank">_NAME_</a>
         </div>

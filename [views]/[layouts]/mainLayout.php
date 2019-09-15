@@ -285,7 +285,7 @@ $(window).resize(function() {
 					<!-- /корзина MOBILE -->
 				</div>
                 <?else:?>
-                    <a href="#" class="btn-cart"  onclick="OptCartNotification.expand('open'); return false; " style="cursor: default;"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                    <a href="#" class="btn-cart"  onclick="OptCartNotification.expand('open'); return false; " ><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
                     <div id="cart-items-quan">313</div>
                 <?endif;?>
 			</div>

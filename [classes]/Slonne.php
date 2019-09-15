@@ -4,7 +4,7 @@ class Slonne
 	static $paramsInnerSeparator = '_';
 
 
-    function random(){ return 63;  }
+    function random(){ return 64;  }
 
 	
 	function loadDir($path)

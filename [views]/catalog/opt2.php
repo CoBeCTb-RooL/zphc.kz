@@ -492,7 +492,7 @@ $productsDictJson = json_encode($productsDict);
 		<span class=" pic">
 			<a href="/catalog/item/_URL_PIECE_"  title="_NAME_" onclick="return false; " style="cursor: default; "><img src="/include/resize.slonne.php?img=../upload/images/_PHOTO_&amp;width=150" alt="_NAME_" ></a>
 		</span>
-            <a href="/catalog/item/_URL_PIECE_" onclick="return false; " style="cursor: default; ">_NAME_</a>
+            <a href="/catalog/item/_URL_PIECE_" onclick="return false; " style="text-decoration: none; cursor: default; ">_NAME_</a>
         </div>
         <div class="kol price" style="line-height: 100%; ">
             <span class="old-price pricePrimeSingle">_PRICE_PRIME_SINGLE_</span>

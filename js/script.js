@@ -204,7 +204,8 @@ function refreshCartInfo()
 			{
 				$('.top-cart-wrapper').html(data.htmlDesktop)
 				$('.top-cart-mobile').html(data.htmlMobile)
-				$('#cart-items-quan').html(data.totalQuan)
+				if(typeof OptCart == 'undefined')
+					$('#cart-items-quan').html(data.totalQuan)
 			}
 			else
 				alert(data.errors[0].error)

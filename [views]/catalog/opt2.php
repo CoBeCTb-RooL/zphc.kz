@@ -109,7 +109,7 @@ $productsDictJson = json_encode($productsDict);
                                 <a href="<?=$product->url()?>" target="_blank" >
                                 <div class="name"><?=$product->name?></div>
                                 <div class="doze">
-                                    <?=OptPrice::shortenDozeStr($product->inPackage)?>
+                                    <?=/*OptPrice::shortenDozeStr($product->inPackage)*/$product->inPackage?>
                                 </div>
                                 </a>
                             </td>
@@ -173,7 +173,7 @@ $productsDictJson = json_encode($productsDict);
                                         <div class="col img"><img src="<?=$product->photo ? Media::img($product->photo) : Funx::noPhotoSrc()?>&width=150" alt="" /></div>
                                         <div class="col info" style="text-align: left; ">
                                             <div class="name"><?=$product->name?></div>
-                                            <div class="doze"><?=OptPrice::shortenDozeStr($product->inPackage)?></div>
+                                            <div class="doze"><?=/*OptPrice::shortenDozeStr($product->inPackage)*/$product->inPackage?></div>
                                             <div class="btn" onclick="/*productInfo(<?=$product->id?>); return false;*/ ">Смотреть цены</div>
                                         </div>
                                     </a>

@@ -206,7 +206,7 @@ $productsDictJson = json_encode($productsDict);
                                 <div style="display: inline-block;  float: left; ">
                                     <div class="inner" style="margin: 10px 0 10px 20px; text-align: center; display: inline-block; height: 47px; width: 102px;  ">
                                         <div class="to-cart-btn-wrapper" >
-                                            <input type="button" class="btn-small" style="width: 102px; " value="В корзину" onclick="OptCart.Product.add(<?=$product->id?>)">
+                                            <input type="button" class="btn-small" style="width: 95px; " value="В корзину" onclick="OptCart.Product.add(<?=$product->id?>)">
                                         </div>
                                         <div class="quans-wrapper" style="display: none; ">
                                             <div class="inner">

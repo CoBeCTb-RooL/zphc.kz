@@ -171,11 +171,11 @@ $productsDictJson = json_encode($productsDict);
                                 <?if(!$product->optPricesArr) continue;?>
                             <div class="product-row product-row-<?=$product->id?>" onclick="">
                                 <div class=" product-info">
-                                    <a href="<?=$product->url()?>" target="_blank" onclick="productInfo(<?=$product->id?>); return false; " >
+                                    <a href="<?=$product->url()?>"  target="_blank" onclick="productInfo(<?=$product->id?>); return false; " >
                                         <div class="col img"><img src="<?=$product->photo ? Media::img($product->photo) : Funx::noPhotoSrc()?>&width=150" alt="" /></div>
                                         <div class="col info" style="text-align: left; ">
-                                            <div class="name"><?=$product->name?></div>
-                                            <div class="doze"><?=/*OptPrice::shortenDozeStr($product->inPackage)*/$product->inPackage?></div>
+                                            <div class="name" style="text-decoration: none;"><?=$product->name?></div>
+                                            <div class="doze" style="text-decoration: none;"><?=/*OptPrice::shortenDozeStr($product->inPackage)*/$product->inPackage?></div>
                                             <div class="btn" onclick="/*productInfo(<?=$product->id?>); return false;*/ ">Смотреть цены</div>
                                         </div>
                                     </a>

@@ -329,6 +329,8 @@ var OptCart = {
 
                 //  плюс ещё места, где нужно вывести цену
                 $('.price-for-all-products').html(OptCart.data.sumStr)
+                $('.price-primal-for-all-products').html(OptCart.data.baseSumStr)
+
             },
 
             showFinalPrice: function(){

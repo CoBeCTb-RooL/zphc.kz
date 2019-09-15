@@ -385,7 +385,7 @@ $productsDictJson = json_encode($productsDict);
                                         <div class="order-summary">
                                             <div class="r">
                                                 <div class="lbl">Товаров на сумму: </div>
-                                                <div class="val price price-for-all-products"></div>
+                                                <div class="val price price-primal-for-all-products"></div>
                                             </div>
 
                                             <div class="r deliveryType" style="display: none; white-space: nowrap; vertical-align: top;    ">
@@ -400,12 +400,14 @@ $productsDictJson = json_encode($productsDict);
                                                 <div class="val"><img  src="<?=$CART->paymentType->icon?>" alt=""  width="58" /><?=$CART->paymentType->name?></div>
                                             </div>
 
+                                            <div class="economy-info" ></div>
+
                                             <div class="r overall opt">
-                                                <div class="lbl">Итого: </div>
+                                                <div class="lbl">Итого к оплате: </div>
                                                 <div class="val cart-price-final"></div>
 
                                             </div>
-                                            <div class="economy-info" ></div>
+
                                         </div>
 
 

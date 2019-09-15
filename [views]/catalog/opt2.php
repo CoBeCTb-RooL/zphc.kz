@@ -27,6 +27,8 @@ $productsDictJson = json_encode($productsDict);
 
 
 <?ob_start()?>
+<script type="text/javascript" src="/js/optCart.js?<?=Slonne::random()?>"></script>
+<script type="text/javascript" src="/js/OptCartNotification.js?<?=Slonne::random()?>"></script>
 <script>
     OptCart.Dict.products = <?=$productsDictJson?>;
     <?

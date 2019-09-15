@@ -1,4 +1,4 @@
-<?$random = 59; ?>
+<?$random = Slonne::random(); ?>
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -286,7 +286,7 @@ $(window).resize(function() {
 				</div>
                 <?else:?>
                     <a href="#" class="btn-cart"  onclick="OptCartNotification.expand('open'); return false; " ><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-                    <div id="cart-items-quan">313</div>
+                    <div id="cart-items-quan"></div>
                 <?endif;?>
 			</div>
 		</div>
@@ -556,8 +556,7 @@ ga('send', 'pageview');
   </script>
 
 
-  <script type="text/javascript" src="/js/optCart.js?<?=$random?>"></script>
-  <script type="text/javascript" src="/js/OptCartNotification.js?<?=$random?>"></script>
+
   <script type="text/javascript" src="/js/slonne.dev.js?<?=$random?>"></script>
 
 

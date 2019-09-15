@@ -29,12 +29,19 @@ OptCartNotification = {
             this.w.find('.arr').css('display', 'none')
             this.w.find('.inf').css('display', 'none')
             this.w.find('.arr.close1').css('display', 'inline-block')
+            if(window.innerWidth < 800 )
+                this.w.find('.bookmark').show()
         }
         else{    //  закрытие
             this.w.find('.arr').css('display', 'none')
             this.w.find('.inf').css('display', 'inline-block')
+            if(window.innerWidth < 800 )
+                this.w.find('.bookmark').hide()
         }
         this.w.find('.main-block').animate({width: 'toggle'}, 'fast');
+
+
+
     },
 
 
@@ -61,6 +68,7 @@ OptCartNotification = {
 
     setCartQuan: function(quan){
         this.w.find('.cart-quan').html((quan))
+        $('#cart-items-quan').html((quan))
     },
     setCartSum: function(sum){
         this.w.find('.cart-sum').html((sum)+'')

@@ -1,4 +1,4 @@
-<?$random = 55; ?>
+<?$random = 56; ?>
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -285,7 +285,8 @@ $(window).resize(function() {
 					<!-- /корзина MOBILE -->
 				</div>
                 <?else:?>
-                    <a href="#" class="btn-cart"  onclick=" return false; " style="cursor: default;"></a>
+                    <a href="#" class="btn-cart"  onclick="OptCartNotification.expand('open'); return false; " style="cursor: default;"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                    <div id="cart-items-quan">313</div>
                 <?endif;?>
 			</div>
 		</div>

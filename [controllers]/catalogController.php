@@ -213,6 +213,8 @@ class CatalogController extends MainController{
 
     function opt()
     {
+        return self::opt2();
+
         require(GLOBAL_VARS_SCRIPT_FILE_PATH);
         Startup::execute(Startup::FRONTEND);
         $CONTENT->setTitle('Оптовые прайсы');
@@ -247,6 +249,11 @@ class CatalogController extends MainController{
     {
         require(GLOBAL_VARS_SCRIPT_FILE_PATH);
         Startup::execute(Startup::FRONTEND);
+
+        $a = Page::get(53);     //  опт прайс
+        if(!$a->active)
+            header('location: /ошибка');
+
         $CONTENT->setTitle('Оптовые прайсы');
 
 //        vd($CONTENT);

@@ -27,6 +27,8 @@ if(count($list))
 	foreach($list as $key=>$c)
 	{
 		$url = Route::getByName(Route::KARTOCHKA_TOVARA)->url($c->objectId.'?adminMode=1#review-'.$c->id);
+		if($c->objectType->code == Object::COURSE)
+		    $url = '/courses/'.$c->objectId.'?adminMode=1#review-'.$c->id;
 		?>
 		<tr>
 			<td><?=$key+1?>.</td>

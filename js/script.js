@@ -113,6 +113,19 @@ function switchCurrency(code)
 
 
 
+function addQuan(w, quan) {
+    quan = quan || 1
+    var val = parseInt(w.val())
+	if(isNaN(val))
+		val=0
+    var valToSet = val + quan
+    if(valToSet <=0)
+        valToSet = 1
+    w.val(valToSet)
+}
+
+
+
 function addProductToCart(id, quan)
 {
 	$.ajax({

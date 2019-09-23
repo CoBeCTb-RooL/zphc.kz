@@ -7,12 +7,9 @@ $items = $MODEL['items'];
 
 
 <div class="products-list-horizontal">
-<?php 
-	if(count($items))
-	{?>
+<?if(count($items)):?>
 		<div class="items">
-		<?php 
-		foreach($items as $item)
+		<?foreach($items as $item)
 		{
 			$oldPrice = 0;
 			$newPrice = $item->price;
@@ -50,20 +47,20 @@ $items = $MODEL['items'];
 				
 				
 				<div class="btn-wrapper">
-				<?
-				if($item->stock)
-				{?>
-				
-				<input type="button" value="Купить" onclick="addProductToCart(<?=$item->id?>, $('#product-quan-<?=$item->id?>').val())" />
-				<span class="product-quan">&times;<input type="text" id="product-quan-<?=$item->id?>" size="1" value="1" /></span>
-				<span id="product-loading-<?=$item->id?>" style="display: none; ">секунду...</span>
-				<?php 
-				}
-				else
-				{?>
+				<?if($item->stock):?>
+                    <input type="button" value="Купить" onclick="addProductToCart(<?=$item->id?>, $('#product-quan-<?=$item->id?>').val())" />
+                    <span class="product-quan">
+                        &times;
+                        <span class="product-quan-wrapper">
+                            <a href="#" class="quan-btn minus" onclick="addQuan($('#product-quan-<?=$item->id?>'), -1); return false;">-</a>
+                            <input type="text" id="product-quan-<?=$item->id?>" size="1" value="1" />
+                            <a href="#" class="quan-btn plus" onclick="addQuan($('#product-quan-<?=$item->id?>')); return false;">+</a>
+                        </span>
+                    </span>
+                    <span id="product-loading-<?=$item->id?>" style="display: none; ">секунду...</span>
+				<?else:?>
 					<input type="button" disabled="disabled" value="Нет в наличии" />
-				<?php 	
-				}?>
+				<?endif;?>
 				</div>
 				
 				<?php 
@@ -72,19 +69,14 @@ $items = $MODEL['items'];
 					<div class="no-stock">Нет в наличии</div>
 				<?php 	
 				}*/?>
-				<?php 
-				if($item->isNew)
-				{?>
+
+				<?if($item->isNew):?>
 					<div class="novinka">Новинка</div>
-				<?php 	
-				}?>
+				<?endif;?>
 				
-				<?php 
-				if($item->discountObject)
-				{?>
+				<?if($item->discountObject):?>
 					<div class="skidka"><b>%</b></div>
-				<?php 	
-				}?>
+				<?endif;?>
 				
 			</div>
 			
@@ -107,11 +99,7 @@ $items = $MODEL['items'];
 		}?>
 			<div class="clear"></div>
 		</div>
-	<?php 	
-	}
-	else
-	{?>
+	<?else:?>
 		&nbsp;&nbsp;&nbsp;&nbsp;Товаров нет. 
-	<?php 	
-	}?>
+	<?endif;?>
 </div>

@@ -137,13 +137,19 @@ var OptCart = {
 
     State: {
         save: function(){
+            var ts = Math.floor( Date.now() / 1000 )
             this.normalize()
-            var obj = { ids: OptCart.ids, }
+            var obj = { ids: OptCart.ids, ts: ts,  }
             localStorage[this.COOKIE_CART_KEY] = JSON.stringify(obj);
             OptCart.UI.Table.init()
         },
         load: function(){
             obj = localStorage[this.COOKIE_CART_KEY] ? JSON.parse(localStorage[this.COOKIE_CART_KEY]) : {}
+            if(typeof obj.ts != 'undefined')
+                if(Math.floor( Date.now() / 1000 ) - obj.ts > 3600){
+                    localStorage[this.COOKIE_CART_KEY] = {}
+                    obj = {}
+                }
             OptCart.ids = obj.ids || {}
             this.normalize();
 

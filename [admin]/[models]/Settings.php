@@ -56,6 +56,7 @@ class Settings{
 			, `vk` ='".strPrepare($arr['vk'])."'	
 			, `instagram` ='".strPrepare($arr['instagram'])."'
 			, `youtube` ='".strPrepare($arr['youtube'])."'
+			, `telegram` ='".strPrepare($arr['telegram'])."'
 					
 			, `contactPhone` ='".strPrepare($arr['contactPhone'])."'
 			, `contactEmail` ='".strPrepare($arr['contactEmail'])."'

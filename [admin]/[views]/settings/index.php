@@ -209,11 +209,16 @@
 			<span class="label"><i aria-hidden="true" class="fa fa-instagram" style="font-size: 2.1em; "></i>:  </span>
 			<span class="input" style="width: 300px; padding: 6px 0 0 0; "><input name="instagram" value="<?=$_CONFIG['SETTINGS']['instagram']?>"  style="width: 100%; "/></span>
 		</div>
-		
-		<div class="row">
-			<span class="label"><i aria-hidden="true" class="fa fa-youtube" style="font-size: 2.1em; "></i>:  </span>
-			<span class="input" style="width: 300px; padding: 6px 0 0 0; "><input name="youtube" value="<?=$_CONFIG['SETTINGS']['youtube']?>"  style="width: 100%; "/></span>
-		</div>
+
+        <div class="row">
+            <span class="label"><i aria-hidden="true" class="fa fa-youtube" style="font-size: 2.1em; "></i>:  </span>
+            <span class="input" style="width: 300px; padding: 6px 0 0 0; "><input name="youtube" value="<?=$_CONFIG['SETTINGS']['youtube']?>"  style="width: 100%; "/></span>
+        </div>
+
+        <div class="row">
+            <span class="label"><i aria-hidden="true" class="fa fa-telegram" style="font-size: 2.1em; "></i>Telegram:  </span>
+            <span class="input" style="width: 300px; padding: 6px 0 0 0; "><input name="telegram" value="<?=$_CONFIG['SETTINGS']['telegram']?>"  style="width: 100%; "/></span>
+        </div>
 		
 	</fieldset>
 	

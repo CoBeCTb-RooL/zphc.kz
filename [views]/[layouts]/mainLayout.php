@@ -475,7 +475,7 @@ $(window).resize(function() {
 	            			<a href="<?=$_CONFIG['SETTINGS']['instagram']?>" class="soc-btn soc-insta" title="Instagram" target="_blank"><img src="/img/soc-insta.png" alt="" /></a>
                             <a href="<?=$_CONFIG['SETTINGS']['twitter']?>" class="soc-btn soc-twitter" title="Twitter" target="_blank"><img src="/img/soc-twitter.png" alt="" /></a>
 
-                            <a href="tg://resolve?domain=<?=$_CONFIG['SETTINGS']['telegram']?>" class="soc-btn soc-telegram" title="Telegram" target="_blank"><img src="/img/soc-telegram.png" alt="" /></a>
+                            <a href="http://t.me/<?=$_CONFIG['SETTINGS']['telegram']?>" class="soc-btn soc-telegram" title="Telegram" target="_blank" channelName="<?=$_CONFIG['SETTINGS']['telegram']?>"><img src="/img/soc-telegram.png" alt="" /></a>
 	            			
             			</div>
 					</div>

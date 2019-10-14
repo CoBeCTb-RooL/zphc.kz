@@ -149,7 +149,7 @@ var OptCart = {
             // alert(Date.now() / 1000 )
             // alert(Math.floor( Date.now() / 1000 ) - obj.ts)
             if(typeof obj.ts != 'undefined')
-                if(Math.floor( Date.now() / 1000 ) - obj.ts > 10 /*3600*/){
+                if(Math.floor( Date.now() / 1000 ) - obj.ts > 3600 /*3600*/){
                     localStorage[this.COOKIE_CART_KEY] = {}
                     obj = {}
                 }

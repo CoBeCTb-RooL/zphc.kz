@@ -145,9 +145,9 @@ var OptCart = {
         },
         load: function(){
             obj = localStorage[this.COOKIE_CART_KEY] ? JSON.parse(localStorage[this.COOKIE_CART_KEY]) : {}
-            alert(obj.ts)
-            alert(Date.now() / 1000 )
-            alert(Math.floor( Date.now() / 1000 ) - obj.ts)
+            // alert(obj.ts)
+            // alert(Date.now() / 1000 )
+            // alert(Math.floor( Date.now() / 1000 ) - obj.ts)
             if(typeof obj.ts != 'undefined')
                 if(Math.floor( Date.now() / 1000 ) - obj.ts > 10 /*3600*/){
                     localStorage[this.COOKIE_CART_KEY] = {}

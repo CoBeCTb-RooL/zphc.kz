@@ -39,10 +39,14 @@
     <!-- Bootstrap -->
     <link href="/css/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!--LESS-->
-	<link rel="stylesheet/less" type="text/css" href="/css/style.less?<?=$random?>" />
-	<!-- <link href="/css/style.css" rel="stylesheet"> -->
-	<script src="/js/libs/less/less-1.7.3.min.js" type="text/javascript"></script>
+    <?if($_SERVER['SERVER_ADDR'] == '127.0.0.1' && 0):?>
+        <!--LESS-->
+        <link rel="stylesheet/less" type="text/css" href="/css/style.less?<?=$random?>" />
+        <script src="/js/libs/less/less-1.7.3.min.js" type="text/javascript"></script>
+    <?else:?>
+        <link href="/css/style.css?<?=$random?>" rel="stylesheet">
+    <?endif;?>
+
 
 	<!-- font-awesome -->
 	<link href="/css/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">

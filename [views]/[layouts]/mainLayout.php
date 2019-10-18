@@ -18,6 +18,14 @@
 	
     <title><?=$CONTENT->title?></title>
 
+      <?if($_SERVER['SERVER_ADDR'] == '127.0.0.1' && 0):?>
+          <!--LESS-->
+      <link rel="stylesheet/less" type="text/css" href="/css/style.less?<?=$random?>" />
+          <script src="/js/libs/less/less-1.7.3.min.js" type="text/javascript"></script>
+      <?else:?>
+      <link href="/css/style.css?<?=$random?>" rel="stylesheet">
+      <?endif;?>
+
 	<!-- jquery -->
 <!--	<script type="text/javascript" src="/js/libs/jquery-1.11.0.min.js"></script>-->
 	<script type="text/javascript" src="/js/libs/jquery-1.12.4.min.js"></script>
@@ -39,13 +47,7 @@
     <!-- Bootstrap -->
     <link href="/css/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <?if($_SERVER['SERVER_ADDR'] == '127.0.0.1' && 0):?>
-        <!--LESS-->
-        <link rel="stylesheet/less" type="text/css" href="/css/style.less?<?=$random?>" />
-        <script src="/js/libs/less/less-1.7.3.min.js" type="text/javascript"></script>
-    <?else:?>
-        <link href="/css/style.css?<?=$random?>" rel="stylesheet">
-    <?endif;?>
+
 
 
 	<!-- font-awesome -->

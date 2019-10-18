@@ -18,7 +18,7 @@
 	
     <title><?=$CONTENT->title?></title>
 
-      <?if($_SERVER['SERVER_ADDR'] == '127.0.0.1' && 0):?>
+      <?if($_SERVER['SERVER_ADDR'] == '127.0.0.1'  || 1):?>
           <!--LESS-->
       <link rel="stylesheet/less" type="text/css" href="/css/style.less?<?=$random?>" />
           <script src="/js/libs/less/less-1.7.3.min.js" type="text/javascript"></script>

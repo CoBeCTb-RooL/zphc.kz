@@ -18,9 +18,12 @@
 	
     <title><?=$CONTENT->title?></title>
 
-      <?if($_SERVER['SERVER_ADDR'] == '127.0.0.1'  || 1):?>
+      <!-- Bootstrap -->
+      <link href="/css/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+
+      <?if($_SERVER['SERVER_ADDR'] == '127.0.0.1' && 0):?>
           <!--LESS-->
-      <link rel="stylesheet/less" type="text/css" href="/css/style.less?<?=$random?>" />
+          <link rel="stylesheet/less" type="text/css" href="/css/style.less?<?=$random?>" />
           <script src="/js/libs/less/less-1.7.3.min.js" type="text/javascript"></script>
       <?else:?>
       <link href="/css/style.css?<?=$random?>" rel="stylesheet">
@@ -43,9 +46,6 @@
 	<!--fancyBox-->
 	<script type="text/javascript" src="/js/plugins/jquery.fancyBox-v2.1.5/jquery.fancybox.pack.js?v=2.1.5"></script>
 	<link rel="stylesheet" type="text/css" href="/js/plugins/jquery.fancyBox-v2.1.5/jquery.fancybox.css?v=2.1.5" media="screen" />
-
-    <!-- Bootstrap -->
-    <link href="/css/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 
 
 
